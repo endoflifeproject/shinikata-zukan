@@ -1,0 +1,1647 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>死に方図鑑 v1.0｜認知症の概要→STEP1→2→3→4→5</title>
+<style>
+:root{
+  --navy:#173d68; --navy2:#285e8f; --ink:#233547; --muted:#687b8d;
+  --bg:#f4f7f9; --card:#fff; --line:#d8e2e9; --pale:#eef5fb;
+  --amber:#fff6df; --amber-line:#ead39b; --green:#edf8f2; --green-line:#cce3d5;
+  --rose:#fff2f3; --rose-line:#edd2d5; --gray:#f3f5f7; --shadow:0 7px 24px rgba(29,58,84,.05);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Yu Gothic",Meiryo,sans-serif;
+  line-height:1.72;
+}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+a{color:inherit}
+header{
+  position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);
+  border-bottom:1px solid var(--line);backdrop-filter:blur(10px)
+}
+.head{max-width:1160px;margin:auto;padding:10px 17px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brandrow{display:flex;align-items:center;gap:10px}
+.symbol{width:39px;height:39px;border:1px solid #9cb4c8;border-radius:50%;display:grid;place-items:center;color:#a9832e;font-size:20px}
+.brand{font-family:serif;color:var(--navy);font-size:19px;font-weight:800}
+.brand small{display:block;font:10px sans-serif;color:var(--muted);font-weight:500}
+.savehint{font-size:11px;color:var(--muted)}
+.progressbar{height:3px;background:#e8edf1}.progressbar>div{height:100%;background:var(--navy);width:20%;transition:.25s}
+
+main{max-width:1160px;margin:22px auto 72px;padding:0 16px}
+.stepnav{
+  display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:14px
+}
+.stepnav button{
+  border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px 8px;text-align:left;
+  color:#607486;min-height:64px
+}
+.stepnav button b{display:block;font-size:12px;color:#315676}
+.stepnav button span{font-size:11px}
+.stepnav button.active{background:var(--navy);border-color:var(--navy);color:white}
+.stepnav button.active b{color:white}
+.stepnav button.locked{opacity:.55;cursor:default}
+
+.page{display:none}
+.page.active{display:block;animation:fade .18s ease}
+@keyframes fade{from{opacity:.3;transform:translateY(3px)}to{opacity:1;transform:none}}
+
+.hero,.section,.panel,.sheet{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:22px;margin-bottom:14px;box-shadow:var(--shadow)
+}
+.hero{padding:25px}
+.kicker{display:inline-flex;background:var(--navy);color:#fff;border-radius:999px;padding:5px 10px;font-size:11px;font-weight:800}
+h1{font-family:serif;color:#172e47;font-size:30px;line-height:1.35;margin:10px 0 7px}
+h2{color:#205d93;font-size:21px;margin:0 0 9px}
+h3{font-size:16px;color:#2b5273;margin:0 0 7px}
+.lead{color:#42586b;margin:0;max-width:890px}
+.notice{margin-top:14px;background:var(--amber);border:1px solid var(--amber-line);border-radius:11px;padding:11px 13px;font-size:12px}
+.notice b{color:#705014}
+.micro{font-size:11px;color:var(--muted)}
+.divider{height:1px;background:var(--line);margin:16px 0}
+
+.accordion{border:1px solid var(--line);border-radius:13px;margin-top:10px;overflow:hidden}
+.acc-head{
+  width:100%;border:0;background:#f9fbfc;padding:13px 15px;text-align:left;display:flex;justify-content:space-between;gap:12px;
+  font-weight:800;color:#2b5273
+}
+.acc-head small{display:block;color:var(--muted);font-weight:500;font-size:11px}
+.acc-body{padding:0 15px 15px}
+.acc-body.closed{display:none}
+
+.q{padding:14px 0;border-top:1px solid #e8eef2}.q:first-child{border-top:0}
+.qtitle{font-weight:800;color:#233f5c;margin-bottom:5px}
+.hint{font-size:11px;color:var(--muted);margin-bottom:8px}
+.opts{display:flex;flex-wrap:wrap;gap:7px}
+.choice input{display:none}
+.choice label{
+  display:block;border:1px solid #bdd0df;border-radius:9px;background:#fff;padding:8px 11px;font-size:12px;cursor:pointer
+}
+.choice input:checked+label{background:var(--navy);color:#fff;border-color:var(--navy)}
+textarea,input[type=text]{
+  width:100%;border:1px solid #bdd0df;border-radius:9px;padding:10px;background:#fff;color:var(--ink)
+}
+textarea{min-height:75px;resize:vertical}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.softcard{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fbfcfd}
+.softcard.patient{background:var(--green);border-color:var(--green-line)}
+.softcard.family{background:var(--rose);border-color:var(--rose-line)}
+.scale{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.scale .choice label{min-width:37px;text-align:center}
+
+.bottomnav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px;flex-wrap:wrap}
+.btn{
+  border:0;border-radius:9px;padding:10px 14px;font-weight:800
+}
+.primary{background:var(--navy);color:#fff}
+.secondary{background:#fff;border:1px solid #aec3d5;color:var(--navy)}
+.ghost{background:#f3f6f8;color:#48647c}
+.bigbtn{padding:12px 17px}
+.nextcopy{font-size:11px;color:var(--muted);max-width:550px}
+
+.sheet{border:2px solid #bdd0e1;background:#fbfdff}
+.sheet-head{display:flex;justify-content:space-between;gap:10px;align-items:start}
+.sheet h2{margin-bottom:3px}
+.sumgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 18px;margin-top:12px}
+.sumrow{border-top:1px dashed #cbd9e4;padding:8px 0;font-size:12px}
+.sumrow b{display:block;color:#567086;font-size:10px;margin-bottom:2px}
+.sumval{font-weight:700;color:#28465f}
+
+.methodgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+.methodcard{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
+.methodhead{padding:15px;border-bottom:1px solid var(--line);background:#fbfcfd}
+.methodhead .icon{font-size:22px}.methodhead h3{font-size:18px;margin:3px 0 0}
+.methodbody{padding:14px}
+.methodrow{border-top:1px dashed #d4dfe6;padding:9px 0;font-size:12px}.methodrow:first-child{border-top:0}
+.methodrow b{display:block;color:#315a7d;margin-bottom:2px}
+.methodactions{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}
+.togglebtn{
+  border:1px solid #b9ccdc;background:#fff;color:#345773;border-radius:9px;padding:8px 10px;font-size:11px;font-weight:800
+}
+.togglebtn.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.selectedbox{background:var(--pale);border:1px solid #cadeef;border-radius:12px;padding:13px;margin-top:13px}
+.selectedbox b{color:#285b87}
+
+.methods{display:flex;gap:7px;overflow:auto;padding:0 0 13px}
+.methods button,.tabs button{
+  white-space:nowrap;background:#fff;border:1px solid #b8cada;color:#31516e;border-radius:999px;padding:9px 13px;font-weight:800
+}
+.methods button.active,.tabs button.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.tabs{display:flex;gap:7px;overflow:auto;padding-bottom:13px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.tab{display:none}.tab.active{display:block}
+.summarybox{display:grid;grid-template-columns:1.15fr .85fr;gap:11px;margin-bottom:13px}
+.summarycard{border:1px solid var(--line);border-radius:13px;padding:15px;background:#f9fbfc}
+.summarycard strong{display:block;color:#1f4f79;font-size:16px}
+.status{display:inline-flex;border-radius:999px;padding:4px 8px;font-size:10px;font-weight:900;margin-bottom:6px}
+.status.clear{background:var(--green);border:1px solid var(--green-line);color:#245f49}
+.status.uncertain{background:var(--amber);border:1px solid var(--amber-line);color:#725315}
+.status.none{background:var(--gray);border:1px solid #d8dde1;color:#56636d}
+.status.caution{background:#fff1f0;border:1px solid #e8c0bc;color:#7a4742}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.ecard{border:1px solid var(--line);border-radius:13px;padding:15px;background:#fff}
+.ecard .q2{font-size:16px;font-weight:900;color:#264d70;margin-bottom:5px}
+.ecard .answer{
+  font-size:15px;font-weight:760;line-height:1.75;color:#203f5b;
+  margin:4px 0 8px;
+}
+.evidence-open{
+  margin-top:10px;border-top:1px dashed #cfdae3;padding-top:9px
+}
+.evidence-open summary{
+  cursor:pointer;list-style:none;font-size:11px;font-weight:850;color:#315d83;
+  display:inline-flex;align-items:center;gap:5px;padding:6px 9px;border:1px solid #c7d8e5;
+  border-radius:8px;background:#f8fbfd
+}
+.evidence-open summary::-webkit-details-marker{display:none}
+.evidence-open summary:after{content:"▼";font-size:8px;color:#7c8e9c}
+.evidence-open[open] summary:after{content:"▲"}
+.techbox{
+  margin-top:9px;background:#f7f9fb;border:1px solid #dde6ec;border-radius:10px;padding:11px
+}
+.techlabel{font-size:10px;font-weight:900;color:#6b7e8d;margin-bottom:2px}
+.stat{display:flex;align-items:baseline;gap:7px;margin:3px 0 7px}
+.stat .big{font-size:20px;font-weight:900;color:var(--navy)}
+.stat .label{font-size:10px;color:var(--muted)}
+.details{margin-top:7px;padding-top:7px;border-top:1px dashed #cfdae3;font-size:11px;color:#5c7081}
+.source{font-size:10px;color:#6b7b89;margin-top:7px}
+.reading{margin-top:12px;background:#f5f8fa;border:1px solid var(--line);border-radius:11px;padding:11px;font-size:11px}
+.reading b{color:#2b587e}
+.pending{border:1px dashed #b7c7d3;background:#fafcfd;border-radius:14px;padding:21px;text-align:center}
+.pending .zero{font-size:33px;font-weight:900;color:#8192a1}
+.future-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:13px}
+.future{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fff;text-align:left;font-size:12px}
+.future b{display:block;color:#2a577e;margin-bottom:3px}
+.comparewrap{overflow:auto;border:1px solid var(--line);border-radius:12px}
+.compare{width:100%;border-collapse:collapse;min-width:900px;font-size:12px;background:#fff}
+.compare th,.compare td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+.compare th{background:#edf4fa;color:#264e71}
+.story-empty{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}
+.storyph{min-height:135px;border:1px dashed #bccbd6;border-radius:12px;padding:14px;background:#fafcfd;font-size:12px}
+.flow{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:11px}
+.flow span{font-size:11px;border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 8px}
+.flow i{font-style:normal;color:#9aa8b3}
+.research-note{margin-top:12px;font-size:10px;color:#697b89}
+.upcoming{text-align:center;padding:34px 18px}
+.upcoming .starbig{font-size:36px;color:#a8873d}
+.upcoming h2{font-family:serif;color:#263f59;font-size:25px}
+
+
+.risk-section{
+  margin-top:15px;border-top:1px solid var(--line);padding-top:16px
+}
+.risk-title-row{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap
+}
+.risk-title-row h2{margin-bottom:2px}
+.risk-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:11px
+}
+.riskcard{
+  border:1px solid var(--line);border-radius:13px;background:#fff;padding:15px
+}
+.riskcard h3{
+  font-size:16px;color:#294e6d;margin:0 0 6px
+}
+.riskcard .plain{
+  font-size:13px;color:#334f66;line-height:1.75
+}
+.riskcare{
+  margin-top:9px;padding:9px 10px;background:#f7fafc;border-radius:9px;
+  border:1px solid #dce6ed;font-size:11px;color:#526b7e
+}
+.riskcare b{color:#315b7e}
+.unknown-card{
+  background:#fafbfc
+}
+
+
+.intro-overview{
+  display:grid;grid-template-columns:1.35fr .65fr;gap:12px;margin-top:15px
+}
+.definition-card,.factcard,.course-card{
+  border:1px solid var(--line);border-radius:14px;background:#fff;padding:16px
+}
+.definition-card{background:#fbfdff}
+.bigfact{font-size:25px;font-weight:900;color:var(--navy);line-height:1.25}
+.factlabel{font-size:11px;color:var(--muted);margin-top:3px}
+.factgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.factcard h3{font-size:14px;margin-bottom:7px}
+.course-wrap{
+  margin-top:14px;border:1px solid #cbd9e4;border-radius:15px;padding:16px;
+  background:linear-gradient(180deg,#fbfdff 0%,#f7fafc 100%)
+}
+.course-head{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap}
+.course-graph{margin-top:10px;overflow:auto}
+.course-graph svg{width:100%;min-width:760px;height:auto;display:block}
+.stage-row{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:10px
+}
+.stage{
+  border:1px solid var(--line);border-radius:11px;padding:12px;background:#fff;font-size:12px
+}
+.stage b{display:block;color:#2b577d;font-size:13px;margin-bottom:3px}
+.burden{
+  display:inline-flex;border-radius:999px;padding:3px 7px;font-size:10px;font-weight:900;margin-top:5px
+}
+.burden.low{background:#eef7f2;color:#2f6951;border:1px solid #cfe3d8}
+.burden.mid{background:#fff7e7;color:#795c1c;border:1px solid #ecd9a9}
+.burden.high{background:#fff0f0;color:#7a4646;border:1px solid #e8c9c9}
+.medbox{
+  margin-top:11px;display:grid;grid-template-columns:1fr 1fr;gap:10px
+}
+.medgroup{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fff;font-size:12px}
+.medgroup b{display:block;color:#28577f;margin-bottom:4px}
+.medtag{display:inline-block;background:#eef5fb;color:#315b7d;border-radius:999px;padding:3px 7px;font-size:10px;font-weight:800;margin-bottom:5px}
+.intro-cta{
+  margin-top:15px;background:#eef5fb;border:1px solid #c7dced;border-radius:14px;padding:18px;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap
+}
+.intro-cta b{display:block;color:var(--navy);font-size:17px}
+.caveat{
+  margin-top:10px;font-size:10px;color:#677a89;background:#f7f9fa;border-radius:9px;padding:8px 10px
+}
+
+@media(max-width:820px){
+  .stepnav{grid-template-columns:repeat(3,1fr)}
+    .cols2,.methodgrid,.summarybox,.cards,.future-grid,.story-empty,.sumgrid,.risk-grid,.intro-overview,.factgrid,.stage-row,.medbox{grid-template-columns:1fr}
+  h1{font-size:25px}
+  .hero,.section,.panel,.sheet{padding:17px}
+  .savehint{display:none}
+}
+@media(max-width:520px){
+  .stepnav{grid-template-columns:repeat(2,1fr)}
+}
+@media print{
+  header,.stepnav,.bottomnav,.no-print{display:none!important}
+  body{background:#fff}
+  body.print-step1 .page{display:none!important}
+  body.print-step1 #step1{display:block!important}
+  body.print-step1 #step1 .hero,body.print-step1 #step1 .section{display:none!important}
+  body.print-step1 #step1 .sheet{display:block!important}
+  body.print-step5 .page{display:none!important}
+  body.print-step5 #step5{display:block!important}
+  body.print-step5 #step5 .hero{display:none!important}
+  body.print-step5 #step5 .sheet{display:block!important;font-size:9px;line-height:1.35}
+  .sheet{box-shadow:none;border:1px solid #777;margin:0;padding:12px}
+  .sheet:before{content:"死に方図鑑｜医療者との話し合い準備シート";display:block;font-size:18px;font-weight:800;color:#173d68;margin-bottom:8px}
+  #step5 .cols2{grid-template-columns:1fr 1fr}
+  #step5 .softcard{break-inside:avoid;padding:8px}
+  #step5 .softcard h3{font-size:11px;margin-bottom:3px}
+  #step5 .sheet h2{font-size:16px}
+  #step5 .sumrow{padding:3px 0;font-size:8.5px}
+  #step5 .sumrow b{font-size:8px;margin-bottom:1px}
+  #step5 .micro,#step5 .research-note{font-size:7.8px}
+}
+@page{size:A4 portrait;margin:9mm}
+</style>
+</head>
+<body>
+<header>
+  <div class="head">
+    <div class="brandrow">
+      <div class="symbol">✦</div>
+      <div class="brand">死に方図鑑 v1.0
+        <small>認知症の概要 → 食べることが難しくなったとき｜STEP1→2→3→4→5</small>
+      </div>
+    </div>
+    <div class="savehint">※入力内容は送信されず、この端末のブラウザ内に自動保存されます</div>
+  </div>
+  <div class="progressbar"><div id="progress" style="width:8%"></div></div>
+</header>
+
+<main>
+<nav class="stepnav" aria-label="ステップ">
+  <button class="active" id="nav0" onclick="goStep(0)"><b>まず知る</b><span>認知症とは？</span></button>
+  <button id="nav1" onclick="goStep(1)"><b>STEP 1</b><span>今、何が起きている？</span></button>
+  <button id="nav2" onclick="goStep(2)"><b>STEP 2</b><span>どんな方法がある？</span></button>
+  <button id="nav3" onclick="goStep(3)"><b>STEP 3</b><span>その選択の「先」を見る</span></button>
+  <button id="nav4" onclick="goStep(4)"><b>STEP 4</b><span>本人にとって何が大切？</span></button>
+  <button id="nav5" onclick="goStep(5)"><b>STEP 5</b><span>医療者と一緒に考える</span></button>
+</nav>
+
+
+<!-- INTRO -->
+<section class="page active" id="step0">
+  <section class="hero">
+    <span class="kicker">まず知る｜認知症とは？</span>
+    <h1>認知症は「もの忘れ」だけではなく、少しずつ生活の力にも影響する病気です</h1>
+    <p class="lead">
+      認知症は、記憶・判断・言葉・行動などに変化が起こり、日常生活にも支障が出てくる状態の総称です。
+      原因となる病気にはアルツハイマー病、血管性認知症、レビー小体型認知症などがあり、
+      進み方や症状は一人ひとり違います。
+    </p>
+    <div class="notice">
+      <b>ここでは「アルツハイマー病」を中心に、全体像を軽く見ます。</b>
+      他の認知症では経過や治療が異なります。「この通りに進む」という予測図ではありません。
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="intro-overview">
+      <div class="definition-card">
+        <h2>どんなふうに進む？</h2>
+        <p>
+          多くの場合、症状は年単位でゆっくり進みます。初期はもの忘れや段取りの難しさが中心でも、
+          進行すると着替え・入浴・食事・移動などに助けが必要になり、
+          重度になると会話や飲み込みにも影響することがあります。
+        </p>
+        <div class="caveat">進行速度は非常に個人差が大きく、病型、年齢、併存疾患、診断時の進行度などでも変わります。</div>
+      </div>
+      <div class="definition-card">
+        <div class="micro">アルツハイマー病の診断後</div>
+        <div class="bigfact">平均 約4〜8年</div>
+        <div class="factlabel">米国Alzheimer's Associationの目安。20年ほど生きる人もいます。</div>
+        <div class="caveat">「残り時間」を予測する数字ではありません。中央値・平均は研究集団によって変わるため、単一の中央値はここでは出しません。</div>
+      </div>
+    </div>
+
+    <div class="course-wrap">
+      <div class="course-head">
+        <div>
+          <h2>アルツハイマー病の経過イメージ</h2>
+          <div class="micro">生活機能の変化を、ざっくり3段階で見た模式図</div>
+        </div>
+        <div class="micro">縦：生活の自立度　→　横：時間</div>
+      </div>
+
+      <div class="course-graph" aria-label="アルツハイマー病の生活機能の経過を示す模式図">
+        <svg viewBox="0 0 980 365" role="img" aria-labelledby="courseTitle courseDesc">
+          <title id="courseTitle">アルツハイマー病の経過イメージ</title>
+          <desc id="courseDesc">時間とともに生活機能がゆるやかに低下し、後半ほど支援が増えることを示す模式図。</desc>
+
+          <line x1="75" y1="40" x2="75" y2="310" stroke="#53687a" stroke-width="2"/>
+          <line x1="75" y1="310" x2="930" y2="310" stroke="#53687a" stroke-width="2"/>
+          <text x="18" y="57" font-size="18" fill="#2a4358">高い</text>
+          <text x="18" y="309" font-size="18" fill="#2a4358">低い</text>
+          <text x="17" y="180" transform="rotate(-90 17 180)" font-size="17" fill="#2a4358">生活の自立度・心身の機能</text>
+          <text x="760" y="345" font-size="17" fill="#2a4358">時間の経過 →</text>
+
+          <rect x="76" y="44" width="280" height="265" rx="12" fill="#eef6fb"/>
+          <rect x="356" y="44" width="280" height="265" rx="12" fill="#fff7e8"/>
+          <rect x="636" y="44" width="294" height="265" rx="12" fill="#fff1f1"/>
+
+          <text x="100" y="75" font-size="21" font-weight="700" fill="#28618f">初期</text>
+          <text x="377" y="75" font-size="21" font-weight="700" fill="#8a661f">中期</text>
+          <text x="658" y="75" font-size="21" font-weight="700" fill="#8a4b4b">重度・後期</text>
+
+          <path d="M 92 105 C 180 108, 245 118, 330 135
+                   C 405 150, 470 175, 540 197
+                   C 610 219, 675 237, 740 258
+                   C 805 280, 862 292, 912 302"
+                fill="none" stroke="#285e8f" stroke-width="7" stroke-linecap="round"/>
+
+          <circle cx="190" cy="120" r="7" fill="#285e8f"/>
+          <circle cx="495" cy="183" r="7" fill="#b0842d"/>
+          <circle cx="790" cy="275" r="7" fill="#a95e5e"/>
+
+          <text x="102" y="160" font-size="15" fill="#36536b">もの忘れ</text>
+          <text x="102" y="184" font-size="15" fill="#36536b">予定・お金の管理が難しくなる</text>
+          <text x="102" y="208" font-size="15" fill="#36536b">まだ自立できる部分も多い</text>
+
+          <text x="378" y="220" font-size="15" fill="#6b5729">着替え・入浴・服薬など</text>
+          <text x="378" y="244" font-size="15" fill="#6b5729">日常生活の支援が増える</text>
+
+          <text x="660" y="188" font-size="15" fill="#6b4747">会話・移動・食事など</text>
+          <text x="660" y="212" font-size="15" fill="#6b4747">多くの場面で介助が必要</text>
+          <text x="660" y="236" font-size="15" fill="#6b4747">飲み込みの問題が出ることも</text>
+        </svg>
+      </div>
+
+      <div class="stage-row">
+        <div class="stage">
+          <b>初期</b>
+          生活は比較的保たれていても、予定管理・服薬・買い物など複雑な作業に支援が必要になることがあります。
+          <div class="burden low">介護の必要性：比較的少ない</div>
+        </div>
+        <div class="stage">
+          <b>中期</b>
+          日常生活で見守りや介助が増え、家族の時間・仕事・睡眠などへの影響も大きくなりやすい時期です。
+          <div class="burden mid">介護の必要性：増えてくる</div>
+        </div>
+        <div class="stage">
+          <b>重度・後期</b>
+          食事・移動・排泄・清潔など多くの生活場面で支援が必要になります。食べること・飲み込むことが大きなテーマになる場合があります。
+          <div class="burden high">介護の必要性：大きいことが多い</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="factgrid">
+      <div class="factcard">
+        <h3>治療は「治す薬」だけではない</h3>
+        <p class="micro">薬、生活環境の調整、リハビリ、介護サービス、家族支援などを組み合わせます。</p>
+      </div>
+      <div class="factcard">
+        <h3>家族への支援も治療の一部</h3>
+        <p class="micro">認知症介護は身体的・精神的・仕事・経済面の負担につながり得るため、家族への教育・支援がガイドラインでも勧められています。</p>
+      </div>
+      <div class="factcard">
+        <h3>早めに話す意味がある</h3>
+        <p class="micro">本人が希望を伝えやすい時期から、将来どんな生活や医療を大切にしたいかを話しておくことが、後の意思決定の手がかりになります。</p>
+      </div>
+    </div>
+
+    <div class="medbox">
+      <div class="medgroup">
+        <span class="medtag">症状を支える薬</span>
+        <b>ドネペジルなど／メマンチン</b>
+        アルツハイマー病では、認知機能や日常生活の症状を支える薬が使われます。
+        病気そのものを完全に止める薬ではなく、効果には個人差があります。
+      </div>
+      <div class="medgroup">
+        <span class="medtag">早期アルツハイマー病の新しい治療</span>
+        <b>レカネマブ／ドナネマブ</b>
+        アミロイドβを標的に、進行を遅らせることを目的とした治療です。
+        対象はアルツハイマー病によるMCIまたは軽度認知症で、検査や適正使用条件があります。
+        重度認知症になってから行う治療ではありません。
+      </div>
+    </div>
+
+    <div class="intro-cta">
+      <div>
+        <b>では、「この人はいま、どの地点にいるんだろう？」</b>
+        <div class="micro">病気の一般論ではなく、本人について医療者から説明されていることを整理していきます。</div>
+      </div>
+      <button class="btn primary bigbtn" onclick="goStep(1)">STEP 1｜今、何が起きている？ →</button>
+    </div>
+
+    <div class="research-note">
+      情報源：厚生労働省「アルツハイマー病の新しい治療薬について」、NICE Dementia guideline NG97、
+      Alzheimer's Association。薬剤情報は2026年8月時点。経過図・介護の必要性の3段階表示は理解を助けるための模式図で、予後予測ツールではありません。
+    </div>
+  </section>
+</section>
+
+<!-- STEP 1 -->
+<section class="page" id="step1">
+  <section class="hero">
+    <span class="kicker">STEP 1｜今、何が起きている？</span>
+    <h1>まず、いま分かっていることを整理する</h1>
+    <p class="lead">
+      医学的な答えを自分で決めるためのフォームではありません。
+      「医療者からどう説明されているか」「本人について何が分かっているか」「まだ何が分からないか」を整理します。
+    </p>
+    <div class="notice"><b>一人で決めない・一度に決めない・分からないままでもよい。</b> 本人の意思や状態は変わり得ます。今は答えたくない項目は飛ばして構いません。</div>
+  </section>
+
+  <section class="section">
+    <h2>話し合いの前に、5つだけ整理します</h2>
+
+    <div class="accordion">
+      <button class="acc-head" onclick="toggleAcc(this)">
+        <span>1｜医療者からどう説明されている？<small>原因・回復の見込み・現在の食事・選択肢の理解</small></span><span>⌃</span>
+      </button>
+      <div class="acc-body">
+        <div class="q">
+          <div class="qtitle">食べられなくなった主な原因について、どのように説明されていますか？</div>
+          <div class="hint">病名を自己判断するのではなく、「受けた説明」を記録します。</div>
+          <div class="opts">
+            <label class="choice"><input type="radio" name="cause" value="老衰・加齢に伴う変化と説明された"><label>老衰・加齢に伴う変化</label></label>
+            <label class="choice"><input type="radio" name="cause" value="認知症の進行と説明された"><label>認知症の進行</label></label>
+            <label class="choice"><input type="radio" name="cause" value="一時的な病気・体調悪化と説明された"><label>一時的な病気・体調悪化</label></label>
+            <label class="choice"><input type="radio" name="cause" value="嚥下機能の低下と説明された"><label>嚥下機能の低下</label></label>
+            <label class="choice"><input type="radio" name="cause" value="その他"><label>その他</label></label>
+            <label class="choice"><input type="radio" name="cause" value="説明を受けたが、よく分からない"><label>説明を受けたが分からない</label></label>
+            <label class="choice"><input type="radio" name="cause" value="まだ説明を受けていない"><label>まだ説明を受けていない</label></label>
+            <label class="choice"><input type="radio" name="cause" value="今は答えたくない"><label>今は答えたくない</label></label>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="qtitle">回復の見込みについて、どう説明されていますか？</div>
+          <div class="opts">
+            <label class="choice"><input type="radio" name="recovery" value="回復する可能性がある"><label>回復する可能性がある</label></label>
+            <label class="choice"><input type="radio" name="recovery" value="回復は難しい"><label>回復は難しい</label></label>
+            <label class="choice"><input type="radio" name="recovery" value="現時点では判断できない"><label>現時点では判断できない</label></label>
+            <label class="choice"><input type="radio" name="recovery" value="分からない／聞いていない"><label>分からない／聞いていない</label></label>
+            <label class="choice"><input type="radio" name="recovery" value="今は答えたくない"><label>今は答えたくない</label></label>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="qtitle">現在、口からどの程度食べられていますか？</div>
+          <div class="hint">これは本人・家族から見た現在の様子で、嚥下機能の医学的評価ではありません。</div>
+          <div class="opts">
+            <label class="choice"><input type="radio" name="eating" value="ほぼ普段どおり"><label>ほぼ普段どおり</label></label>
+            <label class="choice"><input type="radio" name="eating" value="形や量を調整すれば食べられる"><label>形・量を調整すれば食べられる</label></label>
+            <label class="choice"><input type="radio" name="eating" value="少量のみ"><label>少量のみ</label></label>
+            <label class="choice"><input type="radio" name="eating" value="ほとんど食べられない"><label>ほとんど食べられない</label></label>
+            <label class="choice"><input type="radio" name="eating" value="分からない"><label>分からない</label></label>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="qtitle">治療・栄養方法の選択肢について、どの程度理解できていると感じますか？</div>
+          <div class="scale">
+            <span class="micro">ほとんど分からない</span>
+            <label class="choice"><input type="radio" name="understanding" value="1 / 7"><label>1</label></label>
+            <label class="choice"><input type="radio" name="understanding" value="2 / 7"><label>2</label></label>
+            <label class="choice"><input type="radio" name="understanding" value="3 / 7"><label>3</label></label>
+            <label class="choice"><input type="radio" name="understanding" value="4 / 7"><label>4</label></label>
+            <label class="choice"><input type="radio" name="understanding" value="5 / 7"><label>5</label></label>
+            <label class="choice"><input type="radio" name="understanding" value="6 / 7"><label>6</label></label>
+            <label class="choice"><input type="radio" name="understanding" value="7 / 7"><label>7</label></label>
+            <span class="micro">かなり理解できた</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="acc-head" onclick="toggleAcc(this)">
+        <span>2｜本人はいま希望を伝えられる？<small>言葉だけでなく、表情・拒否・受け入れなども手がかり</small></span><span>⌃</span>
+      </button>
+      <div class="acc-body">
+        <div class="q">
+          <div class="qtitle">本人は現在、自分の希望や嫌だという気持ちを伝えられますか？</div>
+          <div class="opts">
+            <label class="choice"><input type="radio" name="expression" value="言葉などで明確に伝えられる"><label>明確に伝えられる</label></label>
+            <label class="choice"><input type="radio" name="expression" value="ある程度伝えられる"><label>ある程度伝えられる</label></label>
+            <label class="choice"><input type="radio" name="expression" value="言葉以外の反応で示すことがある"><label>言葉以外の反応がある</label></label>
+            <label class="choice"><input type="radio" name="expression" value="伝えることが難しい"><label>伝えることが難しい</label></label>
+            <label class="choice"><input type="radio" name="expression" value="分からない"><label>分からない</label></label>
+          </div>
+        </div>
+        <div class="q">
+          <div class="qtitle">現在の反応で、医療やケアへの「好き・嫌い」「受け入れる・拒む」を感じることはありますか？</div>
+          <textarea id="current_indirect" placeholder="例：食事は口を開けるが、鼻の管を触って抜こうとすることがある など"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="acc-head" onclick="toggleAcc(this)">
+        <span>3｜本人らしさの手がかりは？<small>過去の言葉・価値観・人生の物語</small></span><span>⌃</span>
+      </button>
+      <div class="acc-body">
+        <div class="cols2">
+          <div class="softcard patient">
+            <h3>本人の言葉</h3>
+            <div class="q"><div class="qtitle">以前、延命治療・食事・病院・最期について本人が直接話したことはありますか？</div>
+              <textarea id="past_direct" placeholder="例：「口から食べられなくなったら無理はしなくていい」など"></textarea>
+            </div>
+            <div class="q"><div class="qtitle">本人がこれまで大切にしてきたことは？</div>
+              <textarea id="values" placeholder="例：家で過ごすこと／家族との食事／できるだけ長く生きること など"></textarea>
+            </div>
+          </div>
+          <div class="softcard patient">
+            <h3>言葉以外の手がかり</h3>
+            <div class="q"><div class="qtitle">本人らしさが分かるエピソードや、医療・健康・死についての考え方はありますか？</div>
+              <textarea id="past_indirect" placeholder="例：家族が延命治療を受けたときに『自分ならそこまではしない』と言っていた など"></textarea>
+            </div>
+            <div class="q"><div class="qtitle">本人の人生で「これだけは大切だった」と思う役割や習慣は？</div>
+              <input type="text" id="story" placeholder="例：毎朝家族と朝食をとる／自分で身の回りのことをする">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="acc-head" onclick="toggleAcc(this)">
+        <span>4｜本人の気持ちと家族の気持ちを分ける<small>どちらも大切。ただし同じとは限らない</small></span><span>⌃</span>
+      </button>
+      <div class="acc-body">
+        <div class="cols2">
+          <div class="softcard patient">
+            <h3>本人ならどう思う？</h3>
+            <div class="q"><div class="qtitle">本人なら、いま何を一番大切にすると思いますか？</div>
+              <textarea id="patient_guess" placeholder="本人ならどう考えるか、分かる範囲で"></textarea>
+            </div>
+          </div>
+          <div class="softcard family">
+            <h3>家族自身の気持ち</h3>
+            <div class="q"><div class="qtitle">家族として、いまどんな気持ちですか？</div>
+              <textarea id="family_feeling" placeholder="例：できるだけ長く生きてほしい／苦しい治療は避けたい／決める責任が怖い"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="q">
+          <div class="qtitle">「本人なら望みそうなこと」と「家族が望むこと」に違いがあると感じますか？</div>
+          <div class="opts">
+            <label class="choice"><input type="radio" name="difference" value="大きな違いはないと思う"><label>大きな違いはない</label></label>
+            <label class="choice"><input type="radio" name="difference" value="少し違うと思う"><label>少し違う</label></label>
+            <label class="choice"><input type="radio" name="difference" value="かなり違うと思う"><label>かなり違う</label></label>
+            <label class="choice"><input type="radio" name="difference" value="分からない"><label>分からない</label></label>
+            <label class="choice"><input type="radio" name="difference" value="今は考えたくない"><label>今は考えたくない</label></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="acc-head" onclick="toggleAcc(this)">
+        <span>5｜何がまだ分からない？<small>STEP2・3で知りたいことにつなげる</small></span><span>⌃</span>
+      </button>
+      <div class="acc-body">
+        <div class="q"><div class="qtitle">現在、医療者から説明を受けた選択肢は？（複数選択）</div>
+          <div class="opts" id="multi">
+            <label class="choice"><input type="checkbox" value="口から食べる支援"><label>口から食べる支援</label></label>
+            <label class="choice"><input type="checkbox" value="経鼻経管栄養"><label>経鼻経管栄養</label></label>
+            <label class="choice"><input type="checkbox" value="胃ろう"><label>胃ろう</label></label>
+            <label class="choice"><input type="checkbox" value="静脈からの栄養・水分"><label>静脈からの栄養・水分</label></label>
+            <label class="choice"><input type="checkbox" value="人工的栄養を積極的には行わずケアを続ける"><label>人工的栄養を積極的には行わない</label></label>
+            <label class="choice"><input type="checkbox" value="まだ選択肢の説明を受けていない"><label>まだ説明を受けていない</label></label>
+          </div>
+        </div>
+        <div class="q"><div class="qtitle">まだ分からない・説明してほしいことは？</div>
+          <textarea id="unknowns" placeholder="例：胃ろうをした場合の生活／しない場合の経過／本人の苦痛／今決める必要があるのか"></textarea>
+        </div>
+        <div class="q"><div class="qtitle">医療者とまず話したいことは？</div>
+          <textarea id="questions" placeholder="例：この人の場合、胃ろうで何を期待できますか？"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottomnav">
+      <div class="nextcopy">ここまでの内容は、この端末上で「話し合い準備シート」にまとめられます。次のSTEPでは方法そのものを確認します。</div>
+      <button class="btn primary bigbtn" onclick="goStep(2)">STEP 2へ →</button>
+    </div>
+  </section>
+
+  <section class="sheet">
+    <div class="sheet-head">
+      <div><h2>医療者との話し合い準備シート</h2><div class="micro">STEP1の入力を自動整理｜診断書・ACP完成書類ではありません</div></div>
+      <button class="btn secondary no-print" onclick="printSheet('step1')">印刷・PDF</button>
+    </div>
+    <div class="sumgrid">
+      <div class="sumrow"><b>原因についての理解</b><span class="sumval" id="s-cause">未回答</span></div>
+      <div class="sumrow"><b>回復見込みについての理解</b><span class="sumval" id="s-recovery">未回答</span></div>
+      <div class="sumrow"><b>現在の食事状況</b><span class="sumval" id="s-eating">未回答</span></div>
+      <div class="sumrow"><b>選択肢の理解度</b><span class="sumval" id="s-understanding">未回答</span></div>
+      <div class="sumrow"><b>本人の現在の意思表出</b><span class="sumval" id="s-expression">未回答</span></div>
+      <div class="sumrow"><b>本人の現在の反応</b><span class="sumval" id="s-current_indirect">未記入</span></div>
+      <div class="sumrow"><b>本人が過去に直接話していたこと</b><span class="sumval" id="s-past_direct">未記入</span></div>
+      <div class="sumrow"><b>本人が大切にしてきた価値観</b><span class="sumval" id="s-values">未記入</span></div>
+      <div class="sumrow"><b>本人らしさ・過去の手がかり</b><span class="sumval" id="s-past_indirect">未記入</span></div>
+      <div class="sumrow"><b>本人なら大切にしそうなこと</b><span class="sumval" id="s-patient_guess">未記入</span></div>
+      <div class="sumrow"><b>家族自身の気持ち</b><span class="sumval" id="s-family_feeling">未記入</span></div>
+      <div class="sumrow"><b>本人の推定意思と家族希望の違い</b><span class="sumval" id="s-difference">未回答</span></div>
+      <div class="sumrow"><b>説明を受けた選択肢</b><span class="sumval" id="s-options">未回答</span></div>
+      <div class="sumrow"><b>まだ分からないこと</b><span class="sumval" id="s-unknowns">未記入</span></div>
+      <div class="sumrow"><b>まず話したいこと</b><span class="sumval" id="s-questions">未記入</span></div>
+    </div>
+  </section>
+</section>
+
+<!-- STEP 2 -->
+<section class="page" id="step2">
+  <section class="hero">
+    <span class="kicker">STEP 2｜どんな方法がある？</span>
+    <h1>「方法の名前」ではなく、実際に何をするのかを知る</h1>
+    <p class="lead">
+      ここではまだ「どれが良いか」は比較しません。
+      どんな方法なのか、どんなときに検討されるのか、実際にどんなケアや管理が必要なのかを同じ型で見ます。
+    </p>
+    <div class="notice"><b>大事：</b> 実際に選べる方法は、本人の状態や原因によって異なります。ここで表示される方法が、そのまま本人に医学的に適応するという意味ではありません。</div>
+  </section>
+
+  <section class="section">
+    <h2>栄養・食事を支える主な方法</h2>
+    <div class="methodgrid" id="methodGrid"></div>
+
+    <div class="selectedbox">
+      <b>あなたが「詳しく知りたい」と選んだ方法</b>
+      <div id="learnSummary" class="micro" style="margin-top:5px">まだ選ばれていません。気になる方法だけで大丈夫です。</div>
+    </div>
+
+    <div class="selectedbox" style="background:#fff">
+      <b>医療者から説明を受けたと覚えている方法</b>
+      <div id="heardSummary" class="micro" style="margin-top:5px">STEP1での回答：未回答</div>
+    </div>
+
+    <div class="bottomnav">
+      <button class="btn secondary" onclick="goStep(1)">← STEP 1へ</button>
+      <div class="nextcopy">次では「その方法を選んだ後」について、医学研究・体験データ・比較・物語の4層で見ます。</div>
+      <button class="btn primary bigbtn" onclick="goStep(3)">STEP 3へ →</button>
+    </div>
+  </section>
+</section>
+
+<!-- STEP 3 -->
+<section class="page" id="step3">
+  <section class="hero">
+    <span class="kicker">STEP 3｜その選択の「先」を見る</span>
+    <h1 id="step3Title">胃ろう（PEG）を選んだ後について</h1>
+    <p class="lead">
+      「その方法を選ぶと、実際に何が起こりうるのか」を、
+      <b>医学研究</b>と<b>本人・家族の経験</b>を分けて見ます。
+      このページは、どの選択が正しいかを決めるものではありません。
+    </p>
+    <div class="notice"><b>現在はプロトタイプです。</b> 医学研究欄は手元の論文・ガイドラインに基づく実データです。「死に方図鑑の体験データ」はまだ収集準備中なので、架空の割合は表示しません。</div>
+  </section>
+
+  <section class="panel">
+    <div class="methods" id="step3Methods">
+      <button class="active" data-method="peg" onclick="selectMethod(this)">胃ろう（PEG）</button>
+      <button data-method="ng" onclick="selectMethod(this)">経鼻経管栄養</button>
+      <button data-method="oral" onclick="selectMethod(this)">口から食べる支援</button>
+      <button data-method="iv" onclick="selectMethod(this)">静脈から補う</button>
+      <button data-method="comfort" onclick="selectMethod(this)">人工栄養を積極的に行わない場合</button>
+    </div>
+
+    <div class="tabs">
+      <button class="active" onclick="showTab(this,'medical')">医学的に分かっていること</button>
+      <button onclick="showTab(this,'experience')">死に方図鑑の体験データ</button>
+      <button onclick="showTab(this,'comparison')">他の方法と比較</button>
+      <button onclick="showTab(this,'stories')">個々の体験談</button>
+    </div>
+
+    <div id="medical" class="tab active"><div id="medicalContent"></div></div>
+
+    <div id="experience" class="tab">
+      <h2>死に方図鑑に寄せられた体験データ</h2>
+      <div class="pending">
+        <div class="status none">現在：プレテスト準備中</div>
+        <div class="zero">0件</div>
+        <b>まだ独自アンケートの実回答は掲載していません。</b>
+        <p class="micro">質問票とGoogleフォームのプレテスト版は作成済み。プレテスト→修正→同意・運用確認後に収集する想定です。</p>
+      </div>
+      <div class="future-grid">
+        <div class="future"><b>選ぶ前</b>本人の希望はどの程度分かっていた？／どんな説明を受けた？</div>
+        <div class="future"><b>選んだ後</b>口から食べた？／肺炎／救急搬送／介護時間／睡眠／費用</div>
+        <div class="future"><b>振り返って</b>納得度／後悔／同じ状況なら同じ選択？／もっと早く知りたかったこと</div>
+      </div>
+      <div class="reading"><b>体験データのルール：</b>治療効果の証明としては扱いません。回答者の偏りがあることを明示し、人数・背景・欠損・集計方法と一緒に表示します。</div>
+    </div>
+
+    <div id="comparison" class="tab">
+      <h2>他の方法と比べる</h2>
+      <p class="micro">まず普通の言葉で比べます。研究条件がそろわない項目には、無理に○×や細かい数字をつけません。詳しい数字は各方法の「医学的に分かっていること」から確認できます。</p>
+      <div class="comparewrap">
+        <table class="compare">
+          <thead><tr><th>見ること</th><th>胃ろう（PEG）</th><th>経鼻経管栄養</th><th>口から食べる支援</th><th>静脈から補う</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><b>重度認知症での位置づけ</b></td>
+              <td>ESPEN 2024：経腸栄養を開始しない（GPP・強い合意）</td>
+              <td>同じく重度認知症では経腸栄養を開始しない位置づけ</td>
+              <td>個別のcareful / comfort feedingが多くの場合の代替</td>
+              <td>認知症での効果データは乏しく、個別判断</td>
+            </tr>
+            <tr>
+              <td><b>生存</b></td>
+              <td>大規模観察研究で明確な生存利益なし</td>
+              <td>careful hand feedingとの前向き比較で有意差なし</td>
+              <td>NGとの直接比較では生存は同程度</td>
+              <td>十分な直接比較データなし</td>
+            </tr>
+            <tr>
+              <td><b>肺炎</b></td>
+              <td>肺炎を予防できるとする確かな根拠なし</td>
+              <td>careful hand feedingより肺炎が多い関連</td>
+              <td>同研究ではNGより肺炎リスクが低かった</td>
+              <td>十分な比較データなし</td>
+            </tr>
+            <tr>
+              <td><b>褥瘡</b></td>
+              <td>新しい褥瘡が多い関連</td>
+              <td>今回の資料では十分な直接データなし</td>
+              <td>PEGとの直接比較で一律に優位とは言えない</td>
+              <td>十分な比較データなし</td>
+            </tr>
+            <tr>
+              <td><b>家族の暮らし</b></td>
+              <td colspan="4">医学研究だけでは不足。介護時間・睡眠・自己負担・納得などを死に方図鑑の体験調査で補う予定。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="reading"><b>比較表のルール：</b>治療を採点しません。同じ結果でも本人が大切にすることによって意味が変わるため、数字と不確実性を並べてSTEP4へつなげます。</div>
+    </div>
+
+    <div id="stories" class="tab">
+      <h2>個々の体験談</h2>
+      <div class="pending">
+        <div class="status none">公開体験談：準備中</div>
+        <b>架空の「患者の声」を、本当の体験談のようには置きません。</b>
+        <p class="micro">同意を得た実体験、または複数事例を統合した架空事例であることを明示して掲載する想定です。</p>
+      </div>
+      <div class="story-empty">
+        <div class="storyph"><b>決める前</b><br>どんな状態だった？ 本人の希望は分かっていた？</div>
+        <div class="storyph"><b>選んだ後</b><br>暮らし・食事・介護・医療はどう変わった？</div>
+        <div class="storyph"><b>今振り返って</b><br>納得している？ もっと早く知りたかったことは？</div>
+      </div>
+      <div class="flow"><span>状態</span><i>→</i><span>説明</span><i>→</i><span>価値観</span><i>→</i><span>選択</span><i>→</i><span>その後</span><i>→</i><span>振り返り</span></div>
+    </div>
+
+    <div class="bottomnav">
+      <button class="btn secondary" onclick="goStep(2)">← STEP 2へ</button>
+      <div class="nextcopy">研究で分かることだけでは、本人にとっての答えは決まりません。次は「本人にとって何が大切か」を整理します。</div>
+      <button class="btn primary bigbtn" onclick="goStep(4)">STEP 4へ →</button>
+    </div>
+  </section>
+</section>
+
+
+<!-- STEP 4 -->
+<section class="page" id="step4">
+  <section class="hero">
+    <span class="kicker">STEP 4｜本人にとって何が大切？</span>
+    <h1>「本人なら、何を大事にする？」を整理する</h1>
+    <p class="lead">
+      ここでは胃ろうを「する／しない」と決めません。
+      本人について分かっていること、分からないこと、家族が迷っていることを言葉にして、
+      STEP3で見た医学情報と一緒に考えられる形にします。
+    </p>
+    <div class="notice">
+      <b>ここで決定しなくて大丈夫です。</b>
+      「分からない」「まだ決められない」「もっと情報がほしい」も、医療者と共有する大切な回答です。
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>本人の価値観を、5つの問いで整理します</h2>
+
+    <div class="accordion">
+      <button class="acc-head" onclick="toggleAcc(this)">
+        <span>1｜本人の意思は、どのくらい分かっていますか？<small>書面・本人から聞いた言葉・これまでの言動など</small></span><span>⌃</span>
+      </button>
+      <div class="acc-body">
+        <div class="q">
+          <div class="qtitle">今の状況に近いものを1つ選んでください。</div>
+          <div class="opts">
+            <label class="choice"><input type="radio" name="s4_will_clarity" value="書面に残っている"><label>書面に残っている</label></label>
+            <label class="choice"><input type="radio" name="s4_will_clarity" value="本人から直接聞いている"><label>本人から直接聞いている</label></label>
+            <label class="choice"><input type="radio" name="s4_will_clarity" value="以前の言動からある程度分かる"><label>以前の言動からある程度分かる</label></label>
+            <label class="choice"><input type="radio" name="s4_will_clarity" value="家族で推測している"><label>家族で推測している</label></label>
+            <label class="choice"><input type="radio" name="s4_will_clarity" value="ほとんど分からない"><label>ほとんど分からない</label></label>
+            <label class="choice"><input type="radio" name="s4_will_clarity" value="答えたくない"><label>答えたくない</label></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="acc-head" onclick="toggleAcc(this)">
+        <span>2｜元気なころ、食べることについて何か話していましたか？<small>覚えている本人の言葉があれば、そのまま残します</small></span><span>⌃</span>
+      </button>
+      <div class="acc-body">
+        <div class="q">
+          <div class="qtitle">近いものがあれば選んでください。（複数選択可）</div>
+          <div class="opts" id="s4FoodValues">
+            <label class="choice"><input type="checkbox" name="s4_food_values" value="できるだけ口から食べたい"><label>できるだけ口から食べたい</label></label>
+            <label class="choice"><input type="checkbox" name="s4_food_values" value="食べられなくなったら無理をしなくていい"><label>食べられなくなったら無理をしなくていい</label></label>
+            <label class="choice"><input type="checkbox" name="s4_food_values" value="できる治療は受けたい"><label>できる治療は受けたい</label></label>
+            <label class="choice"><input type="checkbox" name="s4_food_values" value="特に聞いたことはない"><label>特に聞いたことはない</label></label>
+          </div>
+        </div>
+        <div class="q">
+          <div class="qtitle">本人の言葉で覚えていること</div>
+          <textarea id="s4_food_memory" placeholder="例：「食べることが一番の楽しみ」「食べられなくなったら無理はしなくていい」など"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="acc-head" onclick="toggleAcc(this)">
+        <span>3｜本人は、どちらをより大切にしていたと思いますか？<small>正解ではなく、本人らしさを思い浮かべた現在の推測</small></span><span>⌃</span>
+      </button>
+      <div class="acc-body">
+        <div class="q">
+          <div class="qtitle">「少しでも長く生きる」← →「苦痛や負担をできるだけ少なくする」</div>
+          <div class="scale">
+            <span class="micro">少しでも長く生きる</span>
+            <label class="choice"><input type="radio" name="s4_longevity_comfort" value="1 / 7｜長く生きることを強く重視"><label>1</label></label>
+            <label class="choice"><input type="radio" name="s4_longevity_comfort" value="2 / 7｜長く生きること寄り"><label>2</label></label>
+            <label class="choice"><input type="radio" name="s4_longevity_comfort" value="3 / 7｜やや長く生きること寄り"><label>3</label></label>
+            <label class="choice"><input type="radio" name="s4_longevity_comfort" value="4 / 7｜どちらともいえない"><label>4</label></label>
+            <label class="choice"><input type="radio" name="s4_longevity_comfort" value="5 / 7｜やや苦痛・負担を減らすこと寄り"><label>5</label></label>
+            <label class="choice"><input type="radio" name="s4_longevity_comfort" value="6 / 7｜苦痛・負担を減らすこと寄り"><label>6</label></label>
+            <label class="choice"><input type="radio" name="s4_longevity_comfort" value="7 / 7｜苦痛・負担を減らすことを強く重視"><label>7</label></label>
+            <span class="micro">苦痛や負担を少なく</span>
+          </div>
+          <div class="opts" style="margin-top:8px">
+            <label class="choice"><input type="radio" name="s4_longevity_comfort" value="分からない"><label>分からない</label></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="acc-head" onclick="toggleAcc(this)">
+        <span>4｜本人らしさとして大切だったものは？<small>暮らし・楽しみ・人との関係・自立・治療への考え方</small></span><span>⌃</span>
+      </button>
+      <div class="acc-body">
+        <div class="q">
+          <div class="opts" id="s4IdentityValues">
+            <label class="choice"><input type="checkbox" name="s4_identity_values" value="食べる楽しみ"><label>食べる楽しみ</label></label>
+            <label class="choice"><input type="checkbox" name="s4_identity_values" value="会話"><label>会話</label></label>
+            <label class="choice"><input type="checkbox" name="s4_identity_values" value="自宅で過ごす"><label>自宅で過ごす</label></label>
+            <label class="choice"><input type="checkbox" name="s4_identity_values" value="家族と過ごす"><label>家族と過ごす</label></label>
+            <label class="choice"><input type="checkbox" name="s4_identity_values" value="自分で動ける"><label>自分で動ける</label></label>
+            <label class="choice"><input type="checkbox" name="s4_identity_values" value="人の手を借りすぎない"><label>人の手を借りすぎない</label></label>
+            <label class="choice"><input type="checkbox" name="s4_identity_values" value="できる治療は受ける"><label>できる治療は受ける</label></label>
+            <label class="choice"><input type="checkbox" name="s4_identity_values" value="その他"><label>その他</label></label>
+          </div>
+        </div>
+        <div class="q">
+          <div class="qtitle">その他、本人らしさとして大切だったこと</div>
+          <textarea id="s4_identity_other" placeholder="例：自分のことは自分で決めたい／人に迷惑をかけたくない／孫と過ごす時間を大切にしていた など"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="acc-head" onclick="toggleAcc(this)">
+        <span>5｜本人がいま自分で伝えられたら、何と言うと思いますか？<small>分からない場合は、分からないままで構いません</small></span><span>⌃</span>
+      </button>
+      <div class="acc-body">
+        <div class="q">
+          <textarea id="s4_imagined_voice" placeholder="例：「無理をしすぎなくていい」「できることはやってほしい」「口から食べたい」など"></textarea>
+          <div class="opts" style="margin-top:8px">
+            <label class="choice"><input type="checkbox" id="s4_imagined_unknown" value="分からない"><label>分からない</label></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="softcard family" style="margin-top:14px">
+      <h3>ここまで考えて、今の気持ちに近いもの</h3>
+      <div class="hint">これは最終決定ではありません。今の時点での「現在地」を残します。</div>
+      <div class="opts">
+        <label class="choice"><input type="radio" name="s4_current_position" value="胃ろうなどの人工栄養を検討したい"><label>人工栄養を検討したい</label></label>
+        <label class="choice"><input type="radio" name="s4_current_position" value="口から食べることを中心に考えたい"><label>口から食べることを中心に考えたい</label></label>
+        <label class="choice"><input type="radio" name="s4_current_position" value="まだ決められない"><label>まだ決められない</label></label>
+        <label class="choice"><input type="radio" name="s4_current_position" value="もっと医学情報を知ってから考えたい"><label>もっと医学情報を知りたい</label></label>
+        <label class="choice"><input type="radio" name="s4_current_position" value="家族で話したい"><label>家族で話したい</label></label>
+        <label class="choice"><input type="radio" name="s4_current_position" value="医療者と相談したい"><label>医療者と相談したい</label></label>
+      </div>
+    </div>
+
+    <div class="bottomnav">
+      <button class="btn secondary" onclick="goStep(3)">← STEP 3へ</button>
+      <div class="nextcopy">次は、STEP1〜4を「結論」ではなく、医療者と一緒に考えるための1枚にまとめます。</div>
+      <button class="btn primary bigbtn" onclick="goStep(5)">STEP 5へ →</button>
+    </div>
+  </section>
+</section>
+
+<!-- STEP 5 -->
+<section class="page" id="step5">
+  <section class="hero">
+    <span class="kicker">STEP 5｜医療者と一緒に考える</span>
+    <h1>ここまでの内容を、話し合いの「出発点」にする</h1>
+    <p class="lead">
+      STEP1〜4で整理した内容を1枚にまとめます。
+      これは治療方針を決める書類ではなく、医療者が「何を理解していて、本人について何が分かり、どこで迷っているか」を確認するための相談メモです。
+    </p>
+    <div class="notice"><b>この紙にYES／NOの結論がなくても大丈夫です。</b> 「分からない」「迷っている」「家族で意見が違う」こと自体が、話し合うべき大切な情報です。</div>
+  </section>
+
+  <section class="sheet" id="finalSheet">
+    <div class="sheet-head">
+      <div>
+        <h2>食べること・栄養についての話し合い準備シート</h2>
+        <div class="micro">STEP1〜4の回答を自動整理｜意思決定を代行する書類ではありません</div>
+      </div>
+      <button class="btn secondary no-print" onclick="printSheet('step5')">印刷・PDF</button>
+    </div>
+
+    <div class="cols2" style="margin-top:14px">
+      <div class="softcard">
+        <h3>① いまの医学的な状況・理解</h3>
+        <div class="sumrow"><b>食べられなくなった原因の説明</b><span class="sumval" id="f-cause">未回答</span></div>
+        <div class="sumrow"><b>回復見込みの説明</b><span class="sumval" id="f-recovery">未回答</span></div>
+        <div class="sumrow"><b>現在の食事状況</b><span class="sumval" id="f-eating">未回答</span></div>
+        <div class="sumrow"><b>選択肢の理解度</b><span class="sumval" id="f-understanding">未回答</span></div>
+      </div>
+      <div class="softcard">
+        <h3>② 方法について確認したこと</h3>
+        <div class="sumrow"><b>医療者から説明を受けた方法</b><span class="sumval" id="f-heard">未回答</span></div>
+        <div class="sumrow"><b>詳しく知りたいと選んだ方法</b><span class="sumval" id="f-learn">未選択</span></div>
+        <div class="sumrow"><b>STEP3で最後に見ていた方法</b><span class="sumval" id="f-step3method">胃ろう（PEG）</span></div>
+        <div class="sumrow"><b>まだ分からない・説明してほしいこと</b><span class="sumval" id="f-unknowns">未記入</span></div>
+      </div>
+    </div>
+
+    <div class="cols2" style="margin-top:11px">
+      <div class="softcard patient">
+        <h3>③ 本人について分かっていること</h3>
+        <div class="sumrow"><b>現在の意思表出</b><span class="sumval" id="f-expression">未回答</span></div>
+        <div class="sumrow"><b>本人の意思がどの程度分かるか</b><span class="sumval" id="f-willclarity">未回答</span></div>
+        <div class="sumrow"><b>食べることについての過去の言葉</b><span class="sumval" id="f-foodvalues">未回答</span></div>
+        <div class="sumrow"><b>覚えている本人の言葉</b><span class="sumval" id="f-foodmemory">未記入</span></div>
+        <div class="sumrow"><b>本人なら今回どう言うと思うか</b><span class="sumval" id="f-imagined">未記入</span></div>
+      </div>
+      <div class="softcard">
+        <h3>④ 本人について分からないこと</h3>
+        <div id="f-unknown-person" class="micro">明確な「分からない」の回答はまだありません。</div>
+      </div>
+    </div>
+
+    <div class="cols2" style="margin-top:11px">
+      <div class="softcard patient">
+        <h3>⑤ 本人が大切にしていたこと</h3>
+        <div class="sumrow"><b>本人らしさ</b><span class="sumval" id="f-identity">未回答</span></div>
+        <div class="sumrow"><b>その他の本人らしさ</b><span class="sumval" id="f-identityother">未記入</span></div>
+        <div class="sumrow"><b>長く生きること ↔ 苦痛・負担を少なくすること</b><span class="sumval" id="f-scale">未回答</span></div>
+        <div class="sumrow"><b>STEP1で書いた本人の価値観</b><span class="sumval" id="f-values-old">未記入</span></div>
+      </div>
+      <div class="softcard family">
+        <h3>⑥ 家族の今の気持ち・迷い</h3>
+        <div class="sumrow"><b>家族自身の気持ち</b><span class="sumval" id="f-family">未記入</span></div>
+        <div class="sumrow"><b>本人の推定意思と家族希望の違い</b><span class="sumval" id="f-difference">未回答</span></div>
+        <div class="sumrow"><b>STEP4を終えた現在地</b><span class="sumval" id="f-current">未回答</span></div>
+      </div>
+    </div>
+
+    <div class="softcard" style="margin-top:11px;background:#eef5fb">
+      <h3>⑦ 医療者と一緒に確認したいこと</h3>
+      <div class="sumrow"><b>STEP1でまず話したいと書いたこと</b><span class="sumval" id="f-questions">未記入</span></div>
+      <ul class="micro" style="margin:8px 0 0 18px">
+        <li>本人の今の状態では、どの選択肢が現実的ですか？</li>
+        <li>それぞれを選んだ場合、本人の生活や負担はどう変わりますか？</li>
+        <li>今すぐ決める必要がありますか？ いったん様子を見ることはできますか？</li>
+        <li>本人が大切にしていたことを、今回の判断にどう反映できますか？</li>
+      </ul>
+      <div class="q no-print">
+        <div class="qtitle">ほかに医療者へ聞きたいこと（任意）</div>
+        <textarea id="final_extra_question" placeholder="例：胃ろうを作らずに口から食べ続ける場合、どんな支援ができますか？"></textarea>
+      </div>
+      <div class="sumrow" id="final-extra-print-row" style="display:none"><b>追加で聞きたいこと</b><span class="sumval" id="f-extra"></span></div>
+    </div>
+
+    <div class="research-note">
+      このシートは、本人の価値観、家族の理解や迷い、医学的な状況を共有し、本人・家族・医療者が一緒に考えるための補助資料です。
+      医療上の適応や方針は、本人の状態を診ている医療者と確認してください。
+    </div>
+  </section>
+
+  <div class="bottomnav no-print">
+    <button class="btn secondary" onclick="goStep(4)">← STEP 4へ</button>
+    <div class="nextcopy">回答はこの端末のブラウザ内に自動保存されます。不要になったら右のボタンで消せます。</div>
+    <div>
+      <button class="btn ghost" onclick="resetPrototype()">入力をリセット</button>
+      <button class="btn primary bigbtn" onclick="printSheet('step5')">PDFにする →</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+const METHOD_INFO = [
+  {
+    key:"oral", icon:"🍚", title:"口から食べることを支える",
+    what:"食事の形・姿勢・介助方法・食具・口腔ケアなどを調整し、本人が食べられる範囲を支えます。",
+    when:"食べにくさの原因や嚥下の状態を確認しながら、可能な範囲で経口摂取を続けたいとき。",
+    expect:"食べる楽しみや本人の能力を活かしながら、安全性と快適さのバランスを考えます。",
+    needs:"食事介助、食形態の調整、嚥下評価、栄養評価、口腔ケアなど。必要に応じて多職種で支えます。",
+    know:"「何もしない」方法ではありません。食べられる量が必要量に届くとは限らず、肺炎を完全に防ぐこともできません。"
+  },
+  {
+    key:"ng", icon:"👃", title:"経鼻経管栄養",
+    what:"鼻から胃などへ管を通し、液体の栄養や水分、薬などを入れる方法です。",
+    when:"口から十分に摂れず、経腸栄養を一時的または継続的に行う必要があると判断されたとき。",
+    expect:"口から十分に摂れない場合でも、消化管を使って栄養・水分を投与できます。",
+    needs:"チューブの位置確認、栄養剤投与、口腔ケア、体位調整など。抜去や鼻・咽頭の違和感などへの対応も必要です。",
+    know:"進行認知症では、careful hand feedingと比較して生存利益が確認されず、肺炎が多い関連を示した前向き研究があります。"
+  },
+  {
+    key:"peg", icon:"◯", title:"胃ろう（PEG）",
+    what:"内視鏡などを使ってお腹から胃へ通り道をつくり、チューブから栄養・水分・薬を入れる方法です。",
+    when:"長期に経腸栄養が必要と考えられる場合などに検討されます。ただし病気や病期によって適応は異なります。",
+    expect:"鼻の管を長期間留置せずに、胃へ直接栄養を投与できる経路を確保します。",
+    needs:"造設処置、瘻孔・皮膚の管理、栄養剤投与、口腔ケア、合併症への対応などが必要です。",
+    know:"重度認知症では、明確な生存利益が確認されておらず、現在のESPENガイドラインでは経腸栄養を開始しないとしています。"
+  },
+  {
+    key:"iv", icon:"💧", title:"静脈から水分・栄養を補う",
+    what:"点滴などで静脈から水分を補う方法と、より多くの栄養を静脈から投与する静脈栄養（PN）があります。",
+    when:"消化管を使えない場合や、一時的な状態を乗り越える目的など、医学的な状況に応じて検討されます。",
+    expect:"経口・経腸で十分に投与できない場合に、水分や必要に応じた栄養を静脈から補います。",
+    needs:"点滴ルートやカテーテルの管理、感染・水分量・代謝状態などの観察が必要です。",
+    know:"「水分補給の点滴」と「十分な栄養を入れるPN」は別です。本番ではさらに分けて説明する予定です。"
+  },
+  {
+    key:"comfort", icon:"♡", title:"人工的栄養を積極的には行わず支える",
+    what:"本人が食べたり飲んだりできる範囲を支えながら、口腔ケアや症状緩和など、快適さを重視したケアを続けます。",
+    when:"病気の段階、本人の希望、期待できる利益と負担を踏まえ、人工栄養を積極的に行わない方針を選ぶ場合。",
+    expect:"必要量を満たすことだけを目標にせず、本人の快適さ、食の楽しみ、望む過ごし方を重視します。",
+    needs:"食事・水分の支援、口腔ケア、症状への対応、本人・家族への継続的な支援が必要です。",
+    know:"「何もしない」「見放す」という意味ではありません。可逆的な原因による一時的な摂取低下とは分けて考えます。"
+  }
+];
+
+const CONTENT = {
+  peg: {
+    title:"胃ろう（PEG）を選んだ後について",
+    intro:"重度・進行認知症で食べることが難しくなった場面を中心に、PEGについて現在の研究でどこまで言えるかを整理します。",
+    guideline:"ESPEN 2024では、重度認知症では経腸栄養を開始しないとするRecommendation 37が示されています。これはGPPで、100%の強い合意でした。",
+    cards:[
+      {s:"uncertain",status:"研究あり・不確実性あり",q:"長く生きられる？",a:"大規模な観察研究では、PEGを入れた群に明確な生存利益は確認されませんでした。",big:"AHR 1.03",lab:"95%CI 0.94–1.13｜36,492人",d:"無作為化試験ではありません。背景差を統計的に調整していますが、残余交絡は残り得ます。",src:"Teno et al., J Am Geriatr Soc, 2012"},
+      {s:"clear",status:"比較的根拠あり",q:"褥瘡は予防・改善する？",a:"PEGが褥瘡を予防・改善するという結果は得られず、新しい褥瘡が多い関連が報告されました。",big:"OR 2.27",lab:"新規Stage 2以上｜95%CI 1.95–2.65",d:"観察研究なので「PEGが原因」と断定はしません。既存褥瘡の改善はPEG群で少ない関連（OR 0.70）でした。",src:"Teno et al., Arch Intern Med, 2012 / Cochrane 2021"},
+      {s:"none",status:"十分な研究なし",q:"QOLは良くなる？",a:"Cochraneレビューに含まれた研究では、QOLを評価した研究がありませんでした。",big:"0研究",lab:"Cochrane対象研究内",d:"「QOLが悪くなる」とも「良くなる」とも、このレビューからは言えません。",src:"Davies et al., Cochrane, 2021"},
+      {s:"uncertain",status:"米国データ・観察研究",q:"医療利用や費用は？",a:"米国の研究では、PEG群でその後1年間の入院医療費・入院日数・ICU日数が多い関連がみられました。",big:"+ $2,224",lab:"1年間の入院医療費差",d:"日本の家族自己負担額ではありません。医療制度が異なるため、そのまま日本円換算して示しません。",src:"Hwang et al., J Pain Symptom Manage, 2014"}
+    ]
+  },
+  ng: {
+    title:"経鼻経管栄養を選んだ後について",
+    intro:"経鼻経管栄養についてはPEGより研究が少ないものの、2025年に進行認知症でcareful hand feedingと直接比較した前向き研究が報告されています。",
+    guideline:"ESPEN 2024では、軽度〜中等度認知症で摂取低下の原因が回復可能な場合には一時的な経腸栄養を検討し得る一方、重度認知症では経腸栄養を開始しないとしています。",
+    cards:[
+      {s:"uncertain",status:"前向き比較研究あり",q:"長く生きられる？",a:"careful hand feedingとの前向き比較では、1年生存に有意差はありませんでした。",big:"AHR 0.85",lab:"95%CI 0.59–1.23",d:"PSM後176人の観察研究です。RCTではなく、マッチ後も一部の背景因子に不均衡が残っています。",src:"Yuen et al., J Gerontol A, 2025"},
+      {s:"uncertain",status:"前向き比較研究あり",q:"肺炎は防げる？",a:"同研究では、経鼻栄養群でcareful hand feeding群より1年間の肺炎リスクが高い関連がみられました。",big:"AHR 1.60",lab:"95%CI 1.06–2.42",d:"「経鼻チューブが肺炎を1.6倍起こす」と因果断定はしません。研究は観察研究です。",src:"Yuen et al., J Gerontol A, 2025"},
+      {s:"clear",status:"実践内容が具体的",q:"口から食べる支援と何が違う？",a:"比較対象のcareful hand feedingでは、食形態・介助方法・食具、栄養計画、医学的要因や薬剤の調整を多職種で個別化していました。",big:"多職種",lab:"医師・看護・ST・栄養士",d:"つまり「口から食べる支援」は、単に何もせず食べさせることではありません。",src:"Yuen et al., J Gerontol A, 2025"},
+      {s:"none",status:"データ不足",q:"家族の介護時間や睡眠は？",a:"今回の手元の比較研究では、家族の介護時間・睡眠・日本での自己負担を十分に比較できません。",big:"不足",lab:"独自体験調査で取得予定",d:"この空白を医学的効果と混同せず、体験データとして別に収集します。",src:"死に方図鑑 体験調査（準備中）"}
+    ]
+  },
+  oral: {
+    title:"口から食べることを支える場合について",
+    intro:"「口から食べる支援」は、治療をしないことではなく、食べられる力と本人の快適さに合わせて支えるケアです。",
+    guideline:"ESPEN 2024は、食事・水分摂取を支えるために、原因への対応、社会的・看護的支援、食事介助、食具、訓練、口腔ケアなどを挙げています。",
+    cards:[
+      {s:"clear",status:"ガイドラインで推奨される支援",q:"具体的に何をする？",a:"食べにくさの原因を探し、食事介助、食具、訓練、口腔ケアなどを個別に組み合わせます。",big:"個別化",lab:"食べられる力・状態に合わせる",d:"必要な支援は人によって違います。嚥下評価や栄養評価など医療者の関与が必要になることがあります。",src:"ESPEN guideline 2024"},
+      {s:"uncertain",status:"NGとの前向き比較あり",q:"経鼻栄養と比べて生存は？",a:"2025年の進行認知症研究では、careful hand feedingと経鼻栄養で1年生存に有意差はありませんでした。",big:"差なし",lab:"AHR 0.85｜95%CI 0.59–1.23",d:"この一研究だけで全員に一般化はできません。",src:"Yuen et al., J Gerontol A, 2025"},
+      {s:"uncertain",status:"NGとの前向き比較あり",q:"肺炎は？",a:"同研究では、careful hand feeding群に比べ経鼻栄養群の肺炎リスクが高い関連が報告されました。",big:"NG AHR 1.60",lab:"95%CI 1.06–2.42",d:"careful hand feedingが肺炎を完全に防ぐという意味ではありません。",src:"Yuen et al., J Gerontol A, 2025"},
+      {s:"none",status:"独自データ待ち",q:"家族の負担は？",a:"食事介助には時間や技能が必要になる可能性がありますが、今回の資料では日本の家族負担を十分に定量比較できません。",big:"未確定",lab:"介護時間・睡眠・費用を収集予定",d:"「口から食べる＝家族負担が少ない」とは決めつけません。",src:"死に方図鑑 体験調査（準備中）"}
+    ]
+  },
+  iv: {
+    title:"静脈から水分・栄養を補う場合について",
+    intro:"静脈からの栄養（PN）と、水分補給だけの点滴・皮下補液は同じものではありません。今後さらに分けて表示する必要があります。",
+    guideline:"ESPEN 2024では、認知症患者におけるPNの効果データはないとし、医学的適応・本人の意思・利益と負担の検討を求めています。",
+    cards:[
+      {s:"none",status:"直接研究が不足",q:"PNで予後は良くなる？",a:"ESPEN 2024は、認知症患者におけるPNの効果についてデータがないとしています。",big:"データなし",lab:"認知症に限定した効果研究",d:"PEGやNGと同じような比較数字を無理に置きません。",src:"ESPEN guideline 2024"},
+      {s:"uncertain",status:"状況依存",q:"いつ検討される？",a:"経腸栄養ができないなど医学的な理由があり、短期間の低栄養状態を乗り越える目的など、限定されたケースで検討されます。",big:"個別判断",lab:"主に軽度〜中等度認知症",d:"重度認知症・終末期についての位置づけとは分けて考える必要があります。",src:"ESPEN guideline 2024"},
+      {s:"none",status:"比較データ不足",q:"家での暮らしや負担は？",a:"今回の資料だけでは、PEG・NG・経口支援と公平に比較できる生活データはありません。",big:"不足",lab:"体験調査・追加文献が必要",d:"療養場所、介護時間、通院・管理負担などを今後補います。",src:"現時点の手元資料"},
+      {s:"caution",status:"用語を分ける必要あり",q:"点滴と静脈栄養は同じ？",a:"水分補給を目的とした点滴と、十分なエネルギー・栄養を静脈から投与するPNは別です。",big:"別物",lab:"今後さらに分離",d:"本番では末梢補液・皮下補液・PNを一括表示しない設計にします。",src:"ESPEN guideline 2024"}
+    ]
+  },
+  comfort: {
+    title:"人工的な栄養を積極的に行わず、食べられる範囲で支える場合について",
+    intro:"これは「何もしない」という意味ではありません。本人が食べたり飲んだりできる範囲を支え、快適さや症状緩和を重視するケアを含みます。",
+    guideline:"ESPEN 2024では、重度認知症では個別化されたpalliative careと食事・水分摂取の支援を重視しています。",
+    cards:[
+      {s:"clear",status:"ガイドラインで位置づけあり",q:"何をする選択？",a:"本人が望むものを、食べられる・飲める範囲で支え、口腔ケアや症状緩和を含めて快適さを大切にします。",big:"ケア継続",lab:"「何もしない」ではない",d:"栄養必要量を満たすことより、本人の快適さを優先する場面があります。",src:"ESPEN guideline 2024"},
+      {s:"uncertain",status:"研究と個別判断が必要",q:"寿命はどうなる？",a:"重度認知症の経管栄養では明確な生存利益が確認されていないため、「人工栄養をしない＝必ず寿命を縮める」と単純には言えません。",big:"単純化不可",lab:"状態・原因・病期で異なる",d:"可逆的な原因による一時的な摂取低下と、進行した認知症の終末期は分けて考えます。",src:"Cochrane 2021 / ESPEN 2024"},
+      {s:"none",status:"十分な比較研究なし",q:"本人の苦痛は？",a:"最期の時期の快適さは重要ですが、今回の資料だけで各方法を公平に数値比較できるデータは十分ではありません。",big:"未確定",lab:"追加研究が必要",d:"「苦痛がない」と断定せず、口渇・口腔ケア・症状への対応を別に説明する必要があります。",src:"ESPEN guideline 2024"},
+      {s:"none",status:"独自データ待ち",q:"家族はどう振り返る？",a:"選択後の納得・後悔・「同じ選択をするか」は、今後の死に方図鑑体験調査で方法別に集計します。",big:"収集準備中",lab:"本人の希望が分かっていた程度も併記",d:"良かった体験と苦しかった体験の両方を掲載する設計です。",src:"死に方図鑑 体験調査（準備中）"}
+    ]
+  }
+};
+
+let currentStep = 0;
+let learnMore = new Set();
+let currentEvidenceMethod = "peg";
+
+function goStep(n){
+  if(n<0 || n>5) return;
+  currentStep=n;
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const target=document.getElementById('step'+n);
+  if(target) target.classList.add('active');
+  document.querySelectorAll('.stepnav button').forEach(b=>b.classList.remove('active'));
+  const nav=document.getElementById('nav'+n);
+  if(nav) nav.classList.add('active');
+  const progressMap={0:8,1:25,2:42,3:59,4:78,5:100};
+  document.getElementById('progress').style.width=(progressMap[n]||8)+'%';
+  if(n===2) syncStep2();
+  if(n===3) syncStep3FromChoices();
+  if(n===5) updateFinalSummary();
+  savePrototypeState();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleAcc(btn){
+  const body=btn.nextElementSibling;
+  body.classList.toggle('closed');
+  btn.lastElementChild.textContent=body.classList.contains('closed')?'⌄':'⌃';
+}
+
+function sel(name){
+  const x=document.querySelector('input[name="'+name+'"]:checked');
+  return x?x.value:'未回答';
+}
+function txt(id){
+  const x=document.getElementById(id);
+  return x && x.value.trim()?x.value.trim():'未記入';
+}
+function checkedOptions(){
+  const a=[...document.querySelectorAll('#multi input:checked')].map(x=>x.value);
+  return a.length?a:['未回答'];
+}
+function updateSummary(){
+  ['cause','recovery','eating','understanding','expression','difference'].forEach(n=>{
+    const el=document.getElementById('s-'+n); if(el) el.textContent=sel(n);
+  });
+  ['current_indirect','past_direct','values','past_indirect','patient_guess','family_feeling','unknowns','questions'].forEach(id=>{
+    const el=document.getElementById('s-'+id); if(el) el.textContent=txt(id);
+  });
+  document.getElementById('s-options').textContent=checkedOptions().join('、');
+}
+document.addEventListener('input',updateSummary);
+document.addEventListener('change',updateSummary);
+
+function renderMethods(){
+  const grid=document.getElementById('methodGrid');
+  grid.innerHTML=METHOD_INFO.map(m=>`
+    <article class="methodcard">
+      <div class="methodhead"><div class="icon">${m.icon}</div><h3>${m.title}</h3></div>
+      <div class="methodbody">
+        <div class="methodrow"><b>どんな方法？</b>${m.what}</div>
+        <div class="methodrow"><b>どんなときに検討？</b>${m.when}</div>
+        <div class="methodrow"><b>この方法で期待すること</b>${m.expect}</div>
+        <div class="methodrow"><b>実際に必要なこと</b>${m.needs}</div>
+        <div class="methodrow"><b>知っておきたいこと</b>${m.know}</div>
+        <div class="methodactions">
+          <button class="togglebtn" id="learn-${m.key}" onclick="toggleLearn('${m.key}',this)">＋ 詳しく知りたい</button>
+          <button class="togglebtn" onclick="jumpEvidence('${m.key}')">STEP3を見る →</button>
+        </div>
+      </div>
+    </article>`).join('');
+}
+function toggleLearn(key,btn){
+  if(learnMore.has(key)){learnMore.delete(key);btn.classList.remove('on');btn.textContent='＋ 詳しく知りたい'}
+  else{learnMore.add(key);btn.classList.add('on');btn.textContent='✓ 詳しく知りたい'}
+  syncStep2();
+  savePrototypeState();
+}
+function syncStep2(){
+  const heard=checkedOptions();
+  document.getElementById('heardSummary').textContent='STEP1での回答：'+heard.join('、');
+  const names=[...learnMore].map(k=>METHOD_INFO.find(m=>m.key===k)?.title).filter(Boolean);
+  document.getElementById('learnSummary').textContent=names.length?names.join('、'):'まだ選ばれていません。気になる方法だけで大丈夫です。';
+}
+function jumpEvidence(key){
+  goStep(3);
+  const btn=document.querySelector('#step3Methods button[data-method="'+key+'"]');
+  if(btn) selectMethod(btn);
+}
+function syncStep3FromChoices(){
+  let key=[...learnMore][0];
+  if(!key){
+    const heard=checkedOptions().join(' ');
+    if(heard.includes('胃ろう')) key='peg';
+    else if(heard.includes('経鼻')) key='ng';
+    else if(heard.includes('口から')) key='oral';
+    else if(heard.includes('静脈')) key='iv';
+    else if(heard.includes('積極的')) key='comfort';
+  }
+  if(key){
+    const btn=document.querySelector('#step3Methods button[data-method="'+key+'"]');
+    if(btn) selectMethod(btn);
+  }
+}
+
+function renderMedical(key){
+  const m=CONTENT[key];
+  document.getElementById('step3Title').textContent=m.title;
+  const cards=m.cards.map(c=>`
+    <article class="ecard">
+      <div class="status ${c.s}">${c.status}</div>
+      <div class="q2">${c.q}</div>
+      <div class="answer">${c.a}</div>
+
+      <details class="evidence-open">
+        <summary>研究の詳しい数字・根拠を見る</summary>
+        <div class="techbox">
+          <div class="techlabel">研究で報告された数字</div>
+          <div class="stat"><div class="big">${c.big}</div><div class="label">${c.lab}</div></div>
+          <div class="details">${c.d}</div>
+          <div class="source">出典：${c.src}</div>
+        </div>
+      </details>
+    </article>`).join('');
+  document.getElementById('medicalContent').innerHTML=`
+    <h2>医学的に分かっていること</h2>
+    <p class="micro" style="margin-top:-4px;margin-bottom:12px">
+      まずは普通の言葉で結論を表示します。AHR・OR・95%信頼区間などの詳しい数字は、必要な人だけ開いて確認できます。
+    </p>
+    <div class="summarybox">
+      <div class="summarycard">
+        <div class="status uncertain">この情報が当てはまる人</div>
+        <strong>${m.intro}</strong>
+        <p class="micro">年齢・病状・認知症の重症度・回復可能な原因の有無によって、そのまま当てはまらない場合があります。</p>
+      </div>
+      <div class="summarycard">
+        <div class="status clear">現在のガイドライン</div>
+        <strong>${m.guideline}</strong>
+      </div>
+    </div>
+    <div class="cards">${cards}</div>
+
+    ${key==='peg' ? `
+    <section class="risk-section">
+      <div class="risk-title-row">
+        <div>
+          <h2>胃ろうを選ぶときに知っておきたい負担・リスク</h2>
+          <div class="micro">「起こることがある」と「胃ろうが原因だと証明されている」を分けて表示します。</div>
+        </div>
+      </div>
+
+      <div class="risk-grid">
+        <article class="riskcard">
+          <div class="status uncertain">研究で関連あり</div>
+          <h3>① 床ずれ（褥瘡）が新しくできること</h3>
+          <div class="plain">
+            進行した認知機能低下のある高齢者を対象にした観察研究では、
+            胃ろうを造設した人で、新しい床ずれが多いという関連がみられました。
+          </div>
+          <div class="riskcare">
+            <b>自宅で介護する場合：</b>
+            本人が自分で体の向きを変えにくく、床ずれのリスクが高い場合には、
+            皮膚の観察、体圧を分散する寝具、体位変換などのケアが必要になることがあります。
+            体位変換の頻度は一律ではなく、本人の状態や寝具などに合わせて医療・介護職と決めます。
+          </div>
+          <details class="evidence-open">
+            <summary>研究の詳しい数字・根拠を見る</summary>
+            <div class="techbox">
+              <div class="techlabel">新しいStage 2以上の褥瘡</div>
+              <div class="stat"><div class="big">35.6% vs 19.8%</div><div class="label">PEGあり vs PEGなし</div></div>
+              <div class="details">調整OR 2.27（95%CI 1.95–2.65）。観察研究のため、胃ろうそのものが褥瘡の原因だと断定はできません。</div>
+              <div class="source">出典：Teno et al., Arch Intern Med, 2012 / Cochrane 2021</div>
+            </div>
+          </details>
+        </article>
+
+        <article class="riskcard">
+          <div class="status caution">本人の自由に関わる</div>
+          <h3>② チューブを抜かないための身体拘束</h3>
+          <div class="plain">
+            認知症の方がチューブを気にして触ったり、抜こうとしたりする場合があります。
+            その際、ミトン型の手袋などで手の動きを制限する対応が行われることがあります。
+            これは身体拘束にあたり、本人の行動の自由を制限します。
+          </div>
+          <div class="riskcare">
+            <b>知っておきたいこと：</b>
+            「胃ろうをしたら必ず拘束が必要」という意味ではありません。
+            チューブを抜こうとする理由を探し、環境やケアを工夫して拘束を避けることが重要です。
+          </div>
+          <details class="evidence-open">
+            <summary>研究の詳しい数字・根拠を見る</summary>
+            <div class="techbox">
+              <div class="techlabel">feeding tubeを使用していた認知症の人についての遺族報告</div>
+              <div class="stat"><div class="big">25.9%</div><div class="label">身体的拘束があった</div></div>
+              <div class="details">29.2%では、チューブを抜かないよう落ち着かせる薬が使われたと家族が回答。PEGだけに限定した数字ではありません。</div>
+              <div class="source">出典：Teno et al., J Am Geriatr Soc, 2011／厚生労働省「身体拘束ゼロ」関連資料</div>
+            </div>
+          </details>
+        </article>
+
+        <article class="riskcard unknown-card">
+          <div class="status none">まだ十分に分かっていない</div>
+          <h3>③ 長期の胃ろうで認知機能が低下する？</h3>
+          <div class="plain">
+            「胃ろうにすると噛まなくなる → 脳への刺激が減る → 認知機能や発語が低下する」
+            という因果関係は、現在の研究では確認されていません。
+          </div>
+          <div class="riskcare">
+            <b>分かっていること：</b>
+            高齢者では、咀嚼機能が低いことと認知機能が低いことの「関連」は報告されています。
+            ただし研究の質には限界があり、胃ろうそのものが認知機能低下を起こすとは言えません。
+            口から食べる機会が減る場合には、噛む・味わう・食卓で交流する機会がどう変わるかを、
+            本人にとっての生活上の変化として考えることが大切です。
+          </div>
+          <details class="evidence-open">
+            <summary>研究の詳しい数字・根拠を見る</summary>
+            <div class="techbox">
+              <div class="techlabel">咀嚼と認知機能の研究</div>
+              <div class="details">
+                系統的レビューでは、咀嚼機能の低下と認知機能低下の関連が示唆されていますが、
+                多くの研究はエビデンスレベルが低く、バイアスのリスクも高いと評価されています。
+                PEG造設後の咀嚼低下が認知機能や発語を悪化させることを直接示した研究ではありません。
+              </div>
+              <div class="source">出典：Sta Maria et al., J Dent Sci, 2023</div>
+            </div>
+          </details>
+        </article>
+      </div>
+    </section>
+    ` : ''}
+
+    <div class="reading">
+      <b>数字が苦手でも、閉じたままで大丈夫です。</b>
+      詳細欄は医療者や、研究内容まで確かめたい人のための層です。
+      このサイトでは「研究で関連があったこと」と「その方法が原因で起きたこと」を分けて伝えます。
+    </div>
+    <div class="research-note">主な根拠：ESPEN 2024、Cochrane 2021、Tenoら、Yuenら、Hwangら。正式公開前には引用表記・対象・確実性の再点検が必要です。</div>`;
+}
+function selectMethod(btn){
+  document.querySelectorAll('#step3Methods button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentEvidenceMethod=btn.dataset.method;
+  renderMedical(currentEvidenceMethod);
+  savePrototypeState();
+}
+function showTab(btn,id){
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#step3 .tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+
+const STORAGE_KEY="shinikata_zukan_v1_0_state";
+
+function multiByName(name){
+  return [...document.querySelectorAll('input[name="'+name+'"]:checked')].map(x=>x.value);
+}
+function setFinal(id,value,fallback="未回答"){
+  const el=document.getElementById(id);
+  if(el) el.textContent=(value && String(value).trim())?value:fallback;
+}
+function updateFinalSummary(){
+  updateSummary();
+
+  setFinal('f-cause',sel('cause'));
+  setFinal('f-recovery',sel('recovery'));
+  setFinal('f-eating',sel('eating'));
+  setFinal('f-understanding',sel('understanding'));
+  setFinal('f-expression',sel('expression'));
+
+  const heard=checkedOptions();
+  setFinal('f-heard',heard.join('、'));
+  const learnNames=[...learnMore].map(k=>METHOD_INFO.find(m=>m.key===k)?.title).filter(Boolean);
+  setFinal('f-learn',learnNames.length?learnNames.join('、'):'未選択','未選択');
+  const m=METHOD_INFO.find(x=>x.key===currentEvidenceMethod);
+  setFinal('f-step3method',m?m.title:'未選択','未選択');
+  setFinal('f-unknowns',txt('unknowns'),'未記入');
+
+  const clarity=sel('s4_will_clarity');
+  const foodVals=multiByName('s4_food_values');
+  const identityVals=multiByName('s4_identity_values');
+  const scale=sel('s4_longevity_comfort');
+  const imaginedUnknown=document.getElementById('s4_imagined_unknown')?.checked;
+  const imagined=imaginedUnknown?'分からない':txt('s4_imagined_voice');
+
+  setFinal('f-willclarity',clarity);
+  setFinal('f-foodvalues',foodVals.length?foodVals.join('、'):'未回答');
+  setFinal('f-foodmemory',txt('s4_food_memory'),'未記入');
+  setFinal('f-imagined',imagined,'未記入');
+  setFinal('f-identity',identityVals.length?identityVals.join('、'):'未回答');
+  setFinal('f-identityother',txt('s4_identity_other'),'未記入');
+  setFinal('f-scale',scale);
+  setFinal('f-values-old',txt('values'),'未記入');
+
+  setFinal('f-family',txt('family_feeling'),'未記入');
+  setFinal('f-difference',sel('difference'));
+  setFinal('f-current',sel('s4_current_position'));
+  setFinal('f-questions',txt('questions'),'未記入');
+
+  const unknown=[];
+  if(['家族で推測している','ほとんど分からない','答えたくない'].includes(clarity)){
+    unknown.push('本人の意思：'+clarity);
+  }
+  if(foodVals.includes('特に聞いたことはない')){
+    unknown.push('食べることについて本人から聞いたこと：特にない');
+  }
+  if(scale==='分からない'){
+    unknown.push('長く生きることと、苦痛・負担を少なくすることのどちらを重視していたか：分からない');
+  }
+  if(imaginedUnknown){
+    unknown.push('今回の選択について本人が何と言うと思うか：分からない');
+  }
+  const unknownEl=document.getElementById('f-unknown-person');
+  if(unknownEl){
+    unknownEl.innerHTML=unknown.length
+      ? '<ul style="margin:0 0 0 18px;padding:0">'+unknown.map(x=>'<li>'+escapeHtml(x)+'</li>').join('')+'</ul>'
+      : '明確な「分からない」の回答はまだありません。';
+  }
+}
+function escapeHtml(s){
+  return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+}
+
+function inputKey(el){
+  if(el.id) return 'id|'+el.id;
+  if((el.type==='radio'||el.type==='checkbox') && el.name) return 'name|'+el.name+'|'+el.value;
+  if(el.name) return 'name|'+el.name;
+  if(el.closest && el.closest('#multi')) return 'multi|'+el.value;
+  return null;
+}
+function savePrototypeState(){
+  const inputs={};
+  document.querySelectorAll('input,textarea').forEach(el=>{
+    const key=inputKey(el);
+    if(!key) return;
+    inputs[key]=(el.type==='radio'||el.type==='checkbox')?!!el.checked:el.value;
+  });
+  const data={
+    version:'1.0',
+    savedAt:new Date().toISOString(),
+    inputs,
+    learnMore:[...learnMore],
+    currentEvidenceMethod
+  };
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}catch(e){}
+}
+function restorePrototypeState(){
+  let data=null;
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);
+    if(raw) data=JSON.parse(raw);
+  }catch(e){}
+  if(!data) return;
+  const savedInputs=data.inputs||{};
+  document.querySelectorAll('input,textarea').forEach(el=>{
+    const key=inputKey(el);
+    if(!key || !(key in savedInputs)) return;
+    if(el.type==='radio'||el.type==='checkbox') el.checked=!!savedInputs[key];
+    else el.value=savedInputs[key]??'';
+  });
+  learnMore=new Set(Array.isArray(data.learnMore)?data.learnMore:[]);
+  if(data.currentEvidenceMethod && CONTENT[data.currentEvidenceMethod]){
+    currentEvidenceMethod=data.currentEvidenceMethod;
+  }
+}
+function syncLearnButtons(){
+  document.querySelectorAll('[id^="learn-"]').forEach(btn=>{
+    btn.classList.remove('on');
+    btn.textContent='＋ 詳しく知りたい';
+  });
+  learnMore.forEach(key=>{
+    const btn=document.getElementById('learn-'+key);
+    if(btn){btn.classList.add('on');btn.textContent='✓ 詳しく知りたい';}
+  });
+  syncStep2();
+}
+function resetPrototype(){
+  if(!confirm('この端末に保存された入力内容をすべてリセットしますか？')) return;
+  try{localStorage.removeItem(STORAGE_KEY);}catch(e){}
+  document.querySelectorAll('input,textarea').forEach(el=>{
+    if(el.type==='radio'||el.type==='checkbox') el.checked=false;
+    else el.value='';
+  });
+  learnMore.clear();
+  currentEvidenceMethod='peg';
+  syncLearnButtons();
+  updateSummary();
+  updateFinalSummary();
+  const pegBtn=document.querySelector('#step3Methods button[data-method="peg"]');
+  if(pegBtn) selectMethod(pegBtn);
+}
+function printSheet(which){
+  updateFinalSummary();
+  const extra=txt('final_extra_question');
+  const row=document.getElementById('final-extra-print-row');
+  const value=document.getElementById('f-extra');
+  if(which==='step5' && row && value){
+    if(extra!=='未記入'){value.textContent=extra;row.style.display='block';}
+    else{row.style.display='none';value.textContent='';}
+  }
+  document.body.classList.remove('print-step1','print-step5');
+  document.body.classList.add(which==='step1'?'print-step1':'print-step5');
+  window.print();
+}
+window.addEventListener('afterprint',()=>{
+  document.body.classList.remove('print-step1','print-step5');
+  const row=document.getElementById('final-extra-print-row');
+  if(row) row.style.display='none';
+});
+
+document.addEventListener('input',()=>{
+  savePrototypeState();
+  if(currentStep===5) updateFinalSummary();
+});
+document.addEventListener('change',()=>{
+  savePrototypeState();
+  if(currentStep===5) updateFinalSummary();
+});
+
+
+renderMethods();
+restorePrototypeState();
+syncLearnButtons();
+renderMedical(currentEvidenceMethod);
+const restoredMethodBtn=document.querySelector('#step3Methods button[data-method="'+currentEvidenceMethod+'"]');
+if(restoredMethodBtn){
+  document.querySelectorAll('#step3Methods button').forEach(b=>b.classList.remove('active'));
+  restoredMethodBtn.classList.add('active');
+}
+updateSummary();
+updateFinalSummary();
+
+// ---- 死に方図鑑トップからの導線 ----
+(function(){
+  try{
+    const params=new URLSearchParams(window.location.search);
+    const method=params.get('method');
+    const start=parseInt(params.get('start')||'',10);
+    if(method && CONTENT[method]){
+      currentEvidenceMethod=method;
+      learnMore.add(method);
+      syncLearnButtons();
+      renderMedical(method);
+      const mb=document.querySelector('#step3Methods button[data-method="'+method+'"]');
+      if(mb){
+        document.querySelectorAll('#step3Methods button').forEach(b=>b.classList.remove('active'));
+        mb.classList.add('active');
+      }
+    }
+    if(Number.isInteger(start) && start>=0 && start<=5){
+      goStep(start);
+    }
+  }catch(e){}
+})();
+
+</script>
+</body>
+</html>
