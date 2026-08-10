@@ -42,24 +42,48 @@ h2{color:#205d93;font-size:22px;margin:0 0 8px}h3{color:#2b5273;margin:0 0 6px}
 .area-foot{border-top:1px dashed #d6e0e7;padding:14px 20px;margin-top:auto;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
 .a2{border-top:4px solid #7fb59a}.a3{border-top:4px solid #d7b76a}.a4{border-top:4px solid #d39b9f}.a5{border-top:4px solid #a79acb}.a1{border-top:4px solid #7fa7c8}
 .disabled{opacity:.65}.disabled .btn{background:#8a99a5;pointer-events:none}
+.actionrow{display:flex;gap:8px;flex-wrap:wrap}
+.badge-live{display:inline-flex;background:#edf8f2;border:1px solid #cce3d5;color:#2f6951;border-radius:999px;padding:3px 7px;font-size:10px;font-weight:900}
 @media(max-width:820px){.flow,.grid,.area-body,.area.wide .area-body{grid-template-columns:1fr}.area.wide{grid-column:auto}}
 </style></head><body>
-<header><div class="head"><div class="brandrow"><div class="symbol">✦</div><div class="brand">死に方図鑑<small>知る・考える・読む・残す・つながる</small></div></div><div class="headerlinks"><a href="diseases.html">病気を知る</a><a href="decision_support.html">意思決定支援</a></div></div></header>
+<header><div class="head"><div class="brandrow"><div class="symbol">✦</div><div class="brand">死に方図鑑<small>知る・考える・読む・残す・つながる</small></div></div><div class="headerlinks"><a href="diseases.html">病気を知る</a><a href="decision_support.html">意思決定支援</a><a href="experience_form.html">体験を残す</a></div></div></header>
 <main>
 <section class="hero"><span class="kicker">死に方を知ることは、生き方を考えることでもある</span>
 <h1>病気を知る。考える。<br>誰かの経験を読む。自分の時間を残す。人につながる。</h1>
 <p class="lead">病気の経過、医療の選択、本人の価値観、家族の迷い、他の人の経験、そして病気とともに過ごした日々を、ひとつの場所でつなぎます。</p>
-<div class="notice"><b>このデモで実際につながっている範囲：</b> ①病気を知る → 認知症 → 食べることが難しくなったとき → ②意思決定支援。その他は全体構想として表示しています。</div>
+<div class="notice"><b>このデモで実際につながっている範囲：</b> ①病気を知る → 認知症 → 食べることが難しくなったとき → ②意思決定支援。さらに、終末期の食事・栄養に関する経験を残すプレテストフォームも利用できます。</div>
 </section>
-<div class="flow"><div><b>知る</b>病気と経過</div><div><b>考える</b>意思決定</div><div><b>読む</b>体験</div><div><b>残す</b>暮らし</div><div><b>つながる</b>支援先</div></div>
+<div class="flow"><div><b>知る</b>病気と経過</div><div><b>考える</b>意思決定</div><div><b>読む</b>体験</div><div><b>残す</b>経験・暮らし</div><div><b>つながる</b>支援先</div></div>
 <section class="grid">
+
 <article class="area a1"><div class="area-head"><span class="num">01｜病気を知る</span><h3>病気・経過を比較する図鑑</h3><p class="micro">病名だけではなく「どう進み、生活がどう変わるか」を見る。</p></div>
 <div class="area-body"><div class="mini"><b>経過グラフ</b>生活機能・食事・移動・会話を時間軸で。</div><div class="mini"><b>病気比較</b>進み方や急変、介護の必要性を比較。</div><div class="mini"><b>意思決定へ</b>病状から関連する医療選択へ。</div><div class="mini"><b>エビデンス</b>出典と不確実性を分けて表示。</div></div>
 <div class="area-foot"><span class="micro">まずここから実装</span><a class="btn" href="diseases.html">図鑑を見る →</a></div></article>
+
 <article class="area a2"><div class="area-head"><span class="num">02｜自分たちの場合を考える</span><h3>患者・家族の意思決定支援</h3><p class="micro">状態→選択肢→その先→本人の価値観→医療者との相談。</p></div>
 <div class="area-body"><div class="mini"><b>STEP1</b>今、何が起きている？</div><div class="mini"><b>STEP2</b>どんな方法がある？</div><div class="mini"><b>STEP3</b>その選択の「先」</div><div class="mini"><b>STEP4→5</b>価値観整理→相談シート</div></div>
 <div class="area-foot"><span class="micro">認知症・人工栄養版が動作中</span><a class="btn" href="decision_support.html?start=0&method=peg">意思決定支援へ →</a></div></article>
-<article class="area a3 disabled"><div class="area-head"><span class="num">03｜他の人の経験を読む</span><h3>ユーザーの体験談</h3></div><div class="area-body"><div class="mini"><b>決める前</b>状態・説明・本人の希望</div><div class="mini"><b>選んだ後</b>暮らし・介護・医療</div></div><div class="area-foot"><span class="micro">次期実装</span><span class="btn">準備中</span></div></article>
+
+<article class="area a3">
+  <div class="area-head">
+    <span class="num">03｜体験を読む・残す</span>
+    <h3>終末期・看取りの体験</h3>
+    <p class="micro">選択の前後に何があったのか、本人・家族の経験を集め、これから向き合う人へつなぐ。</p>
+  </div>
+  <div class="area-body">
+    <div class="mini"><b>体験を読む</b>状態・説明・本人の希望・選択後の生活を、背景とともに読む。</div>
+    <div class="mini"><b>体験を残す</b>食べること・栄養について考えた経験を、匿名のプレテストフォームで整理する。</div>
+  </div>
+  <div class="area-foot">
+    <span class="micro"><span class="badge-live">プレテスト公開中</span>　体験談の閲覧ページは準備中</span>
+    <div class="actionrow">
+      <a class="btn" href="experience_form.html">体験を残す →</a>
+    </div>
+  </div>
+</article>
+
 <article class="area a4 disabled"><div class="area-head"><span class="num">04｜生きている時間を残す</span><h3>余暇・生活の記録</h3></div><div class="area-body"><div class="mini"><b>写真</b>旅行・ご飯・愛犬・愛猫</div><div class="mini"><b>記録</b>闘病と普通の日々</div></div><div class="area-foot"><span class="micro">次期実装</span><span class="btn">準備中</span></div></article>
+
 <article class="area a5 wide disabled"><div class="area-head"><span class="num">05｜人につながる</span><h3>支援団体・相談先を探す</h3></div><div class="area-body"><div class="mini"><b>在宅・看取り</b>ホームホスピス等</div><div class="mini"><b>患者・家族支援</b>患者会・家族会</div><div class="mini"><b>死別後</b>グリーフケア</div></div><div class="area-foot"><span class="micro">次期実装</span><span class="btn">準備中</span></div></article>
+
 </section></main></body></html>
