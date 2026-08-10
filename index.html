@@ -12,7 +12,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,Bl
 a{text-decoration:none;color:inherit}
 header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .head{max-width:1180px;margin:auto;padding:11px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
-.brandrow{display:flex;align-items:center;gap:10px}.symbol{width:40px;height:40px;border:1px solid #9cb4c8;border-radius:50%;display:grid;place-items:center;color:#a9832e;font-size:20px}
+.brandrow{display:flex;align-items:center;gap:10px;cursor:pointer}.symbol{width:40px;height:40px;border:1px solid #9cb4c8;border-radius:50%;display:grid;place-items:center;color:#a9832e;font-size:20px}
 .brand{font-family:serif;color:var(--navy);font-size:19px;font-weight:800}.brand small{display:block;font:10px sans-serif;color:var(--muted);font-weight:500}
 .headerlinks{display:flex;gap:7px;flex-wrap:wrap}.headerlinks a{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 10px;font-size:10px;color:#4e667a}
 main{max-width:1180px;margin:22px auto 80px;padding:0 16px}
@@ -46,7 +46,7 @@ h2{color:#205d93;font-size:22px;margin:0 0 8px}h3{color:#2b5273;margin:0 0 6px}
 .badge-live{display:inline-flex;background:#edf8f2;border:1px solid #cce3d5;color:#2f6951;border-radius:999px;padding:3px 7px;font-size:10px;font-weight:900}
 @media(max-width:820px){.flow,.grid,.area-body,.area.wide .area-body{grid-template-columns:1fr}.area.wide{grid-column:auto}}
 </style></head><body>
-<header><div class="head"><div class="brandrow"><div class="symbol">✦</div><div class="brand">死に方図鑑<small>知る・考える・読む・残す・つながる</small></div></div><div class="headerlinks"><a href="diseases.html">病気を知る</a><a href="decision_support.html">意思決定支援</a><a href="experience_form.html">体験を残す</a></div></div></header>
+<header><div class="head"><a class="brandrow" href="index.html" aria-label="死に方図鑑 ホームへ"><div class="symbol">✦</div><div class="brand">死に方図鑑<small>知る・考える・読む・残す・つながる</small></div></a><div class="headerlinks"><a href="diseases.html">病気を知る</a><a href="decision_support.html">意思決定支援</a><a href="experience_form.html">体験を残す</a></div></div></header>
 <main>
 <section class="hero"><span class="kicker">死に方を知ることは、生き方を考えることでもある</span>
 <h1>病気を知る。考える。<br>誰かの経験を読む。自分の時間を残す。人につながる。</h1>
