@@ -5,7 +5,7 @@
     if(!res.ok) throw new Error('runtime '+res.status);
     let w=await res.text();
     const needle='  document.open(); document.write(h); document.close();';
-    const patch='  h=h.replace(\'</body>\', \'<script>(function(){var b=document.querySelector(".brandrow");if(!b)return;b.style.cursor="pointer";b.setAttribute("role","link");b.setAttribute("tabindex","0");b.setAttribute("aria-label","死に方図鑑 ホームへ");function go(){location.href="index.html"}b.addEventListener("click",go);b.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();go();}});})();<\\/script></body>\');\n  document.open(); document.write(h); document.close();';
+    const patch='  h=h.replace(\'<text x="17" y="180" transform="rotate(-90 17 180)"\', \'<text x="17" y="260" transform="rotate(-90 17 260)"\');\n  h=h.replace(\'</body>\', \'<script>(function(){var b=document.querySelector(".brandrow");if(!b)return;b.style.cursor="pointer";b.setAttribute("role","link");b.setAttribute("tabindex","0");b.setAttribute("aria-label","死に方図鑑 ホームへ");function go(){location.href="index.html"}b.addEventListener("click",go);b.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();go();}});})();<\\/script></body>\');\n  document.open(); document.write(h); document.close();';
     if(!w.includes(needle)) throw new Error('runtime injection point not found');
     w=w.replace(needle,patch);
     document.open();document.write(w);document.close();
