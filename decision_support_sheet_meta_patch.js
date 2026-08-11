@@ -10,7 +10,7 @@
     .sheet-meta-note{font-size:10px;color:#687b8d;margin-bottom:9px}
     .sheet-meta-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 10px}
     .sheet-meta-field label{display:block;font-size:10px;font-weight:800;color:#567086;margin-bottom:3px}
-    .sheet-meta-field input,.sheet-meta-field select{width:100%;border:1px solid #bdd0df;border-radius:8px;padding:8px 9px;background:#fff;color:#233547;font:inherit;font-size:12px}
+    .sheet-meta-field input{width:100%;border:1px solid #bdd0df;border-radius:8px;padding:8px 9px;background:#fff;color:#233547;font:inherit;font-size:12px}
     .sheet-meta-print{display:none}
     @media(max-width:620px){.sheet-meta-grid{grid-template-columns:1fr}}
     @media print{
@@ -39,7 +39,7 @@
     <div class="sheet-meta-grid">
       <div class="sheet-meta-field"><label for="sheet_patient_name">対象となるご本人のお名前（任意）</label><input type="text" id="sheet_patient_name" placeholder="例：山田 太郎"></div>
       <div class="sheet-meta-field"><label for="sheet_writer_name">このシートを記入した方のお名前（任意）</label><input type="text" id="sheet_writer_name" placeholder="例：山田 花子"></div>
-      <div class="sheet-meta-field"><label for="sheet_writer_relation">ご本人との関係</label><select id="sheet_writer_relation"><option value="">選択してください</option><option>本人</option><option>配偶者・パートナー</option><option>子</option><option>きょうだい</option><option>親</option><option>その他の親族</option><option>友人・知人</option><option>医療・介護職</option><option>その他</option></select></div>
+      <div class="sheet-meta-field"><label for="sheet_writer_relation">ご本人との関係</label><input type="text" id="sheet_writer_relation" placeholder="例：本人／妻／長女／弟 など"></div>
       <div class="sheet-meta-field"><label for="sheet_date">記入日</label><input type="date" id="sheet_date"></div>
       <div class="sheet-meta-field" style="grid-column:1/-1"><label for="sheet_with_others">ほかに一緒に考えた方（任意）</label><input type="text" id="sheet_with_others" placeholder="例：本人の妻・次女／家族で相談して記入 など"></div>
     </div>
@@ -94,7 +94,7 @@
     var raw=localStorage.getItem(STORAGE_KEY);
     if(raw){
       var data=JSON.parse(raw),saved=data.inputs||{};
-      editor.querySelectorAll('input,select').forEach(function(el){
+      editor.querySelectorAll('input').forEach(function(el){
         var key=(typeof inputKey==='function')?inputKey(el):(el.id?'id|'+el.id:null);
         if(key && key in saved) el.value=saved[key]||'';
       });
