@@ -50,11 +50,86 @@ main{max-width:980px;margin:auto;padding:46px 18px 80px}.hero{text-align:center;
 <section class="form-section" data-section="6"><div class="qhead"><div class="qnum">6</div><div><h2 class="qtitle">そのとき、何が判断材料になりましたか？</h2><p class="qdesc">実際に頼ったもの・影響したものを選んでください（複数可）。</p></div></div><div class="options">
 <div class="choice check"><input type="checkbox" name="basis" id="ba_wishes" value="patient_wishes"><label for="ba_wishes">本人が以前話していた希望・価値観</label></div><div class="choice check"><input type="checkbox" name="basis" id="ba_staff" value="healthcare_staff"><label for="ba_staff">医師・看護師・介護職などの説明</label></div><div class="choice check"><input type="checkbox" name="basis" id="ba_family" value="family_discussion"><label for="ba_family">家族・身近な人との相談</label></div><div class="choice check"><input type="checkbox" name="basis" id="ba_web" value="internet"><label for="ba_web">インターネットや本</label></div><div class="choice check"><input type="checkbox" name="basis" id="ba_experience" value="others_experience"><label for="ba_experience">似た体験をした人の話</label></div><div class="choice check"><input type="checkbox" name="basis" id="ba_other" value="other"><label for="ba_other">その他・特になかった</label></div>
 </div><div class="field"><label for="basisText">「これがあったから決められた」「これがなくて困った」こと（任意）</label><textarea id="basisText" name="basis_text"></textarea></div></section>
-<section class="form-section" data-section="7"><div class="qhead"><div class="qnum">7</div><div><h2 class="qtitle">家族・身近な人としての負担</h2><p class="qdesc">困ったこと、生活に影響したことを選んでください（複数可）。</p></div></div><div class="options">
-<div class="choice check"><input type="checkbox" name="burden" id="bu_emotional" value="emotional"><label for="bu_emotional">精神的な負担・不安</label></div><div class="choice check"><input type="checkbox" name="burden" id="bu_care" value="caregiving"><label for="bu_care">介護・付き添い</label></div><div class="choice check"><input type="checkbox" name="burden" id="bu_work" value="work"><label for="bu_work">仕事・学業との両立</label></div><div class="choice check"><input type="checkbox" name="burden" id="bu_money" value="financial"><label for="bu_money">医療費・介護費・生活費などお金のこと</label></div><div class="choice check"><input type="checkbox" name="burden" id="bu_relationship" value="family_relationship"><label for="bu_relationship">家族内の意見の違い・関係</label></div><div class="choice check"><input type="checkbox" name="burden" id="bu_patient_conflict" value="patient_treatment_conflict"><label for="bu_patient_conflict">本人と治療方針について意見が食い違った</label></div><div class="choice check"><input type="checkbox" name="burden" id="bu_family_conflict" value="relative_treatment_conflict"><label for="bu_family_conflict">親族・家族と治療方針について意見が食い違った</label></div><div class="choice check"><input type="checkbox" name="burden" id="bu_none" value="none"><label for="bu_none">特にない・答えたくない</label></div>
-</div><div class="divider"></div><p class="qdesc">介護・付き添いに、平均するとどのくらい時間を使っていましたか？　一番大変だった時期の感覚で構いません。</p><div class="options">
-<div class="choice"><input type="radio" name="care_time" id="ct_4plus" value="daily_4h_plus"><label for="ct_4plus">ほぼ毎日4時間以上</label></div><div class="choice"><input type="radio" name="care_time" id="ct_1to4" value="daily_1to4h"><label for="ct_1to4">ほぼ毎日1〜4時間くらい</label></div><div class="choice"><input type="radio" name="care_time" id="ct_under1" value="daily_under_1h"><label for="ct_under1">ほぼ毎日1時間未満</label></div><div class="choice"><input type="radio" name="care_time" id="ct_weekly" value="several_times_week"><label for="ct_weekly">週に数回くらい</label></div><div class="choice"><input type="radio" name="care_time" id="ct_occasional" value="occasional"><label for="ct_occasional">時々・必要な時のみ</label></div><div class="choice"><input type="radio" name="care_time" id="ct_unknown" value="unknown_prefer_not"><label for="ct_unknown">分からない・答えたくない</label></div>
-</div><div class="field"><label for="careTimeNote">介護時間について補足したいこと（任意）</label><textarea id="careTimeNote" name="care_time_note" placeholder="例：夜間の見守りが多かった、遠距離で週末に通っていた、など"></textarea></div></section>
+<section class="form-section" data-section="7"><div class="qhead"><div class="qnum">7</div><div><h2 class="qtitle">家族・身近な人としての負担</h2><p class="qdesc">困ったこと、生活に影響したことを選んでください（複数回答可）。</p></div></div><div class="options">
+<div class="choice check"><input type="checkbox" name="burden" id="bu_emotional" value="emotional"><label for="bu_emotional">精神的な負担・不安</label></div>
+<div class="choice check"><input type="checkbox" name="burden" id="bu_care" value="caregiving"><label for="bu_care">介護・付き添いそのもの</label></div>
+<div class="choice check"><input type="checkbox" name="burden" id="bu_sleep" value="sleep_nightcare"><label for="bu_sleep">睡眠不足・夜間対応</label></div>
+<div class="choice check"><input type="checkbox" name="burden" id="bu_personal_time" value="loss_personal_time"><label for="bu_personal_time">自分の時間が取れないこと</label></div>
+<div class="choice check"><input type="checkbox" name="burden" id="bu_work" value="work"><label for="bu_work">仕事・学業との両立</label></div>
+<div class="choice check"><input type="checkbox" name="burden" id="bu_transport" value="transport_appointments"><label for="bu_transport">通院・入退院の付き添い、移動</label></div>
+<div class="choice check"><input type="checkbox" name="burden" id="bu_money" value="financial"><label for="bu_money">医療費・介護費・生活費などお金のこと</label></div>
+<div class="choice check"><input type="checkbox" name="burden" id="bu_admin" value="paperwork_coordination"><label for="bu_admin">制度申請・書類・各所への連絡</label></div>
+<div class="choice check"><input type="checkbox" name="burden" id="bu_staff_coord" value="staff_coordination"><label for="bu_staff_coord">医療・介護スタッフとの調整</label></div>
+<div class="choice check"><input type="checkbox" name="burden" id="bu_relationship" value="family_relationship"><label for="bu_relationship">家族内の意見の違い・関係</label></div>
+<div class="choice check"><input type="checkbox" name="burden" id="bu_patient_conflict" value="patient_treatment_conflict"><label for="bu_patient_conflict">本人と治療方針について意見が食い違った</label></div>
+<div class="choice check"><input type="checkbox" name="burden" id="bu_family_conflict" value="relative_treatment_conflict"><label for="bu_family_conflict">親族・家族と治療方針について意見が食い違った</label></div>
+<div class="choice check"><input type="checkbox" name="burden" id="bu_other" value="other"><label for="bu_other">その他</label></div>
+<div class="choice check"><input type="checkbox" name="burden" id="bu_none" value="none"><label for="bu_none">特にない・答えたくない</label></div>
+</div>
+<div class="divider"></div><p class="qdesc"><b>介護・付き添いをしていた期間全体で平均すると、どのくらい時間を使っていましたか？</b></p><div class="options">
+<div class="choice"><input type="radio" name="care_time" id="ct_almost_all" value="almost_all_day"><label for="ct_almost_all">ほぼ一日中・常時見守りが必要だった</label></div>
+<div class="choice"><input type="radio" name="care_time" id="ct_8plus" value="daily_8h_plus"><label for="ct_8plus">1日8時間以上</label></div>
+<div class="choice"><input type="radio" name="care_time" id="ct_4to8" value="daily_4to8h"><label for="ct_4to8">1日4〜8時間くらい</label></div>
+<div class="choice"><input type="radio" name="care_time" id="ct_2to4" value="daily_2to4h"><label for="ct_2to4">1日2〜4時間くらい</label></div>
+<div class="choice"><input type="radio" name="care_time" id="ct_1to2" value="daily_1to2h"><label for="ct_1to2">1日1〜2時間くらい</label></div>
+<div class="choice"><input type="radio" name="care_time" id="ct_under1" value="daily_under_1h"><label for="ct_under1">1日1時間未満</label></div>
+<div class="choice"><input type="radio" name="care_time" id="ct_weekly" value="several_times_week"><label for="ct_weekly">週に数回程度</label></div>
+<div class="choice"><input type="radio" name="care_time" id="ct_occasional" value="occasional"><label for="ct_occasional">月に数回・必要な時のみ</label></div>
+<div class="choice"><input type="radio" name="care_time" id="ct_unknown" value="unknown_prefer_not"><label for="ct_unknown">分からない・答えたくない</label></div>
+</div>
+<div class="divider"></div><p class="qdesc"><b>一番大変だった状態は、どのくらいの期間続きましたか？</b></p><div class="options">
+<div class="choice"><input type="radio" name="hardest_period" id="hp_lt_week" value="under_1_week"><label for="hp_lt_week">1週間未満</label></div>
+<div class="choice"><input type="radio" name="hardest_period" id="hp_week_month" value="1_week_to_1_month"><label for="hp_week_month">1週間〜1か月未満</label></div>
+<div class="choice"><input type="radio" name="hardest_period" id="hp_1to3m" value="1_to_3_months"><label for="hp_1to3m">1〜3か月くらい</label></div>
+<div class="choice"><input type="radio" name="hardest_period" id="hp_3to6m" value="3_to_6_months"><label for="hp_3to6m">3〜6か月くらい</label></div>
+<div class="choice"><input type="radio" name="hardest_period" id="hp_6to12m" value="6_to_12_months"><label for="hp_6to12m">6か月〜1年くらい</label></div>
+<div class="choice"><input type="radio" name="hardest_period" id="hp_1to3y" value="1_to_3_years"><label for="hp_1to3y">1〜3年くらい</label></div>
+<div class="choice"><input type="radio" name="hardest_period" id="hp_3plus" value="3_years_plus"><label for="hp_3plus">3年以上</label></div>
+<div class="choice"><input type="radio" name="hardest_period" id="hp_all" value="most_of_care_period"><label for="hp_all">介護期間のほぼ全体</label></div>
+<div class="choice"><input type="radio" name="hardest_period" id="hp_variable" value="variable_unknown"><label for="hp_variable">波があり決めにくい・分からない</label></div>
+</div>
+<div class="divider"></div><p class="qdesc"><b>利用した介護・在宅サービスを選んでください（複数回答可）。</b></p><div class="options">
+<div class="choice check"><input type="checkbox" name="care_service" id="cs_homehelp" value="home_help"><label for="cs_homehelp">訪問介護（ホームヘルプ）</label></div>
+<div class="choice check"><input type="checkbox" name="care_service" id="cs_nursing" value="home_nursing"><label for="cs_nursing">訪問看護</label></div>
+<div class="choice check"><input type="checkbox" name="care_service" id="cs_day" value="day_service_rehab"><label for="cs_day">デイサービス・通所リハ</label></div>
+<div class="choice check"><input type="checkbox" name="care_service" id="cs_short" value="short_stay"><label for="cs_short">ショートステイ</label></div>
+<div class="choice check"><input type="checkbox" name="care_service" id="cs_home_med" value="home_medical_care"><label for="cs_home_med">訪問診療・在宅医療</label></div>
+<div class="choice check"><input type="checkbox" name="care_service" id="cs_equipment" value="equipment_home_modification"><label for="cs_equipment">福祉用具・住宅改修</label></div>
+<div class="choice check"><input type="checkbox" name="care_service" id="cs_caremanager" value="care_manager"><label for="cs_caremanager">ケアマネジャー・居宅介護支援</label></div>
+<div class="choice check"><input type="checkbox" name="care_service" id="cs_facility" value="facility_care"><label for="cs_facility">施設・入所サービス</label></div>
+<div class="choice check"><input type="checkbox" name="care_service" id="cs_private" value="private_paid_support"><label for="cs_private">自費サービス・家事支援など</label></div>
+<div class="choice check"><input type="checkbox" name="care_service" id="cs_none" value="none"><label for="cs_none">利用していない</label></div>
+<div class="choice check"><input type="checkbox" name="care_service" id="cs_unknown" value="unknown"><label for="cs_unknown">分からない</label></div>
+</div>
+<div class="divider"></div><p class="qdesc"><b>訪問・通所などのサービスは、最も多い時期にどのくらい利用していましたか？</b></p><div class="options">
+<div class="choice"><input type="radio" name="care_service_frequency" id="csf_none" value="none"><label for="csf_none">利用していなかった</label></div>
+<div class="choice"><input type="radio" name="care_service_frequency" id="csf_consult" value="consultation_only"><label for="csf_consult">相談・申請のみ／ごく少なかった</label></div>
+<div class="choice"><input type="radio" name="care_service_frequency" id="csf_monthly" value="monthly_1to3"><label for="csf_monthly">月1〜3回程度</label></div>
+<div class="choice"><input type="radio" name="care_service_frequency" id="csf_week12" value="weekly_1to2"><label for="csf_week12">週1〜2回程度</label></div>
+<div class="choice"><input type="radio" name="care_service_frequency" id="csf_week34" value="weekly_3to4"><label for="csf_week34">週3〜4回程度</label></div>
+<div class="choice"><input type="radio" name="care_service_frequency" id="csf_week5" value="weekly_5plus"><label for="csf_week5">週5回以上・ほぼ毎日</label></div>
+<div class="choice"><input type="radio" name="care_service_frequency" id="csf_stay" value="regular_stay_facility"><label for="csf_stay">泊まり・施設利用を定期的に使った</label></div>
+<div class="choice"><input type="radio" name="care_service_frequency" id="csf_variable" value="variable"><label for="csf_variable">時期によって大きく変わった</label></div>
+<div class="choice"><input type="radio" name="care_service_frequency" id="csf_unknown" value="unknown_prefer_not"><label for="csf_unknown">分からない・答えたくない</label></div>
+</div>
+<div class="divider"></div><p class="qdesc"><b>一番大変だった介護・対応は何でしたか？</b></p><div class="options">
+<div class="choice"><input type="radio" name="hardest_care" id="hc_meal" value="meal_feeding_swallowing"><label for="hc_meal">食事の準備・食事介助・飲み込みへの対応</label></div>
+<div class="choice"><input type="radio" name="hardest_care" id="hc_dressing" value="dressing"><label for="hc_dressing">更衣・着替え</label></div>
+<div class="choice"><input type="radio" name="hardest_care" id="hc_bathing" value="bathing_hygiene"><label for="hc_bathing">入浴・清潔保持</label></div>
+<div class="choice"><input type="radio" name="hardest_care" id="hc_toilet" value="toileting"><label for="hc_toilet">排泄・おむつ交換</label></div>
+<div class="choice"><input type="radio" name="hardest_care" id="hc_move" value="transfer_mobility_positioning"><label for="hc_move">移動・移乗・体位変換</label></div>
+<div class="choice"><input type="radio" name="hardest_care" id="hc_night" value="night_watch"><label for="hc_night">夜間の見守り・頻回の対応</label></div>
+<div class="choice"><input type="radio" name="hardest_care" id="hc_medical" value="medical_care_suction_tube"><label for="hc_medical">吸引・経管栄養など医療的ケア</label></div>
+<div class="choice"><input type="radio" name="hardest_care" id="hc_meds" value="medication_management"><label for="hc_meds">服薬・薬の管理</label></div>
+<div class="choice"><input type="radio" name="hardest_care" id="hc_dementia" value="dementia_behavior"><label for="hc_dementia">認知症の症状への対応（徘徊・拒否・興奮など）</label></div>
+<div class="choice"><input type="radio" name="hardest_care" id="hc_comm" value="communication"><label for="hc_comm">会話・意思疎通</label></div>
+<div class="choice"><input type="radio" name="hardest_care" id="hc_decision" value="illness_decision_discussion"><label for="hc_decision">病状や治療方針について本人と話すこと</label></div>
+<div class="choice"><input type="radio" name="hardest_care" id="hc_hospital" value="hospital_emergency"><label for="hc_hospital">通院・入退院・救急対応</label></div>
+<div class="choice"><input type="radio" name="hardest_care" id="hc_coord" value="service_family_coordination"><label for="hc_coord">介護サービスや家族間の調整</label></div>
+<div class="choice"><input type="radio" name="hardest_care" id="hc_multiple" value="multiple_hardest"><label for="hc_multiple">一つに決められない</label></div>
+<div class="choice"><input type="radio" name="hardest_care" id="hc_other" value="other"><label for="hc_other">その他</label></div>
+<div class="choice"><input type="radio" name="hardest_care" id="hc_none" value="none_unknown"><label for="hc_none">介護はしていない・分からない</label></div>
+</div><div class="field"><label for="careTimeNote">介護・付き添いについて補足したいこと（任意）</label><textarea id="careTimeNote" name="care_time_note" placeholder="例：夜間の吸引が続いた時期が特に大変だった、遠距離で毎週末通っていた、など"></textarea></div></section>
 <section class="form-section" data-section="8"><div class="qhead"><div class="qnum">8</div><div><h2 class="qtitle">支えになったこと／制度・保険／足りなかったこと</h2><p class="qdesc">人やサービスだけでなく、公的制度や民間保険が実際に役立ったかも含めて振り返ります。</p></div></div><div class="field"><label for="helped">支えになったこと（任意）</label><textarea id="helped" name="helped" placeholder="例：訪問看護師が家族の迷いも聞いてくれた"></textarea></div><div class="divider"></div><p class="qdesc">実際に利用した制度・保障・備えがあれば選んでください（複数可）。</p><div class="options">
 <div class="choice check"><input type="checkbox" name="financial_support" id="fs_public_medical" value="public_medical_support"><label for="fs_public_medical">高額療養費など公的な医療費支援</label></div><div class="choice check"><input type="checkbox" name="financial_support" id="fs_ltc" value="long_term_care_insurance"><label for="fs_ltc">介護保険・自治体などの公的支援</label></div><div class="choice check"><input type="checkbox" name="financial_support" id="fs_private_medical" value="private_medical_insurance"><label for="fs_private_medical">民間の医療保険</label></div><div class="choice check"><input type="checkbox" name="financial_support" id="fs_disease" value="disease_specific_insurance"><label for="fs_disease">がん保険など疾病別の保障</label></div><div class="choice check"><input type="checkbox" name="financial_support" id="fs_income" value="income_protection"><label for="fs_income">就業不能・所得補償など</label></div><div class="choice check"><input type="checkbox" name="financial_support" id="fs_death" value="death_insurance"><label for="fs_death">死亡保険・死亡保障</label></div><div class="choice check"><input type="checkbox" name="financial_support" id="fs_savings" value="savings"><label for="fs_savings">貯蓄・家族からの援助</label></div><div class="choice check"><input type="checkbox" name="financial_support" id="fs_none" value="none_unknown"><label for="fs_none">利用していない・分からない</label></div>
 </div><div class="divider"></div><p class="qdesc">民間保険について、もっとも近いものを選んでください。</p><div class="options">
