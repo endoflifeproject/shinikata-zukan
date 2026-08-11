@@ -22,7 +22,7 @@ main{max-width:1040px;margin:auto;padding:48px 18px 78px}.hero{text-align:center
 <body>
 <header><div class="head"><a class="brandrow" href="index.html"><div class="symbol">✦</div><div class="brand">死に方図鑑<small>SHINIKATA ZUKAN</small></div></a><a class="back" href="experience_write.html">← 体験を書くへ</a></div></header>
 <main>
-<section class="hero"><div class="eyebrow">✦ みんなの体験 ／ 自死・自殺に関する体験</div><h1>いまの危機ではなく、<br>経験を振り返って残すための入口</h1><p>同じ「自死・自殺に関する体験」でも、本人、身近な人、遺族、支援者では見えていたものが違います。</p><span class="status">入口プレテスト公開中 ／ 回答フォーム本体は準備中</span></section>
+<section class="hero"><div class="eyebrow">✦ みんなの体験 ／ 自死・自殺に関する体験</div><h1>いまの危機ではなく、<br>経験を振り返って残すための入口</h1><p>同じ「自死・自殺に関する体験」でも、本人、身近な人、遺族、支援者では見えていたものが違います。</p><span class="status">本人版プレテスト公開中 ／ その他3つは準備中</span></section>
 
 <section class="guard">
 <h2>この入口で大切にすること</h2>
@@ -30,13 +30,13 @@ main{max-width:1040px;margin:auto;padding:48px 18px 78px}.hero{text-align:center
 <p>具体的な方法・手順・場所・準備の詳細など、再現につながる情報は集めません。また、「最後の言葉」や遺書を完成させることを目的とした自由記述欄も設けません。</p>
 <p>氏名、勤務先、学校名、病院名、正確な住所・日時など、個人を特定できる情報は入力しない設計にします。</p>
 <p class="now"><strong>現在まさに自分を傷つける危険がある場合、このフォームは緊急対応や相談の代わりにはなりません。</strong> 回答を始めるより先に、身近な人、医療機関、地域の緊急窓口など、今つながれる人や支援につながってください。</p>
-<p class="small">※ 現在は入口のプレテストのみで、回答内容の送信・保存はありません。</p>
+<p class="small">※ 現在はプレテストです。入力内容の送信・保存はありません。</p>
 </section>
 
 <section class="target"><b>当事者版の対象</b><p>18歳以上で、過去に死にたい・消えたいと感じた経験、自殺を考えた経験、自殺企図、自傷などを経験し、その時の経験を現在振り返って回答できる人を想定しています。</p></section>
 
 <section class="cards" aria-label="自死・自殺に関する体験の立場">
-<button type="button" class="card" data-type="self"><span class="tag">本人の経験</span><h3>過去の経験を<br>自分自身で振り返る</h3><p>当時、何が積み重なっていたか。自分をどう見ていたか。相談できたか。何が一時的に楽にしてくれたか。今振り返ると何が違って見えるか。</p><div class="who">対象：18歳以上／過去の体験を現在振り返って回答できる方</div><div class="arrow">この入口の設計を見る →</div></button>
+<button type="button" class="card" data-type="self"><span class="tag">本人版プレテスト公開中</span><h3>過去の経験を<br>自分自身で振り返る</h3><p>当時、何が積み重なっていたか。自分をどう見ていたか。相談できたか。何が一時的に楽にしてくれたか。今振り返ると何が違って見えるか。</p><div class="who">対象：18歳以上／過去の体験を現在振り返って回答できる方</div><div class="arrow">フォームを試す →</div></button>
 
 <button type="button" class="card" data-type="supporter"><span class="tag">家族・友人・同僚など</span><h3>危機にある人を<br>身近で支えた</h3><p>変化に気づいたか、どう声をかけたか、どこへ相談したか、支える側が困ったことや必要だった支援を振り返ります。</p><div class="who">対象：家族、パートナー、友人、同僚、同級生など</div><div class="arrow">この入口の設計を見る →</div></button>
 
@@ -52,13 +52,12 @@ main{max-width:1040px;margin:auto;padding:48px 18px 78px}.hero{text-align:center
 <script>
 (function(){
  const data={
-  self:{title:'本人の経験を振り返る入口',lead:'「自殺したい人」というラベルから始めず、当時の本人に何が起きていたかを分解して振り返ります。',flow:['当時の生活・背景','自分をどう見ていたか','死にたい／消えたいの意味','苦痛への対処','相談した／できなかった理由','周囲の反応','転機','現在から見た当時'],note:'「自分がいない方が周囲のためになる」「身を引きたい」など、本人には合理的に見えていた考えも、そのまま肯定・否定せず経験として記録します。具体的な自殺方法は聞きません。'},
   supporter:{title:'身近で支えた人の入口',lead:'本人の気持ちを推測して断定するのではなく、支える側から実際に見えたこと・聞いたこと・行動したことを分けます。',flow:['本人との関係','気づいた変化','声をかけたか','相談先','役立った支援','困ったこと','支える側の負担','今なら欲しい支援'],note:'「なぜ気づけなかったか」と責める設計にはせず、当時どの情報や支援が不足していたかを中心に扱います。'},
   bereaved:{title:'自死遺族の入口',lead:'亡くなった理由を一つに決めるのではなく、死別前後の経験と、遺された人の生活・制度・支援を振り返ります。',flow:['故人との関係','死別前に見えていたこと','知らなかったこと','死後の手続き・対応','周囲の言葉','仕事・家計・家族への影響','受けた支援','必要だった支援'],note:'亡くなった方の具体的な方法・場所の詳細は収集しません。遺族自身の体験と支援ニーズを中心に扱います。'},
   professional:{title:'支援者の入口',lead:'個人の責任ではなく、支援が届いた／届かなかった過程と、組織・制度上の条件を振り返ります。',flow:['立場・職種','気づきのきっかけ','声かけ・評価','本人の反応','他職種連携','支援につながらない理由','制度・組織の壁','支援者自身の負担'],note:'特定の個人・施設を評価するためではなく、支援経路のどこで詰まりやすいかを知る設計にします。'}
  };
  const detail=document.getElementById('detail'),title=document.getElementById('detailTitle'),lead=document.getElementById('detailLead'),flow=document.getElementById('detailFlow'),note=document.getElementById('detailNote');
- document.querySelectorAll('.card').forEach(function(btn){btn.addEventListener('click',function(){const d=data[btn.dataset.type];if(!d)return;title.textContent=d.title;lead.textContent=d.lead;note.textContent=d.note;flow.innerHTML='';d.flow.forEach(function(x){const c=document.createElement('span');c.className='chip';c.textContent=x;flow.appendChild(c);});detail.classList.add('show');setTimeout(function(){detail.scrollIntoView({behavior:'smooth',block:'nearest'});},30);});});
+ document.querySelectorAll('.card').forEach(function(btn){btn.addEventListener('click',function(){if(btn.dataset.type==='self'){window.location.href='experience_form_suicide_self.html';return;}const d=data[btn.dataset.type];if(!d)return;title.textContent=d.title;lead.textContent=d.lead;note.textContent=d.note;flow.innerHTML='';d.flow.forEach(function(x){const c=document.createElement('span');c.className='chip';c.textContent=x;flow.appendChild(c);});detail.classList.add('show');setTimeout(function(){detail.scrollIntoView({behavior:'smooth',block:'nearest'});},30);});});
 })();
 </script>
 </body>
