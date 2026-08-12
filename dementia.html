@@ -1,74 +1,36 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>死に方図鑑｜認知症</title>
 <style>
-:root{
-  --navy:#173d68;--navy2:#285e8f;--ink:#233547;--muted:#687b8d;
-  --bg:#f4f7f9;--card:#fff;--line:#d8e2e9;--pale:#eef5fb;
-  --amber:#fff6df;--amber-line:#ead39b;--green:#edf8f2;--green-line:#cce3d5;
-  --rose:#fff2f3;--rose-line:#edd2d5;--shadow:0 8px 28px rgba(29,58,84,.06)
-}
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Yu Gothic",Meiryo,sans-serif;line-height:1.75}
-a{text-decoration:none;color:inherit}
-header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.head{max-width:1180px;margin:auto;padding:11px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
-.brandrow{display:flex;align-items:center;gap:10px;cursor:pointer}.symbol{width:40px;height:40px;border:1px solid #9cb4c8;border-radius:50%;display:grid;place-items:center;color:#a9832e;font-size:20px}
-.brand{font-family:serif;color:var(--navy);font-size:19px;font-weight:800}.brand small{display:block;font:10px sans-serif;color:var(--muted);font-weight:500}
-.headerlinks{display:flex;gap:7px;flex-wrap:wrap}.headerlinks a{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 10px;font-size:10px;color:#4e667a}
-main{max-width:1180px;margin:22px auto 80px;padding:0 16px}
-.hero,.panel{background:#fff;border:1px solid var(--line);border-radius:19px;padding:27px;box-shadow:var(--shadow);margin-bottom:15px}
-.hero{background:linear-gradient(135deg,#fbfdff 0%,#f0f6fb 100%)}
-.kicker{display:inline-flex;background:var(--navy);color:#fff;border-radius:999px;padding:5px 10px;font-size:11px;font-weight:800}
-h1{font-family:serif;color:#172e47;font-size:36px;line-height:1.3;margin:12px 0 8px}
-h2{color:#205d93;font-size:22px;margin:0 0 8px}h3{color:#2b5273;margin:0 0 6px}
-.lead{color:#42586b;max-width:900px;margin:0}.micro{font-size:11px;color:var(--muted)}
-.audience{margin-top:14px;background:#eef5fb;border:1px solid #c8dbe9;border-radius:11px;padding:12px 14px;font-size:12px;color:#34536d}.audience b{display:block;color:#1f527e;margin-bottom:3px}
-.notice{margin-top:10px;background:var(--amber);border:1px solid var(--amber-line);border-radius:11px;padding:11px 13px;font-size:12px}
-.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9px;padding:11px 15px;font-weight:800;font-size:12px;background:var(--navy);color:#fff}
-.btn.secondary{background:#fff;color:var(--navy);border:1px solid #aec3d5}
-.breadcrumb{display:flex;gap:6px;flex-wrap:wrap;font-size:10px;color:#718392;margin-bottom:12px}.breadcrumb a{color:#315c82}.breadcrumb span:before{content:"›";margin-right:6px;color:#a0afba}
-.entry-panel{background:#fff;border:1px solid var(--line);border-radius:19px;padding:22px;box-shadow:var(--shadow);margin-bottom:15px}.entry-head{margin-bottom:13px}.entry-head h2{margin-bottom:3px}.entry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.entry-card{display:flex;flex-direction:column;min-height:175px;border:1px solid #cfdde7;border-radius:14px;padding:17px;background:#fff;transition:.18s}.entry-card:nth-child(1){background:#f8fbfd}.entry-card:nth-child(2){background:#fffaf0}.entry-card:nth-child(3){background:#fff6f5;border-color:#ead4d2}.entry-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(29,58,84,.08)}.entry-num{font-size:10px;font-weight:900;color:#7890a3;letter-spacing:.06em}.entry-card h3{font-size:17px;line-height:1.45;margin:5px 0 7px}.entry-card p{font-size:11px;color:#607486;margin:0 0 12px}.entry-go{margin-top:auto;font-size:11px;font-weight:900;color:#285e8f}.entry-card:nth-child(3) .entry-go{color:#8a4b4b}
-@media(max-width:820px){h1{font-size:28px}.headerlinks{display:none}.hero,.panel{padding:20px}.entry-grid{grid-template-columns:1fr}.entry-card{min-height:auto}.entry-panel{padding:18px}}
+:root{--navy:#173d68;--navy2:#285e8f;--ink:#233547;--muted:#687b8d;--bg:#f4f7f9;--card:#fff;--line:#d8e2e9;--pale:#eef5fb;--amber:#fff6df;--amber-line:#ead39b;--green:#edf8f2;--green-line:#cce3d5;--rose:#fff2f3;--rose-line:#edd2d5;--shadow:0 8px 28px rgba(29,58,84,.06)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Yu Gothic",Meiryo,sans-serif;line-height:1.8}a{text-decoration:none;color:inherit}
+header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}.head{max-width:1180px;margin:auto;padding:11px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}.brandrow{display:flex;align-items:center;gap:10px}.symbol{width:40px;height:40px;border:1px solid #9cb4c8;border-radius:50%;display:grid;place-items:center;color:#a9832e;font-size:20px}.brand{font-family:serif;color:var(--navy);font-size:19px;font-weight:800}.brand small{display:block;font:10px sans-serif;color:var(--muted);font-weight:500}.headerlinks{display:flex;gap:7px;flex-wrap:wrap}.headerlinks a{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 10px;font-size:10px;color:#4e667a}
+main{max-width:1180px;margin:22px auto 80px;padding:0 16px}.hero,.panel{background:#fff;border:1px solid var(--line);border-radius:19px;padding:27px;box-shadow:var(--shadow);margin-bottom:15px}.hero{background:linear-gradient(135deg,#fbfdff 0%,#f0f6fb 100%)}.kicker,.status{display:inline-flex;border-radius:999px;padding:5px 10px;font-size:11px;font-weight:800}.kicker{background:var(--navy);color:#fff}.status{background:#eef5fb;border:1px solid #c7dae8;color:#315f83;margin-left:6px}h1{font-family:serif;color:#172e47;font-size:36px;line-height:1.3;margin:12px 0 8px}h2{color:#205d93;font-size:22px;margin:0 0 8px}h3{color:#2b5273;margin:0 0 6px}.lead{color:#42586b;max-width:900px;margin:0}.micro{font-size:11px;color:var(--muted)}.breadcrumb{display:flex;gap:6px;flex-wrap:wrap;font-size:10px;color:#718392;margin-bottom:12px}.breadcrumb a{color:#315c82}.breadcrumb span:before{content:"›";margin-right:6px;color:#a0afba}.notice,.goodnote{margin-top:12px;border-radius:11px;padding:11px 13px;font-size:12px}.notice{background:var(--amber);border:1px solid var(--amber-line)}.goodnote{background:var(--green);border:1px solid var(--green-line)}.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9px;padding:11px 15px;font-weight:800;font-size:12px;background:var(--navy);color:#fff}.btn.secondary{background:#fff;color:var(--navy);border:1px solid #aec3d5}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.card{border:1px solid var(--line);border-radius:14px;background:#fff;padding:16px}.soft{background:#fbfdff}.toc{display:flex;gap:7px;flex-wrap:wrap}.toc a{font-size:11px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:#fff;color:#315c82}.course{margin-top:12px;border:1px solid #cbd9e4;border-radius:15px;padding:16px;background:#fbfdff;overflow:auto}.course svg{width:100%;min-width:760px;height:auto;display:block}.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:10px}.stage{border:1px solid var(--line);border-radius:11px;padding:12px;background:#fff;font-size:12px}.stage b{display:block;color:#2b577d;font-size:13px}.decision{border-left:4px solid #9fbdd4}.questions{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.q{background:#f8fafc;border:1px solid var(--line);border-radius:11px;padding:12px;font-size:12px}.sources li{margin:7px 0}.sources a{color:#285e8f;text-decoration:underline}.label{display:inline-flex;font-size:10px;font-weight:800;padding:3px 7px;border-radius:999px;background:var(--pale);color:#315b7d;margin:2px}.mutedbox{background:#f8fafc;border:1px dashed #cbd8e1;border-radius:13px;padding:14px;color:#5d7182;font-size:12px}
+@media(max-width:820px){h1{font-size:28px}.headerlinks{display:none}.hero,.panel{padding:20px}.grid2,.grid3,.stages,.questions{grid-template-columns:1fr}}
 </style>
-
-<style>
-.overview{display:grid;grid-template-columns:1.35fr .65fr;gap:12px}.card{border:1px solid var(--line);border-radius:14px;background:#fff;padding:16px}
-.bigfact{font-size:27px;font-weight:900;color:var(--navy)}.course{margin-top:15px;border:1px solid #cbd9e4;border-radius:15px;padding:16px;background:#fbfdff;overflow:auto}
-.course svg{width:100%;min-width:760px;height:auto;display:block}.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:10px}
-.stage{border:1px solid var(--line);border-radius:11px;padding:12px;background:#fff;font-size:12px}.stage b{display:block;color:#2b577d;font-size:13px}
-.branch{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px}.branchcard{border:1px solid var(--line);border-radius:15px;padding:17px;background:#fff}.branchcard.active{border:2px solid #9fbdd4;background:#fbfdff}
-.branchcard h3{font-size:18px}.branchcard .btn{margin-top:9px}
-@media(max-width:820px){.overview,.stages,.branch{grid-template-columns:1fr}}
-</style></head><body>
-<header><div class="head"><a class="brandrow" href="index.html" aria-label="死に方図鑑 ホームへ"><div class="symbol">✦</div><div class="brand">死に方図鑑<small>認知症｜経過と意思決定</small></div></a><div class="headerlinks"><a href="index.html">ホーム</a><a href="diseases.html">病気一覧</a></div></div></header>
-<main><div class="breadcrumb"><a href="index.html">ホーム</a><span><a href="diseases.html">病気を知る</a></span><span>認知症</span></div>
-<section class="hero"><span class="kicker">認知症</span><h1>認知症は「もの忘れ」だけではなく、少しずつ生活の力にも影響する病気です</h1>
-<p class="lead">記憶・判断・言葉・行動などに変化が起こり、日常生活にも支障が出てくる状態の総称です。進み方や症状は一人ひとり違います。</p>
-<div class="audience"><b>このページは、認知症のある方のご家族・支援者の方へ</b>認知症が進み、食事や医療・ケアについて選択を考える場面を想定して作っています。病気の進み方を予測したり、「この通りになる」と示すものではありません。</div>
-<div class="notice"><b>このページの経過図は模式図です。</b>「この通りに進む」という予測ではありません。</div></section>
-
-<section class="entry-panel" aria-labelledby="entry-title">
-<div class="entry-head"><h2 id="entry-title">今、知りたいことを選んでください</h2><div class="micro">必要なところから読めます。順番に進む必要はありません。</div></div>
-<div class="entry-grid">
-<a class="entry-card" href="#overview"><span class="entry-num">01</span><h3>認知症そのものを知りたい</h3><p>認知症で起こる変化や、生活への影響をまず整理したい方へ。</p><span class="entry-go">基本的な説明を見る →</span></a>
-<a class="entry-card" href="#course"><span class="entry-num">02</span><h3>家族として今後の生活を考えたい</h3><p>生活機能がどのように変わり、どんな支援が増えていくのかを見たい方へ。</p><span class="entry-go">経過イメージを見る →</span></a>
-<a class="entry-card" href="decision_support.html?start=1&method=peg"><span class="entry-num">03</span><h3>食べること・胃ろうなどの選択で迷っている</h3><p>本人の価値観や家族の迷いを整理しながら、医療・ケアの選択を考えたい方へ。</p><span class="entry-go">意思決定支援へ進む →</span></a>
-</div></section>
-
-<section class="panel" id="overview">
-<div class="overview"><div class="card"><h2>どんなふうに進む？</h2><p>初期はもの忘れや段取りの難しさが中心でも、進行すると着替え・入浴・食事・移動などに助けが必要になり、重度になると会話や飲み込みにも影響することがあります。</p></div>
-<div class="card"><div class="micro">アルツハイマー病の診断後の一般的目安</div><div class="bigfact">平均 約4〜8年</div><div class="micro">個人差が非常に大きく、「残り時間」を予測する数字ではありません。</div></div></div>
-<div class="course" id="course"><h2>生活機能の経過イメージ</h2>
-<svg viewBox="0 0 980 330" role="img"><line x1="75" y1="35" x2="75" y2="280" stroke="#53687a" stroke-width="2"/><line x1="75" y1="280" x2="930" y2="280" stroke="#53687a" stroke-width="2"/>
-<rect x="76" y="40" width="280" height="239" rx="12" fill="#eef6fb"/><rect x="356" y="40" width="280" height="239" rx="12" fill="#fff7e8"/><rect x="636" y="40" width="294" height="239" rx="12" fill="#fff1f1"/>
-<text x="100" y="70" font-size="21" font-weight="700" fill="#28618f">初期</text><text x="377" y="70" font-size="21" font-weight="700" fill="#8a661f">中期</text><text x="658" y="70" font-size="21" font-weight="700" fill="#8a4b4b">重度・後期</text>
-<path d="M92 95 C180 100 245 110 330 127 C405 143 470 168 540 190 C610 212 675 230 740 251 C805 270 862 275 912 276" fill="none" stroke="#285e8f" stroke-width="7" stroke-linecap="round"/>
-<text x="100" y="160" font-size="15" fill="#36536b">もの忘れ・段取り</text><text x="377" y="213" font-size="15" fill="#6b5729">日常生活の支援が増える</text><text x="660" y="180" font-size="15" fill="#6b4747">会話・移動・食事の介助</text><text x="660" y="205" font-size="15" fill="#6b4747">飲み込みの問題が出ることも</text></svg>
-<div class="stages"><div class="stage"><b>初期</b>複雑な作業に支援が必要になることがあります。</div><div class="stage"><b>中期</b>見守りや介助が増え、家族への影響も大きくなりやすい時期。</div><div class="stage"><b>重度・後期</b>食事・移動・排泄など多くの生活場面で支援が必要になります。</div></div></div>
-
-<h2 style="margin-top:20px">この先、どのテーマを見ますか？</h2>
-<div class="branch">
-<div class="branchcard active"><span class="kicker">現在つながっています</span><h3>食べることが難しくなったとき</h3><p class="micro">口から食べる支援、経鼻経管栄養、胃ろう（PEG）、静脈からの補給など。方法の情報だけでなく、本人の価値観と家族の迷いまで整理します。</p>
-<a class="btn" href="decision_support.html?start=1&method=peg">食べること・胃ろうの意思決定支援へ →</a></div>
-<div class="branchcard"><span class="kicker" style="background:#8293a1">今後</span><h3>ほかの意思決定テーマ</h3><p class="micro">救急搬送、入院、蘇生、療養場所なども、同じ「知る→考える→共有する」の型へ拡張できます。</p><span class="btn secondary">準備中</span></div>
-</div></section></main></body></html>
+</head>
+<body>
+<header><div class="head"><a class="brandrow" href="index.html" aria-label="死に方図鑑 ホームへ"><div class="symbol">✦</div><div class="brand">死に方図鑑<small>認知症｜疾病ページ TEMPLATE v1.0</small></div></a><div class="headerlinks"><a href="index.html">ホーム</a><a href="diseases.html">病気一覧</a><a href="decision_support_guide.html">意思決定支援</a></div></div></header>
+<main>
+<div class="breadcrumb"><a href="index.html">ホーム</a><span><a href="diseases.html">病気を知る</a></span><span>認知症</span></div>
+<section class="hero"><span class="kicker">認知症</span><span class="status">プレテスト版</span><h1>認知症は「もの忘れ」だけではなく、暮らし方や意思決定にも少しずつ影響する状態です</h1><p class="lead">記憶、判断、言葉、行動などの認知機能に変化が起こり、生活に支障が生じる状態の総称です。原因となる病気や進み方、現れる症状は一人ひとり異なります。</p><div class="notice"><b>このページは個人の予後を予測するものではありません。</b> 経過図は理解のための模式図です。現在はプレテスト版で、医学専門職による最終監修前です。</div><div class="goodnote"><b>本人の意思を置き去りにしないことを大切にします。</b> 認知症があっても、本人が示す希望・好み・嫌がることなどをできる限り確認しながら考えることが基本です。</div></section>
+<section class="panel"><h2>このページで知れること</h2><div class="toc"><a href="#what">病気とは</a><a href="#types">種類</a><a href="#course">経過</a><a href="#life">暮らし</a><a href="#advanced">進行したとき</a><a href="#comfort">苦痛とケア</a><a href="#decision">意思決定</a><a href="#values">本人の価値観</a><a href="#family">家族の迷い</a><a href="#place">暮らす場所</a><a href="#sources">参考文献</a></div></section>
+<section class="panel" id="what"><h2>01｜まず、認知症とは？</h2><div class="grid2"><div class="card"><h3>ひとつの病名ではありません</h3><p>認知症は、さまざまな病気などを背景に認知機能が低下し、日常生活に支障が生じている状態を指します。「認知症＝アルツハイマー病」ではありません。</p></div><div class="card soft"><h3>生活への影響を見る</h3><p>もの忘れだけでなく、段取り、金銭管理、服薬、移動、食事、会話、意思表出など、生活のさまざまな場面に支援が必要になることがあります。</p></div></div></section>
+<section class="panel" id="types"><h2>02｜認知症にも種類があります</h2><div class="grid3"><div class="card"><h3>アルツハイマー病</h3><p class="micro">認知症の原因となる代表的な疾患の一つです。</p></div><div class="card"><h3>血管性認知症</h3><p class="micro">脳梗塞や脳出血など脳血管の障害と関連して起こります。</p></div><div class="card"><h3>レビー小体型など</h3><p class="micro">症状や経過に特徴があり、必要な支援も異なることがあります。</p></div></div><div class="notice">このページでは「認知症全体」を概観します。病型ごとの詳しい違いは今後、個別ページで扱う予定です。</div></section>
+<section class="panel" id="course"><h2>03｜どんな経過をたどる？</h2><p>一般に、生活の中で必要になる支援が少しずつ増えていきます。ただし、変化の速さは一定ではなく、体調、環境、併存疾患、感染症などの影響で一時的に大きく変化することもあります。</p><div class="course"><svg viewBox="0 0 980 330" role="img" aria-label="認知症の生活機能の変化を示す模式図"><line x1="75" y1="35" x2="75" y2="280" stroke="#53687a" stroke-width="2"/><line x1="75" y1="280" x2="930" y2="280" stroke="#53687a" stroke-width="2"/><rect x="76" y="40" width="280" height="239" rx="12" fill="#eef6fb"/><rect x="356" y="40" width="280" height="239" rx="12" fill="#fff7e8"/><rect x="636" y="40" width="294" height="239" rx="12" fill="#fff1f1"/><text x="100" y="70" font-size="21" font-weight="700" fill="#28618f">初期</text><text x="377" y="70" font-size="21" font-weight="700" fill="#8a661f">中期</text><text x="658" y="70" font-size="21" font-weight="700" fill="#8a4b4b">重度・後期</text><path d="M92 95 C170 98 225 111 302 121 C365 130 414 160 470 165 C515 169 540 188 575 200 C610 212 645 210 682 230 C735 259 793 248 835 269 C862 277 890 274 912 276" fill="none" stroke="#285e8f" stroke-width="7" stroke-linecap="round"/><text x="100" y="160" font-size="15" fill="#36536b">もの忘れ・段取り</text><text x="377" y="213" font-size="15" fill="#6b5729">日常生活の支援が増える</text><text x="660" y="180" font-size="15" fill="#6b4747">会話・移動・食事の介助</text><text x="660" y="205" font-size="15" fill="#6b4747">飲み込みに影響することも</text></svg><div class="stages"><div class="stage"><b>初期</b>複雑な作業や予定管理などで支援が必要になることがあります。</div><div class="stage"><b>中期</b>見守りや介助が増え、生活環境の調整が重要になります。</div><div class="stage"><b>重度・後期</b>食事・移動・排泄・会話など多くの生活場面で支援が必要になることがあります。</div></div></div><div class="notice"><b>模式図です。</b> 実際の経過は滑らかな一直線ではなく、一時的な悪化や回復、他の病気の影響などが重なることがあります。</div></section>
+<section class="panel" id="life"><h2>04｜暮らしはどう変わる？</h2><div class="grid3"><div class="card"><h3>移動・身の回り</h3><p class="micro">着替え、入浴、排泄、移動などで見守りや介助が増えることがあります。</p></div><div class="card"><h3>食べること</h3><p class="micro">食事への集中、食べ方、飲み込みなどに変化が起こることがあります。</p></div><div class="card"><h3>会話・意思表出</h3><p class="micro">言葉で伝えにくくなっても、表情・しぐさ・日頃の好みなどから意思をくみ取れる場合があります。</p></div></div></section>
+<section class="panel" id="advanced"><h2>05｜病気が進んだとき、起こることがある変化</h2><div class="grid3"><div class="card"><span class="label">食事</span><h3>食べる量が減る・飲み込みにくい</h3><p class="micro">食事介助や食形態の調整などを考える場面が出てきます。</p></div><div class="card"><span class="label">活動</span><h3>移動や体位変換に介助が必要</h3><p class="micro">転倒、褥瘡、拘縮などを防ぐためのケアも重要になります。</p></div><div class="card"><span class="label">意思</span><h3>言葉だけでは希望を確認しにくい</h3><p class="micro">過去の発言や生活歴、現在の反応を手がかりに支える場面があります。</p></div></div></section>
+<section class="panel" id="comfort"><h2>06｜苦痛や不安に、できることがあります</h2><p>認知症が進んでも、痛み、息苦しさ、不安、便秘、眠れなさ、せん妄などのつらさは起こり得ます。本人が言葉で訴えにくい場合でも、表情や動き、食欲、睡眠、普段との違いなどから苦痛を探り、原因を評価してケアすることが大切です。</p><div class="goodnote"><b>「治療を増やすか」だけがケアではありません。</b> 苦痛を減らすこと、安心できる環境を整えること、口腔ケア、食べやすさを調整することなども大切な支援です。</div></section>
+<section class="panel decision" id="decision"><h2>07｜この病気では、どんな選択が出てくる？</h2><div class="grid2"><div class="card"><h3>食べることが難しくなったとき</h3><p class="micro">口から食べる支援、経管栄養、胃ろうなどをどう考えるか。</p><a class="btn" href="decision_support.html?start=1&method=peg">食べること・胃ろうの意思決定支援へ →</a></div><div class="card"><h3>この先追加するテーマ</h3><p class="micro">救急搬送、入院、心肺蘇生、療養場所、本人の意思が確認しにくい場合の代理意思決定など。</p><span class="btn secondary">準備中</span></div></div></section>
+<section class="panel" id="values"><h2>09｜本人は、何を大切にしていた？</h2><div class="questions"><div class="q">食べることを、どのくらい大切にしていた？</div><div class="q">できるだけ住み慣れた場所で過ごしたい人だった？</div><div class="q">医療をできるだけ受けたい人だった？ それとも負担を減らしたい人だった？</div><div class="q">以前、家族や友人の最期について何か話していた？</div></div><div class="notice">「昔そう言ったから絶対にこうする」と決めるためではなく、本人らしい選択を考える手がかりとして使います。</div></section>
+<section class="panel" id="family"><h2>10｜家族が迷いやすいところ</h2><div class="grid3"><div class="card"><h3>「私が決めていいの？」</h3><p class="micro">家族が一人で決めるのではなく、本人の意思・価値観を手がかりに医療・介護チームと一緒に考えます。</p></div><div class="card"><h3>家族の意見が違う</h3><p class="micro">「長く生きてほしい」「負担を増やしたくない」など、どちらも本人を思う気持ちから生まれることがあります。</p></div><div class="card"><h3>介護を続けられない</h3><p class="micro">家族の限界も重要な現実です。支援を増やす、住まいを変えることも選択肢です。</p></div></div></section>
+<section class="panel" id="place"><h2>11｜最期まで、どこでどう暮らす？</h2><p>自宅、認知症グループホーム、介護施設、病院など、必要な医療・介護と本人・家族の希望によって選択肢は変わります。このサイトでは「どこで死ぬか」ではなく、「必要な支援を受けながら、最期までどう暮らすか」として扱います。</p></section>
+<section class="panel"><h2>12｜体験談</h2><div class="mutedbox"><b>今後接続予定：</b> 認知症のある本人、家族、医療・介護職の体験談を、医学情報とは分けて掲載します。<br>これは一人の経験であり、同じ病気の人が同じ経過をたどるとは限りません。</div></section>
+<section class="panel"><h2>13｜ほかの病気と比べる</h2><p>認知症だけを見て「普通」を決めず、心不全、がん、腎不全など異なる経過と同じ軸で比較できるようにしていきます。</p><a class="btn secondary" href="diseases.html">病気一覧・比較へ戻る →</a></section>
+<section class="panel" id="sources"><h2>14｜根拠・参考文献</h2><p class="micro">最終確認日：2026年8月13日　｜　現在はプレテスト版・医学専門職による最終監修前</p><ul class="sources"><li><a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000212395.html" target="_blank" rel="noopener">厚生労働省｜認知症の人の日常生活・社会生活における意思決定支援ガイドライン</a></li><li><a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000167902.html" target="_blank" rel="noopener">厚生労働省｜認知症施策関連ガイドライン・取組事例</a></li><li><a href="https://www.nia.nih.gov/health/alzheimers-caregiving/care-last-stages-alzheimers-disease" target="_blank" rel="noopener">National Institute on Aging｜Care in the Last Stages of Alzheimer's Disease</a></li></ul><div class="notice">このページは一般向け情報です。個別の診断・治療・ケアの判断は、本人の状態を把握している医療・介護の専門職と相談してください。</div></section>
+</main>
+</body>
+</html>
