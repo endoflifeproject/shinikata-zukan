@@ -6,78 +6,137 @@
 <title>死に方図鑑｜認知症</title>
 <style>
 :root{--navy:#173d68;--navy2:#285e8f;--ink:#233547;--muted:#687b8d;--bg:#f4f7f9;--card:#fff;--line:#d8e2e9;--pale:#eef5fb;--amber:#fff6df;--amber-line:#ead39b;--green:#edf8f2;--green-line:#cce3d5;--rose:#fff2f3;--rose-line:#edd2d5;--shadow:0 8px 28px rgba(29,58,84,.06)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Yu Gothic",Meiryo,sans-serif;line-height:1.8}a{text-decoration:none;color:inherit}
-header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}.head{max-width:1180px;margin:auto;padding:11px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}.brandrow{display:flex;align-items:center;gap:10px}.symbol{width:40px;height:40px;border:1px solid #9cb4c8;border-radius:50%;display:grid;place-items:center;color:#a9832e;font-size:20px}.brand{font-family:serif;color:var(--navy);font-size:19px;font-weight:800}.brand small{display:block;font:10px sans-serif;color:var(--muted);font-weight:500}.headerlinks{display:flex;gap:7px;flex-wrap:wrap}.headerlinks a{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 10px;font-size:10px;color:#4e667a}
-main{max-width:1180px;margin:22px auto 80px;padding:0 16px}.hero,.panel{background:#fff;border:1px solid var(--line);border-radius:19px;padding:27px;box-shadow:var(--shadow);margin-bottom:15px}.hero{background:linear-gradient(135deg,#fbfdff 0%,#f0f6fb 100%)}.kicker,.status,.evidence{display:inline-flex;border-radius:999px;padding:5px 10px;font-size:11px;font-weight:800}.kicker{background:var(--navy);color:#fff}.status{background:#eef5fb;border:1px solid #c7dae8;color:#315f83;margin-left:6px}.evidence{padding:3px 8px;border:1px solid var(--line);background:#fff;color:#4a6072}h1{font-family:serif;color:#172e47;font-size:36px;line-height:1.3;margin:12px 0 8px}h2{color:#205d93;font-size:22px;margin:0 0 8px}h3{color:#2b5273;margin:0 0 6px}.lead{color:#42586b;max-width:920px;margin:0}.micro{font-size:11px;color:var(--muted)}.breadcrumb{display:flex;gap:6px;flex-wrap:wrap;font-size:10px;color:#718392;margin-bottom:12px}.breadcrumb a{color:#315c82}.breadcrumb span:before{content:"›";margin-right:6px;color:#a0afba}.notice,.goodnote,.researchnote{margin-top:12px;border-radius:11px;padding:11px 13px;font-size:12px}.notice{background:var(--amber);border:1px solid var(--amber-line)}.goodnote{background:var(--green);border:1px solid var(--green-line)}.researchnote{background:#f8fafc;border:1px solid var(--line)}.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9px;padding:11px 15px;font-weight:800;font-size:12px;background:var(--navy);color:#fff}.btn.secondary{background:#fff;color:var(--navy);border:1px solid #aec3d5}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.card{border:1px solid var(--line);border-radius:14px;background:#fff;padding:16px}.soft{background:#fbfdff}.toc{display:flex;gap:7px;flex-wrap:wrap}.toc a{font-size:11px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:#fff;color:#315c82}.questions{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.q{background:#f8fafc;border:1px solid var(--line);border-radius:11px;padding:12px;font-size:12px}.sources li{margin:9px 0}.sources a{color:#285e8f;text-decoration:underline}.label{display:inline-flex;font-size:10px;font-weight:800;padding:3px 7px;border-radius:999px;background:var(--pale);color:#315b7d;margin:2px}.mutedbox{background:#f8fafc;border:1px dashed #cbd8e1;border-radius:13px;padding:14px;color:#5d7182;font-size:12px}
-/* course map */
-.mapintro{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;margin:14px 0}.legend{border:1px solid var(--line);border-radius:13px;padding:13px;background:#fbfdff}.legend div{font-size:11px;margin:5px 0}.legend b{color:#2b577d}.route{position:relative;margin-top:16px;padding-left:30px}.route:before{content:"";position:absolute;left:13px;top:13px;bottom:13px;width:3px;background:#bed0dd;border-radius:9px}.step{position:relative;border:1px solid var(--line);border-radius:15px;background:#fff;padding:16px;margin:0 0 14px}.step:before{content:"";position:absolute;left:-24px;top:22px;width:13px;height:13px;border-radius:50%;background:var(--navy2);border:3px solid var(--bg)}.step h3{font-size:17px}.branches{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.branch{border:1px solid #ccdce7;border-radius:13px;background:#fbfdff;padding:0}.branch summary{cursor:pointer;list-style:none;padding:13px 14px;font-weight:800;color:#2b5273}.branch summary::-webkit-details-marker{display:none}.branch summary:after{content:"＋";float:right;color:#6b8293}.branch[open] summary:after{content:"−"}.branchbody{border-top:1px solid var(--line);padding:12px 14px;font-size:12px}.branchbody p{margin:7px 0}.stat{font-size:22px;font-weight:900;color:var(--navy);line-height:1.35}.context{font-size:10px;color:var(--muted)}.unknown{border-style:dashed;background:#fff}.route-tag{display:inline-flex;font-size:10px;font-weight:900;color:#6a7f90;background:#eef3f6;border-radius:999px;padding:3px 7px;margin-bottom:6px}.connector{font-size:11px;color:#6d7f8d;margin:3px 0 10px;padding-left:8px}.warnline{border-left:4px solid #d8b45f;padding-left:12px;margin-top:12px}
-@media(max-width:820px){h1{font-size:28px}.headerlinks{display:none}.hero,.panel{padding:20px}.grid2,.grid3,.questions,.branches,.mapintro{grid-template-columns:1fr}.route{padding-left:25px}.route:before{left:10px}.step:before{left:-22px}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Yu Gothic",Meiryo,sans-serif;line-height:1.8}
+a{text-decoration:none;color:inherit}
+header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.head{max-width:1180px;margin:auto;padding:11px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brandrow{display:flex;align-items:center;gap:10px}.symbol{width:40px;height:40px;border:1px solid #9cb4c8;border-radius:50%;display:grid;place-items:center;color:#a9832e;font-size:20px}
+.brand{font-family:serif;color:var(--navy);font-size:19px;font-weight:800}.brand small{display:block;font:10px sans-serif;color:var(--muted);font-weight:500}
+.headerlinks{display:flex;gap:7px;flex-wrap:wrap}.headerlinks a{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 10px;font-size:10px;color:#4e667a}
+main{max-width:1180px;margin:22px auto 80px;padding:0 16px}
+.hero,.panel{background:#fff;border:1px solid var(--line);border-radius:19px;padding:27px;box-shadow:var(--shadow);margin-bottom:15px}.hero{background:linear-gradient(135deg,#fbfdff 0%,#f0f6fb 100%)}
+.kicker,.status,.studytype{display:inline-flex;border-radius:999px;padding:5px 10px;font-size:11px;font-weight:800}.kicker{background:var(--navy);color:#fff}.status{background:#eef5fb;border:1px solid #c7dae8;color:#315f83;margin-left:6px}.studytype{background:#f1f5f8;border:1px solid #cfdbe3;color:#3f5f78}
+h1{font-family:serif;color:#172e47;font-size:36px;line-height:1.3;margin:12px 0 8px}h2{color:#205d93;font-size:22px;margin:0 0 8px}h3{color:#2b5273;margin:0 0 6px}.lead{color:#42586b;max-width:930px;margin:0}.micro{font-size:11px;color:var(--muted)}
+.breadcrumb{display:flex;gap:6px;flex-wrap:wrap;font-size:10px;color:#718392;margin-bottom:12px}.breadcrumb a{color:#315c82}.breadcrumb span:before{content:"›";margin-right:6px;color:#a0afba}
+.notice,.goodnote,.researchnote{margin-top:12px;border-radius:11px;padding:11px 13px;font-size:12px}.notice{background:var(--amber);border:1px solid var(--amber-line)}.goodnote{background:var(--green);border:1px solid var(--green-line)}.researchnote{background:#f8fafc;border:1px solid var(--line)}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9px;padding:11px 15px;font-weight:800;font-size:12px;background:var(--navy);color:#fff}.btn.secondary{background:#fff;color:var(--navy);border:1px solid #aec3d5}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.card{border:1px solid var(--line);border-radius:14px;background:#fff;padding:16px}.soft{background:#fbfdff}
+.toc{display:flex;gap:7px;flex-wrap:wrap}.toc a{font-size:11px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:#fff;color:#315c82}
+.questions{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.q{background:#f8fafc;border:1px solid var(--line);border-radius:11px;padding:12px;font-size:12px}.sources li{margin:9px 0}.sources a{color:#285e8f;text-decoration:underline}.label{display:inline-flex;font-size:10px;font-weight:800;padding:3px 7px;border-radius:999px;background:var(--pale);color:#315b7d;margin:2px}.mutedbox{background:#f8fafc;border:1px dashed #cbd8e1;border-radius:13px;padding:14px;color:#5d7182;font-size:12px}
+
+/* course */
+.figurebox{border:1px solid #cbd9e4;border-radius:15px;padding:16px;background:#fbfdff;margin:14px 0;overflow:auto}.figurebox svg{display:block;width:100%;min-width:760px;height:auto}.figuretitle{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:8px}.figurebadge{display:inline-flex;background:#fff6df;border:1px solid #ead39b;color:#765e27;border-radius:999px;padding:4px 8px;font-size:10px;font-weight:900}.data-badge{background:#edf8f2;border-color:#cce3d5;color:#2f6c4d}
+.legendline{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;margin:8px 0 0}.legenditem{display:flex;align-items:center;gap:6px}.swatch{width:24px;height:4px;border-radius:999px;background:#285e8f}.swatch.alt{background:#9b6a58}.swatch.dash{height:0;border-top:3px dashed #8a99a5;background:none}
+.mapintro{display:grid;grid-template-columns:1.15fr .85fr;gap:12px;margin:14px 0}.route{position:relative;margin-top:16px;padding-left:30px}.route:before{content:"";position:absolute;left:13px;top:13px;bottom:13px;width:3px;background:#bed0dd;border-radius:9px}.step{position:relative;border:1px solid var(--line);border-radius:15px;background:#fff;padding:16px;margin:0 0 14px}.step:before{content:"";position:absolute;left:-24px;top:22px;width:13px;height:13px;border-radius:50%;background:var(--navy2);border:3px solid var(--bg)}.step h3{font-size:17px}.branches{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.branch{border:1px solid #ccdce7;border-radius:13px;background:#fbfdff;padding:0}.branch summary{cursor:pointer;list-style:none;padding:13px 14px;font-weight:800;color:#2b5273}.branch summary::-webkit-details-marker{display:none}.branch summary:after{content:"＋";float:right;color:#6b8293}.branch[open] summary:after{content:"−"}.branchbody{border-top:1px solid var(--line);padding:12px 14px;font-size:12px}.branchbody p{margin:7px 0}.stat{font-size:22px;font-weight:900;color:var(--navy);line-height:1.35}.context{font-size:10px;color:var(--muted)}.unknown{border-style:dashed;background:#fff}.route-tag{display:inline-flex;font-size:10px;font-weight:900;color:#6a7f90;background:#eef3f6;border-radius:999px;padding:3px 7px;margin-bottom:6px}.connector{font-size:11px;color:#6d7f8d;margin:3px 0 10px;padding-left:8px}.warnline{border-left:4px solid #d8b45f;padding-left:12px;margin-top:12px}
+
+/* evidence cards */
+.studygrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}.study{border:1px solid var(--line);border-radius:15px;padding:17px;background:#fff}.study h3{font-size:17px;margin-top:7px}.study dl{display:grid;grid-template-columns:105px 1fr;gap:6px 10px;font-size:11px;margin:12px 0}.study dt{font-weight:900;color:#4b6478}.study dd{margin:0;color:#506678}.cando,.cantdo{border-radius:10px;padding:10px 11px;font-size:11px;margin-top:8px}.cando{background:#edf8f2;border:1px solid #cce3d5}.cantdo{background:#fff6df;border:1px solid #ead39b}.funding{margin-top:8px;border-top:1px solid var(--line);padding-top:8px;font-size:10px;color:#6a7f90}
+.policy{border-left:4px solid #285e8f;background:#f8fbfd;border-radius:10px;padding:12px 14px;font-size:12px;margin:12px 0}
+
+@media(max-width:820px){h1{font-size:28px}.headerlinks{display:none}.hero,.panel{padding:20px}.grid2,.grid3,.questions,.branches,.mapintro,.studygrid{grid-template-columns:1fr}.route{padding-left:25px}.route:before{left:10px}.step:before{left:-22px}.study dl{grid-template-columns:90px 1fr}}
 </style>
 </head>
 <body>
-<header><div class="head"><a class="brandrow" href="index.html" aria-label="死に方図鑑 ホームへ"><div class="symbol">✦</div><div class="brand">死に方図鑑<small>認知症｜経過マップ</small></div></a><div class="headerlinks"><a href="index.html">ホーム</a><a href="diseases.html">病気一覧</a><a href="decision_support_guide.html">意思決定支援</a></div></div></header>
+<header><div class="head"><a class="brandrow" href="index.html" aria-label="死に方図鑑 ホームへ"><div class="symbol">✦</div><div class="brand">死に方図鑑<small>認知症｜経過と研究データ</small></div></a><div class="headerlinks"><a href="index.html">ホーム</a><a href="diseases.html">病気一覧</a><a href="decision_support_guide.html">意思決定支援</a></div></div></header>
 <main>
 <div class="breadcrumb"><a href="index.html">ホーム</a><span><a href="diseases.html">病気を知る</a></span><span>認知症</span></div>
-<section class="hero"><span class="kicker">認知症</span><span class="status">プレテスト版</span><h1>認知症になったら、次に何が起こり得る？</h1><p class="lead">認知症の経過は一本の線ではありません。ゆっくり生活機能が変わる人もいれば、肺炎、発熱、食べることの問題、治療などをきっかけに経過が分かれる人もいます。このページでは、研究で分かっている範囲と、まだ分からない範囲を分けて示します。</p><div class="notice"><b>このページは個人の予後を予測するものではありません。</b> 研究結果は対象となった集団の傾向です。同じ認知症でも原因疾患、年齢、身体状態、治療、生活環境などで経過は大きく異なります。現在はプレテスト版で、医学専門職による最終監修前です。</div><div class="goodnote"><b>本人の意思を置き去りにしないことを大切にします。</b> 認知症があっても、本人が示す希望・好み・嫌がることなどをできる限り確認しながら考えることが基本です。</div></section>
 
-<section class="panel"><h2>このページで知れること</h2><div class="toc"><a href="#what">認知症とは</a><a href="#types">種類</a><a href="#course">経過マップ</a><a href="#life">暮らし</a><a href="#decision">意思決定</a><a href="#values">本人の価値観</a><a href="#sources">参考文献</a></div></section>
+<section class="hero"><span class="kicker">認知症</span><span class="status">プレテスト版</span><h1>認知症になったら、どんな経過をたどる？</h1><p class="lead">このページでは、まず全体像を「模式的な線」で見たうえで、薬・肺炎・食事の問題など、途中で起こり得る分岐を研究データと一緒に見ます。模式図と実測データは、はっきり分けて表示します。</p><div class="notice"><b>個人の予後を予測するページではありません。</b> 研究結果は対象となった集団の傾向です。同じ認知症でも原因疾患、年齢、身体状態、治療、生活環境などで経過は大きく異なります。現在は医学専門職による最終監修前です。</div><div class="goodnote"><b>本人の意思を置き去りにしないことを大切にします。</b> 認知症があっても、本人が示す希望・好み・嫌がることなどをできる限り確認しながら考えることが基本です。</div></section>
+
+<section class="panel"><h2>このページで知れること</h2><div class="toc"><a href="#what">認知症とは</a><a href="#types">種類</a><a href="#course">経過</a><a href="#realdata">実測グラフ</a><a href="#credibility">研究の読み方</a><a href="#decision">意思決定</a><a href="#values">本人の価値観</a><a href="#sources">参考文献</a></div></section>
 
 <section class="panel" id="what"><h2>01｜まず、認知症とは？</h2><div class="grid2"><div class="card"><h3>ひとつの病名ではありません</h3><p>認知症は、さまざまな病気などを背景に認知機能が低下し、日常生活に支障が生じている状態を指します。「認知症＝アルツハイマー病」ではありません。</p></div><div class="card soft"><h3>生活への影響を見る</h3><p>もの忘れだけでなく、段取り、金銭管理、服薬、移動、食事、会話、意思表出など、生活のさまざまな場面に支援が必要になることがあります。</p></div></div></section>
 
-<section class="panel" id="types"><h2>02｜認知症にも種類があります</h2><div class="grid3"><div class="card"><h3>アルツハイマー病</h3><p class="micro">認知症の原因となる代表的な疾患の一つ。薬の研究データはこの病型に多くあります。</p></div><div class="card"><h3>血管性認知症</h3><p class="micro">脳梗塞や脳出血など脳血管の障害と関連して起こります。</p></div><div class="card"><h3>レビー小体型など</h3><p class="micro">症状や経過に特徴があり、必要な支援も異なることがあります。</p></div></div><div class="notice">以下の「薬を使った場合」の研究は主にアルツハイマー病、「肺炎・食事の問題」の研究は主に高度認知症の施設入居者を対象にしています。認知症全体へそのまま当てはめることはできません。</div></section>
+<section class="panel" id="types"><h2>02｜認知症にも種類があります</h2><div class="grid3"><div class="card"><h3>アルツハイマー病</h3><p class="micro">認知症の原因となる代表的な疾患の一つ。薬の比較試験はこの病型に多くあります。</p></div><div class="card"><h3>血管性認知症</h3><p class="micro">脳梗塞や脳出血など脳血管の障害と関連して起こります。</p></div><div class="card"><h3>レビー小体型など</h3><p class="micro">症状や経過に特徴があり、必要な支援も異なることがあります。</p></div></div><div class="notice">以下の「薬を使った場合」は主にアルツハイマー病、「肺炎・食事の問題」は主に米国の介護施設に暮らす高度認知症の人を対象にした研究です。認知症全体へそのまま当てはめることはできません。</div></section>
 
 <section class="panel" id="course">
-<h2>03｜認知症の経過マップ</h2>
-<div class="mapintro"><div><p>ここでは「時間がたつと必ずこの順番で起こる」という図ではなく、<b>途中で起こり得る分岐</b>として示します。一人の人が複数の分岐を経験することもあります。</p><div class="researchnote"><b>大事な読み方：</b> 「研究で数字がある」ことと「その人に起こる確率が分かる」ことは同じではありません。研究対象や追跡期間が違うため、このページの数字同士を単純比較しません。</div></div><div class="legend"><b>データの厚み（このページ独自の表示）</b><div>●●●　比較試験など、条件が比較的明確</div><div>●●○　前向き観察研究など、直接データあり</div><div>●○○　限定的・間接的な情報が中心</div><div class="micro">※GRADEなど正式な医学的エビデンス評価ではありません。</div></div></div>
+<h2>03｜どんな経過をたどる？</h2>
+<div class="figurebox">
+<div class="figuretitle"><div><h3>まずは全体像：生活機能の経過イメージ</h3><p class="micro">縦軸は生活機能のイメージ、横軸は時間経過です。年数を表すグラフではありません。</p></div><span class="figurebadge">模式図｜実測データではない</span></div>
+<svg viewBox="0 0 980 340" role="img" aria-label="認知症の生活機能の変化を示す模式的な線グラフ">
+<line x1="82" y1="32" x2="82" y2="285" stroke="#607789" stroke-width="2"/><line x1="82" y1="285" x2="930" y2="285" stroke="#607789" stroke-width="2"/>
+<text x="25" y="55" font-size="12" fill="#617688">高い</text><text x="25" y="280" font-size="12" fill="#617688">低い</text><text x="855" y="315" font-size="12" fill="#617688">時間経過 →</text>
+<rect x="83" y="35" width="270" height="249" rx="12" fill="#eef6fb"/><rect x="353" y="35" width="270" height="249" rx="12" fill="#fff8ea"/><rect x="623" y="35" width="307" height="249" rx="12" fill="#fff2f3"/>
+<text x="105" y="66" font-size="19" font-weight="700" fill="#28618f">初期</text><text x="378" y="66" font-size="19" font-weight="700" fill="#8a661f">中期</text><text x="650" y="66" font-size="19" font-weight="700" fill="#8a4b4b">重度・後期</text>
+<path d="M105 91 C165 92 205 102 255 112 C305 122 332 125 370 142 C402 155 427 153 454 169 C486 188 511 176 542 196 C573 216 602 199 631 219 C663 242 695 224 727 248 C754 267 782 248 808 265 C840 284 878 270 910 278" fill="none" stroke="#285e8f" stroke-width="7" stroke-linecap="round"/>
+<circle cx="454" cy="169" r="6" fill="#fff" stroke="#285e8f" stroke-width="3"/><circle cx="631" cy="219" r="6" fill="#fff" stroke="#285e8f" stroke-width="3"/>
+<path d="M631 219 C670 234 690 260 712 282" fill="none" stroke="#8a99a5" stroke-width="4" stroke-dasharray="7 7"/>
+<text x="112" y="153" font-size="14" fill="#36536b">段取り・記憶などの変化</text><text x="386" y="223" font-size="14" fill="#6b5729">見守り・介助が増える</text><text x="651" y="159" font-size="14" fill="#6b4747">食事・移動・会話など</text><text x="651" y="183" font-size="14" fill="#6b4747">幅広い支援が必要になることも</text><text x="704" y="303" font-size="11" fill="#7b8994">急な体調変化など</text>
+</svg>
+<div class="legendline"><span class="legenditem"><span class="swatch"></span>生活機能の模式的な変化</span><span class="legenditem"><span class="swatch dash"></span>肺炎などで急に変化する可能性の例</span></div>
+<div class="researchnote"><b>この線から「何年後にこうなる」は読めません。</b> 実際には一時的な悪化や回復、他の病気、治療、環境の影響が重なります。</div>
+</div>
+
+<div class="mapintro"><div><h3>では、途中で何が起きる？</h3><p>一人の人が複数の分岐を経験することがあります。ここからは、研究で直接追跡された出来事だけ数字をつけます。</p></div><div class="researchnote"><b>表示ルール：</b> 研究デザイン・対象・追跡期間が違う数字同士を、同じ確率として単純比較しません。</div></div>
 
 <div class="route">
-  <div class="step"><span class="route-tag">START</span><h3>認知症の症状が現れ、生活の中で支援が必要になってくる</h3><p>記憶、段取り、判断、会話などの変化が生活に影響します。原因疾患や進み方は人によって異なります。</p>
-    <div class="branches">
-      <details class="branch"><summary>症状に対する薬を使った場合（アルツハイマー病） <span class="evidence">●●●</span></summary><div class="branchbody"><p>中等度〜重度アルツハイマー病の295人を52週間追った無作為化試験では、ドネペジルを継続した群は中止した群より、認知機能と日常生活機能が良好でした。</p><p><b>ここから言えること：</b> 一定期間、認知機能やADLの低下を緩やかにできる可能性があります。</p><p><b>ここからは言えないこと：</b> そのまま死亡までの経過や寿命が何年変わるかは、この試験だけでは分かりません。</p><div class="context">DOMINO-AD / 52週間 / アルツハイマー病</div></div></details>
-      <details class="branch"><summary>病気の進行を遅らせる治療を受けた場合（早期アルツハイマー病） <span class="evidence">●●●</span></summary><div class="branchbody"><p>早期アルツハイマー病1,795人の18か月試験では、レカネマブ群はプラセボ群より認知・生活機能の低下が小さい結果でした。主要評価指標CDR-SBの変化は1.21対1.66でした。</p><p><b>注意：</b> 対象は早期アルツハイマー病です。18か月より先の死亡までの経過を示す数字ではありません。</p><div class="context">Clarity AD / 18か月 / 早期アルツハイマー病</div></div></details>
-    </div>
-  </div>
+<div class="step"><span class="route-tag">START</span><h3>認知症の症状が現れ、生活の中で支援が必要になってくる</h3><p>原因疾患によって経過は異なります。アルツハイマー病では、症状を和らげる薬や、早期では疾患修飾薬を検討する場合があります。</p><div class="branches">
+<details class="branch"><summary>ドネペジルを継続した場合（中等度〜重度アルツハイマー病）</summary><div class="branchbody"><p>DOMINO-ADでは、52週間の無作為化比較試験で、ドネペジル継続群は中止群より平均して認知機能と日常生活機能が良好でした。</p><p><b>死亡までの経過や寿命が何年変わるかは、この研究からは分かりません。</b></p><p><a href="#realdata" class="btn">実測グラフを見る →</a></p></div></details>
+<details class="branch"><summary>レカネマブを使用した場合（早期アルツハイマー病）</summary><div class="branchbody"><p>Clarity ADでは、早期アルツハイマー病1,795人を18か月追跡し、レカネマブ群はプラセボ群よりCDR-SBの悪化が小さい結果でした。</p><p><b>対象は早期アルツハイマー病です。</b> 高度認知症や死亡までの経過を示す試験ではありません。</p></div></details>
+</div></div>
 
-  <div class="connector">↓ 支援が増えることも、同じ状態がしばらく続くこともあります</div>
+<div class="connector">↓ 生活の支援が増えることも、同じ状態がしばらく続くこともあります</div>
+<div class="step"><span class="route-tag">生活機能の変化</span><h3>移動・食事・排泄・会話などで、見守りや介助が増える</h3><details class="branch unknown"><summary>大きな急性イベントがなく、そのまま進む場合は？</summary><div class="branchbody"><p>「何も起こらず認知症だけで進んだ人」を一本の自然経過として切り出すのは難しいところです。高度認知症では、感染症、発熱、食事の問題などが頻繁に重なります。</p><p><b>分からないところは、無理に線を作らない</b>ことをこの図鑑のルールにします。</p></div></details></div>
 
-  <div class="step"><span class="route-tag">生活機能の変化</span><h3>移動・食事・排泄・会話などで、見守りや介助が増える</h3><p>この変化は一定速度ではありません。体調や環境、他の病気などで一時的に悪化したり、回復して元の状態に近づいたりすることもあります。</p>
-    <details class="branch unknown"><summary>「大きな急性イベントがなく、そのまま進む場合」は？ <span class="evidence">●○○</span></summary><div class="branchbody"><p>ここを一本の「自然経過」として切り出すのは難しいところです。高度認知症では、感染症、発熱、食事の問題などが非常に多く、これらと認知症そのものの進行を完全に分けて追うことが難しいためです。</p><p><b>現時点の表示方針：</b> 無理に寿命の線を描かず、「分からないところは分からない」と示します。</p></div></details>
-  </div>
-
-  <div class="connector">↓ 高度になると、いくつかの臨床イベントが起こりやすくなります</div>
-
-  <div class="step"><span class="route-tag">高度認知症で起こり得る分岐</span><h3>肺炎・発熱・食事の問題など</h3><p>米国の介護施設で高度認知症323人を18か月前向きに追ったCASCADE研究では、こうした出来事が多く観察されました。</p>
-    <div class="branches">
-      <details class="branch" open><summary>肺炎を起こした場合 <span class="evidence">●●○</span></summary><div class="branchbody"><div class="stat">18か月で 41.1%</div><p>が肺炎を経験しました。肺炎を経験した人の<b>6か月死亡率は46.7%</b>でした。</p><p class="warnline"><b>これは「認知症の人全員の確率」ではありません。</b> 米国の介護施設に暮らす高度認知症の集団での結果です。</p><details class="branch" style="margin-top:10px"><summary>肺炎に抗菌薬を使った場合は？ <span class="evidence">●●○</span></summary><div class="branchbody"><p>同じ前向きコホートの解析では、抗菌薬治療は生存期間が長いことと関連しましたが、快適さの改善とは関連せず、治療群の方が快適さの評価が低い結果でした。</p><p><b>ただし観察研究です。</b> 「抗菌薬が原因で寿命が延びる」「使わなければこの期間で亡くなる」とは断定できません。</p></div></details></div></details>
-
-      <details class="branch"><summary>食べることが難しくなった場合 <span class="evidence">●●○</span></summary><div class="branchbody"><div class="stat">18か月で 85.8%</div><p>が食事に関する問題を経験しました。食事の問題を経験した人の<b>6か月死亡率は38.6%</b>でした。</p><p>「食べにくくなった」後には、口から食べる支援を続けるか、人工栄養をどう考えるかなど、意思決定が生じることがあります。</p><p><a class="btn" href="decision_support.html?start=1&method=peg">食べること・胃ろうの意思決定支援へ →</a></p><div class="context">CASCADE / 高度認知症 / 前向き観察研究</div></div></details>
-
-      <details class="branch"><summary>発熱エピソードが起きた場合 <span class="evidence">●●○</span></summary><div class="branchbody"><div class="stat">18か月で 52.6%</div><p>が発熱エピソードを経験しました。発熱を経験した人の<b>6か月死亡率は44.5%</b>でした。</p><p>発熱の原因は一つではなく、感染症など背景によって経過も異なります。</p><div class="context">CASCADE / 高度認知症 / 前向き観察研究</div></div></details>
-
-      <details class="branch"><summary>そのほかの変化 <span class="evidence">●○○</span></summary><div class="branchbody"><p>脱水、転倒、骨折、他の慢性疾患の悪化、せん妄など、認知症以外の出来事が生活機能や療養場所を大きく変えることがあります。今後、直接追跡データが確認できたものから枝を追加します。</p></div></details>
-    </div>
-  </div>
-
-  <div class="connector">↓ ここから先も「一本道」ではありません</div>
-
-  <div class="step"><span class="route-tag">人生の最終段階</span><h3>治療だけでなく「何を大切にするか」が経過に関わる</h3><p>救急搬送、入院、抗菌薬、人工栄養、療養場所など、いくつもの選択が重なります。どの選択が正しいかをこの図だけで決めることはできません。</p><p>高度認知症の研究では、息苦しさや痛みなどのつらい症状も多く報告されています。症状を和らげるケアと、本人が大切にしてきたことを一緒に考える必要があります。</p><p><a class="btn" href="decision_support_guide.html">意思決定支援を見る →</a></p></div>
+<div class="connector">↓ 高度になると、いくつかの臨床イベントが起こりやすくなります</div>
+<div class="step"><span class="route-tag">高度認知症で起こり得る分岐</span><h3>肺炎・発熱・食事の問題など</h3><p>CASCADE研究では、米国の22介護施設で高度認知症323人を18か月前向きに追跡しました。</p><div class="branches">
+<details class="branch" open><summary>肺炎を起こした場合</summary><div class="branchbody"><div class="stat">18か月で 41.1%</div><p>が肺炎を経験し、肺炎後の調整済み6か月死亡率は<b>46.7%</b>でした。</p><p class="warnline"><b>認知症の人全員の確率ではありません。</b> 米国介護施設の高度認知症集団での結果です。</p><details class="branch" style="margin-top:10px"><summary>肺炎に抗菌薬を使った場合は？</summary><div class="branchbody"><p>同じ前向きコホートの225回の肺炎エピソードを解析した研究では、抗菌薬治療は長い生存と関連しましたが、快適さの改善とは関連しませんでした。</p><p><b>治療をランダムに割り付けていない観察研究です。</b> 「抗菌薬が原因で寿命を延ばした」とまでは断定できません。</p></div></details></div></details>
+<details class="branch"><summary>食べることが難しくなった場合</summary><div class="branchbody"><div class="stat">18か月で 85.8%</div><p>が食事に関する問題を経験し、その後の調整済み6か月死亡率は<b>38.6%</b>でした。</p><p><a class="btn" href="decision_support.html?start=1&method=peg">食べること・胃ろうの意思決定支援へ →</a></p></div></details>
+<details class="branch"><summary>発熱エピソードが起きた場合</summary><div class="branchbody"><div class="stat">18か月で 52.6%</div><p>が発熱エピソードを経験し、その後の調整済み6か月死亡率は<b>44.5%</b>でした。</p></div></details>
+<details class="branch"><summary>そのほかの変化</summary><div class="branchbody"><p>脱水、転倒、骨折、心不全、せん妄なども経過を変え得ます。直接追跡データを確認できたものから今後追加します。</p></div></details>
+</div></div>
 </div>
-<div class="notice"><b>この経過マップの狙い：</b> 「この病気ならこう死ぬ」と決めつけることではなく、<b>次に何が起こり得るのか／そこで何を選ぶ場面があるのか／どこから先はまだ分からないのか</b>を見えるようにすることです。</div>
 </section>
 
-<section class="panel" id="life"><h2>04｜暮らしはどう変わる？</h2><div class="grid3"><div class="card"><h3>移動・身の回り</h3><p class="micro">着替え、入浴、排泄、移動などで見守りや介助が増えることがあります。</p></div><div class="card"><h3>食べること</h3><p class="micro">食事への集中、食べ方、飲み込みなどに変化が起こることがあります。</p></div><div class="card"><h3>会話・意思表出</h3><p class="micro">言葉で伝えにくくなっても、表情・しぐさ・日頃の好みなどから意思をくみ取れる場合があります。</p></div></div></section>
+<section class="panel" id="realdata">
+<h2>04｜研究で実際に観察された「線」</h2>
+<p>ここは模式図ではありません。<b>同じ研究の中で、同じ尺度を複数時点で測った数値</b>が取れる場合だけ再作図します。</p>
+<div class="figurebox">
+<div class="figuretitle"><div><h3>DOMINO-AD｜SMMSE平均値の推移</h3><p class="micro">中等度〜重度アルツハイマー病。SMMSEは0〜30点で、高いほど認知機能が良好です。</p></div><span class="figurebadge data-badge">実測値｜52週間RCT</span></div>
+<svg viewBox="0 0 980 380" role="img" aria-label="DOMINO-ADにおけるドネペジル継続群とプラセボ群のSMMSE平均値の推移">
+<line x1="95" y1="40" x2="95" y2="300" stroke="#607789" stroke-width="2"/><line x1="95" y1="300" x2="900" y2="300" stroke="#607789" stroke-width="2"/>
+<g stroke="#e1e8ed" stroke-width="1"><line x1="95" y1="50" x2="900" y2="50"/><line x1="95" y1="133" x2="900" y2="133"/><line x1="95" y1="217" x2="900" y2="217"/><line x1="95" y1="300" x2="900" y2="300"/></g>
+<text x="56" y="55" font-size="12" fill="#617688">12</text><text x="63" y="138" font-size="12" fill="#617688">8</text><text x="63" y="222" font-size="12" fill="#617688">4</text><text x="67" y="305" font-size="12" fill="#617688">0</text>
+<text x="14" y="188" transform="rotate(-90 14 188)" font-size="12" fill="#617688">SMMSE平均値（高いほど良好）</text>
+<text x="125" y="330" font-size="12" fill="#617688">6週</text><text x="350" y="330" font-size="12" fill="#617688">18週</text><text x="575" y="330" font-size="12" fill="#617688">30週</text><text x="805" y="330" font-size="12" fill="#617688">52週</text>
+<polyline points="145,113 370,133 595,175 825,196" fill="none" stroke="#285e8f" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="145,133 370,196 595,196 825,238" fill="none" stroke="#9b6a58" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<g fill="#fff" stroke-width="4"><circle cx="145" cy="113" r="7" stroke="#285e8f"/><circle cx="370" cy="133" r="7" stroke="#285e8f"/><circle cx="595" cy="175" r="7" stroke="#285e8f"/><circle cx="825" cy="196" r="7" stroke="#285e8f"/><circle cx="145" cy="133" r="7" stroke="#9b6a58"/><circle cx="370" cy="196" r="7" stroke="#9b6a58"/><circle cx="595" cy="196" r="7" stroke="#9b6a58"/><circle cx="825" cy="238" r="7" stroke="#9b6a58"/></g>
+<g font-size="12" font-weight="700"><text x="135" y="96" fill="#285e8f">9</text><text x="360" y="116" fill="#285e8f">8</text><text x="585" y="158" fill="#285e8f">6</text><text x="815" y="179" fill="#285e8f">5</text><text x="135" y="155" fill="#9b6a58">8</text><text x="360" y="218" fill="#9b6a58">5</text><text x="585" y="218" fill="#9b6a58">5</text><text x="815" y="260" fill="#9b6a58">3</text></g>
+</svg>
+<div class="legendline"><span class="legenditem"><span class="swatch"></span>ドネペジル単独群：9 → 8 → 6 → 5</span><span class="legenditem"><span class="swatch alt"></span>プラセボ群：8 → 5 → 5 → 3</span></div>
+<div class="researchnote"><b>注意：</b> これは各訪問時点の未調整平均値です。RCTの主要解析では、ドネペジル継続は中止と比べ、52週間を通じてSMMSEが平均1.9点高く、BADLSが平均3.0点低い（障害が少ない）結果でした。欠測や離脱を含む正式な効果推定は原著の解析結果を優先します。</div>
+</div>
+<div class="policy"><b>線グラフの掲載ルール：</b> 同じ対象集団・同じ尺度で複数時点の数値が確認できた研究だけ線を引きます。論文に曲線があっても、元の数値が取得できない場合は画像から目測して「それっぽい線」を作りません。</div>
+</section>
 
-<section class="panel" id="decision"><h2>05｜この病気では、どんな選択が出てくる？</h2><div class="grid3"><div class="card"><span class="label">接続済み</span><h3>食べること・人工栄養</h3><p class="micro">口から食べる支援、経管栄養、胃ろうなどをどう考えるか。</p><p><a class="btn" href="decision_support.html?start=1&method=peg">意思決定支援へ →</a></p></div><div class="card"><span class="label">今後</span><h3>急変・救急搬送</h3><p class="micro">肺炎や発熱などのとき、どこでどの程度の治療を受けるか。</p></div><div class="card"><span class="label">今後</span><h3>療養場所・蘇生など</h3><p class="micro">自宅、施設、病院などでの暮らしと、人生の最終段階の医療を考えます。</p></div></div></section>
+<section class="panel" id="credibility">
+<h2>05｜その論文、どこまで信用していい？</h2>
+<p>「RCTだから絶対」「観察研究だから弱い」と一言で片づけず、<b>誰を、何人、どうやって、どれだけ追ったか／誰がお金を出したか／何が言えて何が言えないか</b>を表示します。点数化はしません。</p>
+<div class="studygrid">
+<article class="study"><span class="studytype">無作為化比較試験（RCT）</span><h3>DOMINO-AD</h3><dl><dt>対象</dt><dd>295人。地域で暮らす中等度〜重度アルツハイマー病で、すでにドネペジルを使用していた人</dd><dt>追跡</dt><dd>52週間</dd><dt>比較</dt><dd>ドネペジル継続／中止、メマンチン有無の2×2要因試験</dd><dt>主な尺度</dt><dd>SMMSE、BADLS</dd></dl><div class="cando"><b>比較的言いやすい：</b> 約1年間の認知機能・ADLに対する治療継続の効果。</div><div class="cantdo"><b>言えない：</b> 寿命、死亡までの経過、軽度認知症や他の認知症への効果。</div><div class="funding">資金：英国Medical Research Council、Alzheimer's Society。薬剤・プラセボは企業から提供。後続報告では、資金提供者・製薬企業は試験設計、運営、データ解析・解釈に関与しなかったと記載。著者の一部には製薬企業との講演・コンサル等の開示あり。</div></article>
 
-<section class="panel" id="values"><h2>06｜本人の意思を考える</h2><p>認知症があっても、本人の意思決定を支えることが基本です。言葉だけでなく、これまでの生活、繰り返し話してきたこと、表情や反応、好き嫌いも手がかりになります。</p><div class="questions"><div class="q">できるだけ長く生きることと、負担の少なさ。本人はどちらをより大切にしてきた？</div><div class="q">「食べること」について、本人が大切にしていたことは？</div><div class="q">どこで、誰と暮らしたいと話していた？</div><div class="q">本人が嫌だと言っていた医療や暮らし方はあった？</div></div></section>
+<article class="study"><span class="studytype">前向きコホート研究</span><h3>CASCADE</h3><dl><dt>対象</dt><dd>323人。米国ボストン周辺22介護施設の高度認知症</dd><dt>追跡</dt><dd>18か月</dd><dt>目的</dt><dd>死亡、肺炎、発熱、食事問題、症状、治療などの実際の経過を追跡</dd><dt>研究地域</dt><dd>米国</dd></dl><div class="cando"><b>強いところ：</b> 高度認知症で「実際に何が起きたか」を前向きに追っている。</div><div class="cantdo"><b>限界：</b> 日本の在宅療養や軽度認知症へそのまま一般化できない。治療効果の因果関係を証明するRCTではない。</div><div class="funding">資金：米国National Institute on Aging。原著では関連する利益相反なしと報告。</div></article>
 
-<section class="panel" id="sources"><h2>07｜根拠・参考文献</h2><p class="micro">このページでは、研究対象・追跡期間・研究デザインが違う数字を一つの予後曲線に合成していません。</p><ol class="sources">
-<li><a href="https://pubmed.ncbi.nlm.nih.gov/19828530/" target="_blank" rel="noopener">Mitchell SL, et al. The clinical course of advanced dementia. N Engl J Med. 2009.</a> — 高度認知症323人を18か月前向きに追跡。肺炎、発熱、食事の問題と死亡を報告。</li>
-<li><a href="https://pubmed.ncbi.nlm.nih.gov/20625013/" target="_blank" rel="noopener">Givens JL, et al. Survival and comfort after treatment of pneumonia in advanced dementia. Arch Intern Med. 2010.</a> — 肺炎時の抗菌薬治療と生存・快適さの関連。</li>
-<li><a href="https://pubmed.ncbi.nlm.nih.gov/22397651/" target="_blank" rel="noopener">Howard R, et al. Donepezil and memantine for moderate-to-severe Alzheimer's disease. N Engl J Med. 2012.</a> — 52週間の無作為化比較試験。</li>
-<li><a href="https://pubmed.ncbi.nlm.nih.gov/36449413/" target="_blank" rel="noopener">van Dyck CH, et al. Lecanemab in Early Alzheimer's Disease. N Engl J Med. 2023.</a> — 早期アルツハイマー病1,795人、18か月の第3相試験。</li>
+<article class="study"><span class="studytype">第III相・二重盲検RCT</span><h3>Clarity AD（レカネマブ）</h3><dl><dt>対象</dt><dd>1,795人。アミロイド陽性の早期アルツハイマー病</dd><dt>追跡</dt><dd>18か月</dd><dt>比較</dt><dd>レカネマブ vs プラセボ</dd><dt>主要尺度</dt><dd>CDR-SB</dd></dl><div class="cando"><b>比較的言いやすい：</b> 18か月の早期アルツハイマー病での認知・生活機能低下への効果と有害事象。</div><div class="cantdo"><b>言えない：</b> 高度認知症までの長期経過、死亡までの時間、すべての認知症への効果。</div><div class="funding">資金：Eisai、Biogen。Eisaiは学術著者と共同で試験設計・データ解析に関与し、医学ライティング費用も負担。独立データ安全性監視委員会あり。企業関与を隠さず表示する。</div></article>
+
+<article class="study"><span class="studytype">前向きコホートの二次解析</span><h3>肺炎時の抗菌薬と生存・快適さ</h3><dl><dt>対象</dt><dd>CASCADE内の高度認知症。225回の肺炎エピソード</dd><dt>比較</dt><dd>抗菌薬なし／経口／筋注／静注または入院</dd><dt>解析</dt><dd>多変量調整あり。ただし治療の割付は無作為ではない</dd><dt>結果</dt><dd>抗菌薬使用は長い生存と関連したが、快適さの改善とは関連しなかった</dd></dl><div class="cando"><b>言える：</b> 実臨床での治療選択と、その後の生存・快適さの関連。</div><div class="cantdo"><b>言えない：</b> 「抗菌薬が原因で寿命を延ばした」という確定的な因果関係。</div><div class="funding">資金：National Institute on Aging / NIH、Hartford研究者賞。Financial Disclosureはなし。資金提供者は研究設計・解析・論文作成に関与しなかったと報告。</div></article>
+</div>
+</section>
+
+<section class="panel" id="decision"><h2>06｜この病気では、どんな選択が出てくる？</h2><div class="grid3"><div class="card"><span class="label">接続済み</span><h3>食べること・人工栄養</h3><p class="micro">口から食べる支援、経管栄養、胃ろうなどをどう考えるか。</p><p><a class="btn" href="decision_support.html?start=1&method=peg">意思決定支援へ →</a></p></div><div class="card"><span class="label">今後</span><h3>肺炎・救急搬送</h3><p class="micro">肺炎や発熱のとき、どこでどの程度の治療を受けるか。</p></div><div class="card"><span class="label">今後</span><h3>療養場所・蘇生など</h3><p class="micro">自宅、施設、病院などでの暮らしと、人生の最終段階の医療を考えます。</p></div></div></section>
+
+<section class="panel" id="values"><h2>07｜本人の意思を考える</h2><p>認知症があっても、本人の意思決定を支えることが基本です。言葉だけでなく、これまでの生活、繰り返し話してきたこと、表情や反応、好き嫌いも手がかりになります。</p><div class="questions"><div class="q">できるだけ長く生きることと、負担の少なさ。本人はどちらをより大切にしてきた？</div><div class="q">「食べること」について、本人が大切にしていたことは？</div><div class="q">どこで、誰と暮らしたいと話していた？</div><div class="q">本人が嫌だと言っていた医療や暮らし方はあった？</div></div></section>
+
+<section class="panel" id="sources"><h2>08｜根拠・参考文献</h2><p class="micro">研究対象・追跡期間・研究デザインが違う数字を、一つの予後曲線に合成していません。</p><ol class="sources">
+<li><a href="https://www.nejm.org/doi/full/10.1056/NEJMoa1106668" target="_blank" rel="noopener">Howard R, et al. Donepezil and Memantine for Moderate-to-Severe Alzheimer's Disease. N Engl J Med. 2012.</a> — DOMINO-AD主要報告。</li>
+<li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5724694/" target="_blank" rel="noopener">Knapp M, et al. Cost-effectiveness of donepezil and memantine in moderate to severe Alzheimer's disease (DOMINO-AD). Int J Geriatr Psychiatry. 2017.</a> — 各訪問時点のSMMSE/BADLS未調整平均値を掲載。</li>
+<li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2778850/" target="_blank" rel="noopener">Mitchell SL, et al. The Clinical Course of Advanced Dementia. N Engl J Med. 2009.</a> — CASCADE、高度認知症323人を18か月前向き追跡。</li>
+<li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2914628/" target="_blank" rel="noopener">Givens JL, et al. Survival and Comfort After Treatment of Pneumonia in Advanced Dementia. Arch Intern Med. 2010.</a> — 肺炎時の抗菌薬と生存・快適さ。</li>
+<li><a href="https://www.nejm.org/doi/full/10.1056/NEJMoa2212948" target="_blank" rel="noopener">van Dyck CH, et al. Lecanemab in Early Alzheimer's Disease. N Engl J Med. 2023.</a> — Clarity AD。</li>
 <li><a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000212395.html" target="_blank" rel="noopener">厚生労働省：認知症の人の日常生活・社会生活における意思決定支援ガイドライン</a></li>
-</ol><div class="mutedbox"><b>今後追加したい枝：</b> 転倒・骨折、入院、せん妄、脱水、心不全などの併存疾患、在宅／施設など療養環境による違い。直接データを確認できたものから追加します。<br>最終確認：2026-08-13</div></section>
+</ol><div class="mutedbox"><b>今後の追加候補：</b> 転倒・骨折、入院、せん妄、脱水、心不全などの併存疾患、在宅／施設など療養環境による違い。直接データを確認できたものから追加します。<br>最終確認：2026-08-13</div></section>
 </main>
 </body>
 </html>
