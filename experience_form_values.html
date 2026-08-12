@@ -11,78 +11,137 @@
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#f6f4fb 0,#fbfcfd 34%,#fff 100%);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Yu Gothic",Meiryo,sans-serif;line-height:1.8;letter-spacing:.02em}a{text-decoration:none;color:inherit}button,input,textarea{font:inherit;color:inherit}
 header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.93);backdrop-filter:blur(14px);border-bottom:1px solid #e1e3ea}.head{max-width:940px;margin:auto;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:14px}.brandrow{display:flex;align-items:center;gap:10px}.symbol{width:40px;height:40px;border:1px solid #b9c8d4;border-radius:50%;display:grid;place-items:center;color:var(--gold);font-size:20px}.brand{font-family:"Yu Mincho","Hiragino Mincho ProN",serif;color:var(--navy);font-size:18px;font-weight:700;letter-spacing:.1em}.brand small{display:block;font:8px Georgia,serif;color:#718496;letter-spacing:.22em}.back{font-size:10px;color:#617185;border:1px solid #d4dbe3;background:#fff;border-radius:999px;padding:6px 11px}
 main{max-width:940px;margin:auto;padding:48px 16px 82px}.hero{text-align:center;max-width:790px;margin:0 auto 22px}.eyebrow{font-size:10px;color:#766b98;letter-spacing:.16em;font-weight:800}.hero h1{font-family:"Yu Mincho","Hiragino Mincho ProN",serif;color:#344b68;font-size:clamp(27px,4vw,40px);font-weight:500;line-height:1.5;letter-spacing:.08em;margin:8px 0 10px}.hero p{font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-size:12.5px;color:#6f7f8b;margin:0}.notice{max-width:820px;margin:18px auto 0;padding:14px 16px;border-radius:12px;background:#fffdf8;border:1px solid #e8dfca;color:#746b5c;font-size:10.5px;text-align:left}.notice p{margin:4px 0}.notice b{color:#5d536f}
-.card{max-width:820px;margin:15px auto 0;background:rgba(255,255,255,.97);border:1px solid #e0e1e9;border-radius:18px;padding:25px 26px;box-shadow:var(--shadow)}.qhead{display:flex;gap:13px;align-items:flex-start;margin-bottom:18px}.qnum{flex:0 0 auto;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#ece8f4;color:#6c6288;font-weight:900;font-size:11px}.qtitle{font-family:"Yu Mincho","Hiragino Mincho ProN",serif;color:#38526e;font-size:19px;font-weight:600;letter-spacing:.04em;margin:0}.qdesc{font-size:10.5px;color:#778694;margin:3px 0 0}.options{display:grid;grid-template-columns:1fr;gap:9px}.choice{position:relative}.choice input{position:absolute;opacity:0;pointer-events:none}.choice label{height:100%;display:flex;align-items:flex-start;gap:10px;padding:13px 14px;border:1px solid #dadfe7;border-radius:12px;background:#fcfdff;font-size:11px;line-height:1.7;cursor:pointer;transition:.15s}.choice label:before{content:"";width:17px;height:17px;margin-top:1px;border:1.5px solid #bbc6d1;border-radius:50%;background:#fff;flex:0 0 auto}.choice input:checked+label{border-color:#aaa3bf;background:#f6f3fa;box-shadow:inset 0 0 0 1px #d5d0e0}.choice input:checked+label:before{border:5px solid #71698f}.choice.check label:before{border-radius:4px}.choice.check input:checked+label:before{border:3px solid #71698f;background:#71698f;box-shadow:inset 0 0 0 2px #fff}.choice strong{display:block;color:#4d5c70;font-size:11.3px;margin-bottom:2px}.help{font-size:9.5px;color:#8a96a0;margin-top:8px}.reason-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.field{margin-top:12px}.field label{display:block;font-size:10.5px;color:#5d7081;font-weight:800;margin-bottom:6px}.field textarea{width:100%;min-height:112px;resize:vertical;border:1px solid #d8dfe6;border-radius:12px;background:#fcfdff;padding:12px 13px;font-size:11px;outline:none}.field textarea:focus{border-color:#aaa3bf;box-shadow:0 0 0 3px rgba(113,105,143,.09)}.small-note{padding:11px 13px;border-radius:11px;background:#f7f5fa;border:1px solid #e1deea;color:#716a7f;font-size:10px;margin-bottom:12px}.optional{display:inline-block;border-radius:999px;padding:3px 8px;background:#f2f0f6;border:1px solid #ddd9e7;color:#786f8c;font-size:8.5px;font-weight:800;margin-left:6px;vertical-align:middle}.finish{max-width:820px;margin:18px auto 0;text-align:center;padding:23px 20px;border:1px solid #e1e4ea;border-radius:16px;background:#fafbfc}.finish p{font-size:10.5px;color:#71808b;margin:0 0 12px}.finish button{border:0;border-radius:999px;background:#586a83;color:#fff;padding:10px 20px;font-size:10.5px;font-weight:800;cursor:pointer}.done{display:none;margin-top:10px;font-size:10.5px;color:#65788b}.done.show{display:block}
-@media(max-width:680px){main{padding:34px 11px 60px}.brand{font-size:15px}.back{font-size:9px}.card{padding:20px 14px}.qtitle{font-size:16px}.reason-grid{grid-template-columns:1fr}}
+.card{max-width:820px;margin:15px auto 0;background:rgba(255,255,255,.97);border:1px solid #e0e1e9;border-radius:18px;padding:25px 26px;box-shadow:var(--shadow)}.qhead{display:flex;gap:13px;align-items:flex-start;margin-bottom:18px}.qnum{flex:0 0 auto;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#ece8f4;color:#6c6288;font-weight:900;font-size:11px}.qtitle{font-family:"Yu Mincho","Hiragino Mincho ProN",serif;color:#38526e;font-size:19px;font-weight:600;letter-spacing:.04em;margin:0}.qdesc{font-size:10.5px;color:#778694;margin:3px 0 0}.options{display:grid;grid-template-columns:1fr;gap:9px}.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.choice{position:relative}.choice input{position:absolute;opacity:0;pointer-events:none}.choice label{height:100%;display:flex;align-items:flex-start;gap:10px;padding:13px 14px;border:1px solid #dadfe7;border-radius:12px;background:#fcfdff;font-size:11px;line-height:1.7;cursor:pointer;transition:.15s}.choice label:before{content:"";width:17px;height:17px;margin-top:1px;border:1.5px solid #bbc6d1;border-radius:50%;background:#fff;flex:0 0 auto}.choice input:checked+label{border-color:#aaa3bf;background:#f6f3fa;box-shadow:inset 0 0 0 1px #d5d0e0}.choice input:checked+label:before{border:5px solid #71698f}.choice.check label:before{border-radius:4px}.choice.check input:checked+label:before{border:3px solid #71698f;background:#71698f;box-shadow:inset 0 0 0 2px #fff}.choice strong{display:block;color:#4d5c70;font-size:11.3px;margin-bottom:2px}.field{margin-top:12px}.field label{display:block;font-size:10.5px;color:#5d7081;font-weight:800;margin-bottom:6px}.field textarea{width:100%;min-height:112px;resize:vertical;border:1px solid #d8dfe6;border-radius:12px;background:#fcfdff;padding:12px 13px;font-size:11px;outline:none}.field textarea:focus{border-color:#aaa3bf;box-shadow:0 0 0 3px rgba(113,105,143,.09)}.small-note{padding:11px 13px;border-radius:11px;background:#f7f5fa;border:1px solid #e1deea;color:#716a7f;font-size:10px;margin-bottom:12px}.optional{display:inline-block;border-radius:999px;padding:3px 8px;background:#f2f0f6;border:1px solid #ddd9e7;color:#786f8c;font-size:8.5px;font-weight:800;margin-left:6px;vertical-align:middle}.finish{max-width:820px;margin:18px auto 0;text-align:center;padding:23px 20px;border:1px solid #e1e4ea;border-radius:16px;background:#fafbfc}.finish p{font-size:10.5px;color:#71808b;margin:0 0 12px}.finish button{border:0;border-radius:999px;background:#586a83;color:#fff;padding:10px 20px;font-size:10.5px;font-weight:800;cursor:pointer}.done{display:none;margin-top:10px;font-size:10.5px;color:#65788b}.done.show{display:block}
+@media(max-width:680px){main{padding:34px 11px 60px}.brand{font-size:15px}.back{font-size:9px}.card{padding:20px 14px}.qtitle{font-size:16px}.two{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header><div class="head"><a class="brandrow" href="index.html"><div class="symbol">✦</div><div class="brand">死に方図鑑<small>SHINIKATA ZUKAN</small></div></a><a class="back" href="experience.html">← みんなの体験へ</a></div></header>
 <main>
-<section class="hero"><div class="eyebrow">✦ みんなの体験 ／ 自分の価値観</div><h1>自分の最期を、<br>どこまで自分で決めたいですか。</h1><p>「正解」を選ぶためではなく、自分が何を大切にしているかを知るための質問です。</p><div class="notice"><p><b>プレテスト版です。</b> このページでは回答内容は送信されず、サーバーにも保存されません。</p><p>以下は人生の最終段階についての仮想的な価値観質問です。特定の制度への賛否を求めるものではなく、具体的な方法や手段も扱いません。答えにくい項目は飛ばして構いません。</p></div></section>
-
+<section class="hero"><div class="eyebrow">✦ みんなの体験 ／ 自分の価値観</div><h1>自分の最期を、<br>どこまで自分で決めたいですか。</h1><p>「正解」を選ぶためではなく、自分が何を大切にしているかを知るための質問です。</p><div class="notice"><p><b>プレテスト版です。</b> このページでは回答内容は送信されず、サーバーにも保存されません。</p><p>以下は人生の最終段階についての仮想的な価値観質問です。具体的な方法や手段は扱いません。答えにくい項目は飛ばして構いません。</p></div></section>
 <form id="valuesForm" autocomplete="off">
-<section class="card"><div class="qhead"><div class="qnum">1</div><div><h2 class="qtitle">あなたの希望に最も近いものはどれですか。</h2><p class="qdesc">将来、回復が難しい病気や大きな苦痛を抱える状態になった場合を想像してお答えください。</p></div></div>
-<div class="options">
-<div class="choice"><input type="radio" name="preferred_end" id="pe_timing" value="choose_timing"><label for="pe_timing"><span><strong>自分で死ぬ時期を選べるようにしたい</strong>法律や制度のもとで、本人の意思により死期を意図的に早める選択肢を持ちたい。</span></label></div>
-<div class="choice"><input type="radio" name="preferred_end" id="pe_natural" value="natural_course"><label for="pe_natural"><span><strong>死ぬ時期そのものは決めず、自然な経過で亡くなりたい</strong>過度な延命治療は希望せず、痛みや息苦しさなどを和らげる医療・ケアを受けながら、病気の自然な経過の中で最期を迎えたい。</span></label></div>
-<div class="choice"><input type="radio" name="preferred_end" id="pe_depends" value="depends"><label for="pe_depends"><span><strong>その時の病状や状況によって変わると思う</strong>今の時点では、どちらか一方には決められない。</span></label></div>
-<div class="choice"><input type="radio" name="preferred_end" id="pe_neither" value="neither"><label for="pe_neither"><span><strong>どちらも希望しない</strong>上のどちらにも自分の希望は当てはまらない。</span></label></div>
-<div class="choice"><input type="radio" name="preferred_end" id="pe_unknown" value="unknown"><label for="pe_unknown"><span><strong>今は分からない</strong>考えたことがない、または今は判断できない。</span></label></div>
-<div class="choice"><input type="radio" name="preferred_end" id="pe_other" value="other"><label for="pe_other"><span><strong>その他</strong>下の自由記述に、自分の希望を書きたい。</span></label></div>
-<div class="choice"><input type="radio" name="preferred_end" id="pe_skip" value="prefer_not"><label for="pe_skip"><span><strong>答えたくない</strong>この質問には回答しない。</span></label></div>
+
+<section class="card"><div class="qhead"><div class="qnum">1</div><div><h2 class="qtitle">あなたの希望に最も近いものはどれですか。</h2><p class="qdesc">将来、回復が難しい病気や大きな苦痛を抱える状態になった場合を想像してお答えください。</p></div></div><div class="options">
+<div class="choice"><input type="radio" name="preferred_end" id="pe1" value="choose_timing"><label for="pe1"><span><strong>自分で死ぬ時期を選べるようにしたい</strong>法律や制度のもとで、本人の意思により死期を意図的に早める選択肢を持ちたい。</span></label></div>
+<div class="choice"><input type="radio" name="preferred_end" id="pe2" value="natural_course"><label for="pe2"><span><strong>死ぬ時期そのものは決めず、自然な経過で亡くなりたい</strong>過度な延命治療は希望せず、痛みや息苦しさなどを和らげる医療・ケアを受けながら最期を迎えたい。</span></label></div>
+<div class="choice"><input type="radio" name="preferred_end" id="pe3" value="depends"><label for="pe3">その時の病状や状況によって変わると思う</label></div>
+<div class="choice"><input type="radio" name="preferred_end" id="pe4" value="neither"><label for="pe4">どちらも希望しない</label></div>
+<div class="choice"><input type="radio" name="preferred_end" id="pe5" value="unknown"><label for="pe5">今は分からない</label></div>
+<div class="choice"><input type="radio" name="preferred_end" id="pe6" value="other"><label for="pe6">その他（自由記載）</label></div>
+<div class="choice"><input type="radio" name="preferred_end" id="pe7" value="prefer_not"><label for="pe7">答えたくない</label></div>
 </div></section>
 
-<section class="card"><div class="qhead"><div class="qnum">2</div><div><h2 class="qtitle">そう考える理由に近いものを教えてください。</h2><p class="qdesc">複数選択できます。賛成・反対のどちらの理由も同じ一覧にしています。</p></div></div>
-<div class="reason-grid">
-<div class="choice check"><input type="checkbox" name="reason" id="r_pain" value="unrelieved_suffering"><label for="r_pain">苦痛を十分に和らげられない状態が続くなら、死期を早めたい</label></div>
-<div class="choice check"><input type="checkbox" name="reason" id="r_capacity" value="decide_while_capable"><label for="r_capacity">自分で意思表示や判断ができるうちに決めたい</label></div>
-<div class="choice check"><input type="checkbox" name="reason" id="r_decline" value="avoid_prolonged_decline"><label for="r_decline">身体が大きく衰弱した状態で長く生きたくない</label></div>
-<div class="choice check"><input type="checkbox" name="reason" id="r_appearance" value="appearance_change"><label for="r_appearance">外見や身体の変化が大きくなる前に亡くなりたい</label></div>
-<div class="choice check"><input type="checkbox" name="reason" id="r_familyburden" value="family_care_burden"><label for="r_familyburden">家族に介護や精神的な負担をかけたくない</label></div>
-<div class="choice check"><input type="checkbox" name="reason" id="r_familymoney" value="family_financial_burden"><label for="r_familymoney">家族に経済的な負担をかけたくない</label></div>
-<div class="choice check"><input type="checkbox" name="reason" id="r_mymoney" value="own_financial_burden"><label for="r_mymoney">自分自身の医療・生活上の経済的負担が心配</label></div>
-<div class="choice check"><input type="checkbox" name="reason" id="r_seen" value="avoid_family_seeing_decline"><label for="r_seen">家族に衰弱していく姿を見せたくない</label></div>
-<div class="choice check"><input type="checkbox" name="reason" id="r_people" value="desired_people_place"><label for="r_people">希望する場所や、希望する人たちに囲まれて最期を迎えたい</label></div>
-<div class="choice check"><input type="checkbox" name="reason" id="r_uncertainty" value="uncertainty"><label for="r_uncertainty">いつ終わるか分からない状態が続くことへの不安がある</label></div>
-<div class="choice check"><input type="checkbox" name="reason" id="r_autonomy" value="autonomy"><label for="r_autonomy">最後まで自分の人生を自分で決めたい</label></div>
-<div class="choice check"><input type="checkbox" name="reason" id="r_notdecide" value="death_not_for_people_to_decide"><label for="r_notdecide">死ぬ時期を人が決めることには抵抗がある</label></div>
-<div class="choice check"><input type="checkbox" name="reason" id="r_unknownsituation" value="cannot_know_until_then"><label for="r_unknownsituation">実際にその状況になってみなければ気持ちは分からないと思う</label></div>
-<div class="choice check"><input type="checkbox" name="reason" id="r_impact" value="impact_on_others"><label for="r_impact">家族や周囲の人への影響が心配</label></div>
-<div class="choice check"><input type="checkbox" name="reason" id="r_pressure" value="pressure_risk"><label for="r_pressure">本人が周囲から「死を選ぶように」圧力を受ける可能性が心配</label></div>
-<div class="choice check"><input type="checkbox" name="reason" id="r_capacityrisk" value="capacity_risk"><label for="r_capacityrisk">判断能力が十分でない状態で決定されることが心配</label></div>
-<div class="choice check"><input type="checkbox" name="reason" id="r_ethics" value="religious_ethical"><label for="r_ethics">宗教的・倫理的な理由がある</label></div>
-<div class="choice check"><input type="checkbox" name="reason" id="r_other" value="other"><label for="r_other">その他の理由がある</label></div>
-</div>
-<div class="field"><label for="reason_text">その理由を、あなた自身の言葉でも教えてください（任意）</label><textarea id="reason_text" name="reason_text" placeholder="例：何が一番怖いのか、何を守りたいのか、家族にどう記憶されたいか、まだ迷っていること など"></textarea></div></section>
+<section class="card"><div class="qhead"><div class="qnum">2</div><div><h2 class="qtitle">そう考える理由に近いものを教えてください。</h2><p class="qdesc">複数選択できます。</p></div></div><div class="two">
+<div class="choice check"><input type="checkbox" name="reason" id="r1" value="suffering"><label for="r1">苦痛を十分に和らげられない状態が続くなら、死期を早めたい</label></div>
+<div class="choice check"><input type="checkbox" name="reason" id="r2" value="capacity"><label for="r2">自分で意思表示や判断ができるうちに決めたい</label></div>
+<div class="choice check"><input type="checkbox" name="reason" id="r3" value="decline"><label for="r3">身体が大きく衰弱した状態で長く生きたくない</label></div>
+<div class="choice check"><input type="checkbox" name="reason" id="r4" value="appearance"><label for="r4">外見や身体の変化が大きくなる前に亡くなりたい</label></div>
+<div class="choice check"><input type="checkbox" name="reason" id="r5" value="family_burden"><label for="r5">家族に介護や精神的な負担をかけたくない</label></div>
+<div class="choice check"><input type="checkbox" name="reason" id="r6" value="family_money"><label for="r6">家族に経済的な負担をかけたくない</label></div>
+<div class="choice check"><input type="checkbox" name="reason" id="r7" value="own_money"><label for="r7">自分自身の医療・生活上の経済的負担が心配</label></div>
+<div class="choice check"><input type="checkbox" name="reason" id="r8" value="avoid_seen"><label for="r8">家族に衰弱していく姿を見せたくない</label></div>
+<div class="choice check"><input type="checkbox" name="reason" id="r9" value="desired_people_place"><label for="r9">希望する場所や、希望する人たちに囲まれて最期を迎えたい</label></div>
+<div class="choice check"><input type="checkbox" name="reason" id="r10" value="uncertainty"><label for="r10">いつ終わるか分からない状態が続くことへの不安がある</label></div>
+<div class="choice check"><input type="checkbox" name="reason" id="r11" value="autonomy"><label for="r11">最後まで自分の人生を自分で決めたい</label></div>
+<div class="choice check"><input type="checkbox" name="reason" id="r12" value="resistance"><label for="r12">死ぬ時期を人が決めることには抵抗がある</label></div>
+<div class="choice check"><input type="checkbox" name="reason" id="r13" value="unknown_until_then"><label for="r13">実際にその状況になってみなければ気持ちは分からないと思う</label></div>
+<div class="choice check"><input type="checkbox" name="reason" id="r14" value="other_impact"><label for="r14">家族や周囲の人への影響が心配</label></div>
+</div><div class="field"><label for="reason_text">その他・あなた自身の言葉で（任意）</label><textarea id="reason_text" name="reason_text"></textarea></div></section>
 
-<section class="card"><div class="qhead"><div class="qnum">3</div><div><h2 class="qtitle">もし、その選択肢が海外でのみ制度として認められていたら？ <span class="optional">任意</span></h2><p class="qdesc">具体的な国・制度・方法ではなく、「海外へ行くことも含めて検討するか」という価値観だけを尋ねます。</p></div></div>
-<div class="small-note">この質問は、実際の渡航や制度利用を勧めるものではありません。現在の自分ならどう感じるか、という仮想質問です。</div>
-<div class="options">
-<div class="choice"><input type="radio" name="overseas" id="ov_yes" value="consider"><label for="ov_yes">選択肢として検討すると思う</label></div>
-<div class="choice"><input type="radio" name="overseas" id="ov_maybe" value="depends"><label for="ov_maybe">病状・費用・家族などの条件によると思う</label></div>
-<div class="choice"><input type="radio" name="overseas" id="ov_no" value="not_consider"><label for="ov_no">海外まで行って利用することは考えないと思う</label></div>
-<div class="choice"><input type="radio" name="overseas" id="ov_unknown" value="unknown"><label for="ov_unknown">今は分からない</label></div>
-<div class="choice"><input type="radio" name="overseas" id="ov_skip" value="prefer_not"><label for="ov_skip">答えたくない</label></div>
+<section class="card"><div class="qhead"><div class="qnum">3</div><div><h2 class="qtitle">人生の最期について具体的に考えるとき、何が判断材料になりそうですか。</h2><p class="qdesc">複数選択できます。</p></div></div><div class="two">
+<div class="choice check"><input type="checkbox" name="factor" id="f1" value="age"><label for="f1">年齢</label></div>
+<div class="choice check"><input type="checkbox" name="factor" id="f2" value="adl"><label for="f2">ADL・自分でできることの程度</label></div>
+<div class="choice check"><input type="checkbox" name="factor" id="f3" value="symptoms"><label for="f3">痛み・息苦しさなどの苦痛</label></div>
+<div class="choice check"><input type="checkbox" name="factor" id="f4" value="cognition"><label for="f4">認知機能・意思表示できるかどうか</label></div>
+<div class="choice check"><input type="checkbox" name="factor" id="f5" value="prognosis"><label for="f5">回復の可能性・今後の見通し</label></div>
+<div class="choice check"><input type="checkbox" name="factor" id="f6" value="savings"><label for="f6">貯金・資産・生活費</label></div>
+<div class="choice check"><input type="checkbox" name="factor" id="f7" value="family_health"><label for="f7">家族・介護者の健康状態</label></div>
+<div class="choice check"><input type="checkbox" name="factor" id="f8" value="family_roles"><label for="f8">子ども・親・パートナーなど家族への責任</label></div>
+<div class="choice check"><input type="checkbox" name="factor" id="f9" value="social"><label for="f9">孤立や人とのつながり</label></div>
+<div class="choice check"><input type="checkbox" name="factor" id="f10" value="beliefs"><label for="f10">思想・宗教・死生観</label></div>
+<div class="choice check"><input type="checkbox" name="factor" id="f11" value="meaning"><label for="f11">自分にとって大切なことを続けられるか</label></div>
+<div class="choice check"><input type="checkbox" name="factor" id="f12" value="none"><label for="f12">特定の基準では決めないと思う</label></div>
 </div></section>
 
-<section class="card"><div class="qhead"><div class="qnum">4</div><div><h2 class="qtitle">最期について「自分で決めたい」と思うものはありますか。</h2><p class="qdesc">複数選択できます。</p></div></div>
-<div class="reason-grid">
-<div class="choice check"><input type="checkbox" name="decide" id="d_treatment" value="treatment"><label for="d_treatment">受ける治療・受けない治療</label></div>
-<div class="choice check"><input type="checkbox" name="decide" id="d_place" value="place"><label for="d_place">療養する場所・最期を迎える場所</label></div>
-<div class="choice check"><input type="checkbox" name="decide" id="d_people" value="people"><label for="d_people">誰と一緒に過ごすか</label></div>
-<div class="choice check"><input type="checkbox" name="decide" id="d_relief" value="symptom_relief"><label for="d_relief">苦痛をどこまで和らげるか</label></div>
-<div class="choice check"><input type="checkbox" name="decide" id="d_awareness" value="awareness"><label for="d_awareness">意識をどの程度保ちたいか</label></div>
-<div class="choice check"><input type="checkbox" name="decide" id="d_timing" value="timing"><label for="d_timing">死ぬ時期そのもの</label></div>
-<div class="choice check"><input type="checkbox" name="decide" id="d_family" value="family_role"><label for="d_family">家族にどこまで判断を任せるか</label></div>
-<div class="choice check"><input type="checkbox" name="decide" id="d_other" value="other"><label for="d_other">その他</label></div>
-</div>
-<div class="field"><label for="decide_text">「ここだけは自分で決めたい」と思うことがあれば（任意）</label><textarea id="decide_text" name="decide_text"></textarea></div></section>
+<section class="card"><div class="qhead"><div class="qnum">4</div><div><h2 class="qtitle">年齢そのものも判断材料になるとしたら、何歳ごろから「最期について具体的に考える・意思表示する」と思いますか。</h2><p class="qdesc">「何歳で亡くなりたいか」ではなく、年齢を意識し始める目安を聞く質問です。</p></div></div><div class="two">
+<div class="choice"><input type="radio" name="age_trigger" id="a20" value="20s"><label for="a20">20代</label></div><div class="choice"><input type="radio" name="age_trigger" id="a30" value="30s"><label for="a30">30代</label></div>
+<div class="choice"><input type="radio" name="age_trigger" id="a40" value="40s"><label for="a40">40代</label></div><div class="choice"><input type="radio" name="age_trigger" id="a50" value="50s"><label for="a50">50代</label></div>
+<div class="choice"><input type="radio" name="age_trigger" id="a60" value="60s"><label for="a60">60代</label></div><div class="choice"><input type="radio" name="age_trigger" id="a70" value="70s"><label for="a70">70代</label></div>
+<div class="choice"><input type="radio" name="age_trigger" id="a80" value="80s"><label for="a80">80代</label></div><div class="choice"><input type="radio" name="age_trigger" id="a90" value="90s"><label for="a90">90代</label></div>
+<div class="choice"><input type="radio" name="age_trigger" id="a100" value="100s"><label for="a100">100代</label></div><div class="choice"><input type="radio" name="age_trigger" id="a110" value="110s"><label for="a110">110代</label></div>
+<div class="choice"><input type="radio" name="age_trigger" id="a120" value="120s"><label for="a120">120代</label></div><div class="choice"><input type="radio" name="age_trigger" id="a130" value="130s"><label for="a130">130代</label></div>
+<div class="choice"><input type="radio" name="age_trigger" id="a140" value="140s"><label for="a140">140代</label></div><div class="choice"><input type="radio" name="age_trigger" id="a150" value="150plus"><label for="a150">150歳以上</label></div>
+<div class="choice"><input type="radio" name="age_trigger" id="age_na" value="not_age_based"><label for="age_na">年齢は判断材料にしない</label></div><div class="choice"><input type="radio" name="age_trigger" id="age_unknown" value="unknown"><label for="age_unknown">分からない</label></div>
+</div></section>
+
+<section class="card"><div class="qhead"><div class="qnum">5</div><div><h2 class="qtitle">ADLや身体の状態では、どんな変化が「最期について考え直すきっかけ」になりそうですか。</h2><p class="qdesc">複数選択できます。</p></div></div><div class="two">
+<div class="choice check"><input type="checkbox" name="adl_factor" id="d1" value="walking"><label for="d1">一人で歩けなくなる</label></div>
+<div class="choice check"><input type="checkbox" name="adl_factor" id="d2" value="eating"><label for="d2">自分で食べたり飲んだりすることが難しくなる</label></div>
+<div class="choice check"><input type="checkbox" name="adl_factor" id="d3" value="toileting"><label for="d3">排泄に全面的な介助が必要になる</label></div>
+<div class="choice check"><input type="checkbox" name="adl_factor" id="d4" value="communication"><label for="d4">言葉や機器を使っても意思を伝えることが難しくなる</label></div>
+<div class="choice check"><input type="checkbox" name="adl_factor" id="d5" value="bedridden"><label for="d5">ほとんどベッド上で過ごす状態になる</label></div>
+<div class="choice check"><input type="checkbox" name="adl_factor" id="d6" value="pain"><label for="d6">痛みや息苦しさが強く、十分に和らげられない</label></div>
+<div class="choice check"><input type="checkbox" name="adl_factor" id="d7" value="cognition"><label for="d7">自分のことや周囲のことが分からなくなる</label></div>
+<div class="choice check"><input type="checkbox" name="adl_factor" id="d8" value="none"><label for="d8">ADLだけでは判断しないと思う</label></div>
+</div></section>
+
+<section class="card"><div class="qhead"><div class="qnum">6</div><div><h2 class="qtitle">貯金・資産などの経済状況は、あなたの最期の選択にどの程度影響すると思いますか。</h2></div></div><div class="options">
+<div class="choice"><input type="radio" name="money_weight" id="m1" value="very"><label for="m1">かなり影響すると思う</label></div>
+<div class="choice"><input type="radio" name="money_weight" id="m2" value="some"><label for="m2">ある程度影響すると思う</label></div>
+<div class="choice"><input type="radio" name="money_weight" id="m3" value="little"><label for="m3">あまり影響しないと思う</label></div>
+<div class="choice"><input type="radio" name="money_weight" id="m4" value="none"><label for="m4">全く影響しないと思う</label></div>
+<div class="choice"><input type="radio" name="money_weight" id="m5" value="unknown"><label for="m5">分からない</label></div>
+</div><div class="two" style="margin-top:10px">
+<div class="choice check"><input type="checkbox" name="money_reason" id="mr1" value="care_cost"><label for="mr1">医療・介護にかかる費用</label></div>
+<div class="choice check"><input type="checkbox" name="money_reason" id="mr2" value="family_burden"><label for="mr2">家族の経済的負担</label></div>
+<div class="choice check"><input type="checkbox" name="money_reason" id="mr3" value="living_cost"><label for="mr3">自分の生活費・住居費</label></div>
+<div class="choice check"><input type="checkbox" name="money_reason" id="mr4" value="leave_assets"><label for="mr4">家族に資産を残したい</label></div>
+</div></section>
+
+<section class="card"><div class="qhead"><div class="qnum">7</div><div><h2 class="qtitle">家族の健康状態や生活状況は、あなたの最期の選択に影響すると思いますか。</h2></div></div><div class="two">
+<div class="choice check"><input type="checkbox" name="family_factor" id="ff1" value="caregiver_health"><label for="ff1">介護する家族の健康状態</label></div>
+<div class="choice check"><input type="checkbox" name="family_factor" id="ff2" value="partner_health"><label for="ff2">配偶者・パートナーの健康状態</label></div>
+<div class="choice check"><input type="checkbox" name="family_factor" id="ff3" value="children"><label for="ff3">子どもの年齢や自立状況</label></div>
+<div class="choice check"><input type="checkbox" name="family_factor" id="ff4" value="parents"><label for="ff4">親の介護や扶養が必要か</label></div>
+<div class="choice check"><input type="checkbox" name="family_factor" id="ff5" value="burden"><label for="ff5">家族にどの程度負担がかかるか</label></div>
+<div class="choice check"><input type="checkbox" name="family_factor" id="ff6" value="not_factor"><label for="ff6">家族の状況では決めないと思う</label></div>
+</div></section>
+
+<section class="card"><div class="qhead"><div class="qnum">8</div><div><h2 class="qtitle">あなたの考え方に近いものはありますか。</h2><p class="qdesc">思想・宗教・死生観に関する項目です。複数選択できます。</p></div></div><div class="two">
+<div class="choice check"><input type="checkbox" name="belief" id="b1" value="autonomy"><label for="b1">自分の人生は最後まで自分で決めたい</label></div>
+<div class="choice check"><input type="checkbox" name="belief" id="b2" value="natural"><label for="b2">死はできるだけ自然な経過に任せたい</label></div>
+<div class="choice check"><input type="checkbox" name="belief" id="b3" value="family"><label for="b3">自分だけでなく家族と一緒に決めたい</label></div>
+<div class="choice check"><input type="checkbox" name="belief" id="b4" value="dignity"><label for="b4">自分らしさや尊厳を保てることを重視したい</label></div>
+<div class="choice check"><input type="checkbox" name="belief" id="b5" value="religion"><label for="b5">宗教・信仰上の考えが影響する</label></div>
+<div class="choice check"><input type="checkbox" name="belief" id="b6" value="do_not_choose"><label for="b6">人が死ぬ時期を決めるべきではないと思う</label></div>
+<div class="choice check"><input type="checkbox" name="belief" id="b7" value="social"><label for="b7">社会や周囲への負担も考慮したい</label></div>
+<div class="choice check"><input type="checkbox" name="belief" id="b8" value="unknown"><label for="b8">今は自分の考えが分からない</label></div>
+</div></section>
+
+<section class="card"><div class="qhead"><div class="qnum">9</div><div><h2 class="qtitle">もし自分が望む選択肢が日本では認められておらず、海外でのみ制度化されていた場合、海外へ行くことも検討すると思いますか。<span class="optional">任意</span></h2></div></div><div class="options">
+<div class="choice"><input type="radio" name="overseas" id="o1" value="yes"><label for="o1">検討すると思う</label></div>
+<div class="choice"><input type="radio" name="overseas" id="o2" value="maybe"><label for="o2">条件によっては検討すると思う</label></div>
+<div class="choice"><input type="radio" name="overseas" id="o3" value="no"><label for="o3">検討しないと思う</label></div>
+<div class="choice"><input type="radio" name="overseas" id="o4" value="unknown"><label for="o4">分からない</label></div>
+<div class="choice"><input type="radio" name="overseas" id="o5" value="prefer_not"><label for="o5">答えたくない</label></div>
+</div></section>
+
+<section class="card"><div class="qhead"><div class="qnum">10</div><div><h2 class="qtitle">最期について、どの部分を自分で決めておきたいですか。</h2><p class="qdesc">複数選択できます。</p></div></div><div class="two">
+<div class="choice check"><input type="checkbox" name="control" id="c1" value="treatment"><label for="c1">どこまで治療を受けるか</label></div>
+<div class="choice check"><input type="checkbox" name="control" id="c2" value="place"><label for="c2">どこで過ごし、どこで最期を迎えるか</label></div>
+<div class="choice check"><input type="checkbox" name="control" id="c3" value="people"><label for="c3">誰と過ごしたいか</label></div>
+<div class="choice check"><input type="checkbox" name="control" id="c4" value="symptom_relief"><label for="c4">苦痛をどこまで和らげたいか</label></div>
+<div class="choice check"><input type="checkbox" name="control" id="c5" value="consciousness"><label for="c5">意識を保つことをどこまで重視するか</label></div>
+<div class="choice check"><input type="checkbox" name="control" id="c6" value="timing"><label for="c6">死ぬ時期そのもの</label></div>
+<div class="choice check"><input type="checkbox" name="control" id="c7" value="family_role"><label for="c7">家族にどこまで判断を任せるか</label></div>
+<div class="choice check"><input type="checkbox" name="control" id="c8" value="none"><label for="c8">特に決めておきたいことはない</label></div>
+</div></section>
+
+<section class="card"><div class="qhead"><div class="qnum">11</div><div><h2 class="qtitle">あなた自身の「最期を考える基準」を、自由に教えてください。<span class="optional">任意</span></h2><p class="qdesc">年齢、身体の状態、お金、家族、思想など、上の選択肢では足りなかったことも書けます。</p></div></div><div class="field"><textarea name="personal_rule" placeholder="例：年齢では決めず、自分で意思を伝えられるかどうかを一番重視すると思う、など"></textarea></div></section>
+
 </form>
-
-<section class="finish"><p>プレテストのため、この回答は送信・保存されません。</p><button type="button" id="finishBtn">回答をここまでにする</button><div class="done" id="done">ありがとうございました。いま選んだ内容は、この端末から外部へ送信されていません。</div></section>
+<section class="finish"><p>プレテストのため、入力内容は外部へ送信されません。</p><button type="button" id="finishBtn">ここまで回答する</button><div class="done" id="done">回答内容は保存・送信されていません。</div></section>
 </main>
-<script>
-document.getElementById('finishBtn').addEventListener('click',function(){document.getElementById('done').classList.add('show');this.textContent='回答済み（未送信）';});
-</script>
+<script>document.getElementById('finishBtn').addEventListener('click',function(){document.getElementById('done').classList.add('show');this.textContent='回答済み（未送信）';});</script>
 </body>
 </html>
