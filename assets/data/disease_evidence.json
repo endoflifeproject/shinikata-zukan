@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "label": "ネット上の根拠 × 死に方図鑑データ",
+    "updated": "2026-08-14",
+    "rule": "医学・公的情報と、死に方図鑑が独自に集めた体験データを混ぜずに並べて表示する。割合を表示する場合は、母数・対象・期間を必須にする。"
+  },
+  "diseases": {
+    "dementia": {
+      "name": "認知症",
+      "page": "dementia.html",
+      "evidence": {
+        "source_name": "厚生労働省｜認知症の人の日常生活・社会生活における意思決定支援ガイドライン（第2版）",
+        "source_url": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000212395.html",
+        "summary": "認知症があっても、本人の意思に基づく生活を支えるための基本原則と意思決定支援のプロセスを示す公的ガイドライン。",
+        "scope": "意思決定支援についての根拠。認知症の個人の余命や経過を予測する資料ではない。"
+      },
+      "zukan": {
+        "sample_size": 0,
+        "status": "demo-empty",
+        "summary": "実データは未接続。将来、本人・支える人・専門職の匿名データを、医学情報と分けて集計する。",
+        "planned_fields": ["生活で支援が増えた場面", "食べることの変化", "本人の意思を知る手がかり", "療養場所や医療選択で迷ったこと"]
+      }
+    },
+    "lung_cancer": {
+      "name": "肺がん",
+      "page": "lung_cancer.html",
+      "evidence": {
+        "source_name": "国立がん研究センター がん情報サービス｜肺がん",
+        "source_url": "https://ganjoho.jp/public/cancer/lung/index.html",
+        "summary": "肺がんの種類、症状、検査、治療、療養について一般向けに整理された公的ながん情報。",
+        "scope": "組織型や病期などで治療・経過が異なるため、病名だけから個人の見通しを決める資料ではない。"
+      },
+      "zukan": {
+        "sample_size": 0,
+        "status": "demo-empty",
+        "summary": "実データは未接続。治療と生活を両立する中で生じた困りごとを匿名で集計する想定。",
+        "planned_fields": ["息苦しさや疲労が強くなった時期", "治療と仕事・生活の両立", "相談して役立ったこと", "療養場所を考えたきっかけ"]
+      }
+    },
+    "heart_failure": {
+      "name": "心不全",
+      "page": "heart_failure.html",
+      "evidence": {
+        "source_name": "日本循環器学会／日本心不全学会｜2025年改訂版 心不全診療ガイドライン",
+        "source_url": "https://www.j-circ.or.jp/guideline/guideline-series/",
+        "summary": "心不全の診断・治療・長期管理に加えて、緩和ケアやACPを含む診療指針。",
+        "scope": "心不全は原因・重症度・増悪の頻度が異なる。ガイドラインは個人の余命を示すものではない。"
+      },
+      "zukan": {
+        "sample_size": 0,
+        "status": "demo-empty",
+        "summary": "実データは未接続。安定期と増悪時の暮らしの差や、入退院の経験を匿名で集計する想定。",
+        "planned_fields": ["息切れ・むくみの変化", "増悪や入院のきっかけ", "退院後に増えた支援", "急変時の方針を話した時期"]
+      }
+    },
+    "copd": {
+      "name": "COPD",
+      "page": "copd.html",
+      "evidence": {
+        "source_name": "日本呼吸器学会｜COPD診断と治療のためのガイドライン2026〔第7版〕",
+        "source_url": "https://www.jrs.or.jp/publication/jrs_guidelines/20260209000000.html",
+        "summary": "COPDの長期管理、呼吸リハビリ、在宅管理、増悪時治療、終末期COPD、ACP・緩和ケアまで扱う診療ガイドライン。",
+        "scope": "呼吸機能だけでなく増悪、身体活動、併存症などで経過が異なり、個人の残り時間を示す資料ではない。"
+      },
+      "zukan": {
+        "sample_size": 0,
+        "status": "demo-empty",
+        "summary": "実データは未接続。息切れが生活をどう狭めたか、増悪後に何が変わったかを匿名で集計する想定。",
+        "planned_fields": ["歩ける距離・外出の変化", "増悪・入院の経験", "酸素や在宅支援を始めた時期", "呼吸を助ける治療について話した経験"]
+      }
+    },
+    "kidney_failure": {
+      "name": "腎不全",
+      "page": "kidney_failure.html",
+      "evidence": {
+        "source_name": "日本腎臓学会｜腎代替療法・SDM・保存的腎臓療法（CKM）",
+        "source_url": "https://jsn.or.jp/general/kidneydisease/symptoms11.php",
+        "summary": "血液透析、腹膜透析、腎移植に加え、SDMとCKMを一般向けに説明する日本腎臓学会の情報。",
+        "scope": "治療法は腎機能の数値だけで決まらず、症状、併存疾患、生活背景、本人の価値観などを含めて検討する。"
+      },
+      "zukan": {
+        "sample_size": 0,
+        "status": "demo-empty",
+        "summary": "実データは未接続。治療選択が暮らしへ与えた影響と、意思決定で役立った情報を匿名で集計する想定。",
+        "planned_fields": ["むくみ・だるさ・食欲の変化", "血液透析・腹膜透析・移植を検討した経験", "CKMについて説明を受けた経験", "治療時間や通院と生活の両立"]
+      }
+    }
+  }
+}
