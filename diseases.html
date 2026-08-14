@@ -1,58 +1,37 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>死に方図鑑｜病気を知る</title>
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f4f7f9">
+<meta name="description" content="認知症、肺がんなどの病気から、経過、暮らしへの影響、選択が生まれる場面を探せる死に方図鑑の病気入口です。">
+<title>病気から探す｜死に方図鑑</title>
 <style>
-:root{
-  --navy:#173d68;--navy2:#285e8f;--ink:#233547;--muted:#687b8d;
-  --bg:#f4f7f9;--card:#fff;--line:#d8e2e9;--pale:#eef5fb;
-  --amber:#fff6df;--amber-line:#ead39b;--green:#edf8f2;--green-line:#cce3d5;
-  --rose:#fff2f3;--rose-line:#edd2d5;--shadow:0 8px 28px rgba(29,58,84,.06)
-}
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Yu Gothic",Meiryo,sans-serif;line-height:1.75}
-a{text-decoration:none;color:inherit}
-header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.head{max-width:1180px;margin:auto;padding:11px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
-.brandrow{display:flex;align-items:center;gap:10px;cursor:pointer}.symbol{width:40px;height:40px;border:1px solid #9cb4c8;border-radius:50%;display:grid;place-items:center;color:#a9832e;font-size:20px}
-.brand{font-family:serif;color:var(--navy);font-size:19px;font-weight:800}.brand small{display:block;font:10px sans-serif;color:var(--muted);font-weight:500}
-.headerlinks{display:flex;gap:7px;flex-wrap:wrap}.headerlinks a{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 10px;font-size:10px;color:#4e667a}
-main{max-width:1180px;margin:22px auto 80px;padding:0 16px}
-.hero,.panel{background:#fff;border:1px solid var(--line);border-radius:19px;padding:27px;box-shadow:var(--shadow);margin-bottom:15px}
-.hero{background:linear-gradient(135deg,#fbfdff 0%,#f0f6fb 100%)}
-.kicker{display:inline-flex;background:var(--navy);color:#fff;border-radius:999px;padding:5px 10px;font-size:11px;font-weight:800}
-h1{font-family:serif;color:#172e47;font-size:36px;line-height:1.3;margin:12px 0 8px}
-h2{color:#205d93;font-size:22px;margin:0 0 8px}h3{color:#2b5273;margin:0 0 6px}
-.lead{color:#42586b;max-width:900px;margin:0}.micro{font-size:11px;color:var(--muted)}
-.notice{margin-top:14px;background:var(--amber);border:1px solid var(--amber-line);border-radius:11px;padding:11px 13px;font-size:12px}
-.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9px;padding:11px 15px;font-weight:800;font-size:12px;background:var(--navy);color:#fff}
-.btn.secondary{background:#fff;color:var(--navy);border:1px solid #aec3d5}
-.breadcrumb{display:flex;gap:6px;flex-wrap:wrap;font-size:10px;color:#718392;margin-bottom:12px}.breadcrumb a{color:#315c82}.breadcrumb span:before{content:"›";margin-right:6px;color:#a0afba}
-@media(max-width:820px){h1{font-size:28px}.headerlinks{display:none}.hero,.panel{padding:20px}}
+:root{--navy:#173d68;--blue:#285e8f;--ink:#233547;--muted:#687b8d;--bg:#f4f7f9;--card:#fff;--line:#d8e2e9;--pale:#eef5fb;--green:#edf8f2;--green-line:#cce3d5;--amber:#fff7e7;--amber-line:#ead7ad;--shadow:0 10px 34px rgba(29,58,84,.07)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Yu Gothic",Meiryo,sans-serif;line-height:1.8}a{text-decoration:none;color:inherit}
+header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}.head{max-width:1180px;margin:auto;padding:11px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}.brandrow{display:flex;align-items:center;gap:10px}.symbol{width:40px;height:40px;border:1px solid #9cb4c8;border-radius:50%;display:grid;place-items:center;color:#a9832e;font-size:20px}.brand{font-family:"Yu Mincho","Hiragino Mincho ProN",serif;color:var(--navy);font-size:19px;font-weight:700}.brand small{display:block;font:9px sans-serif;color:var(--muted);font-weight:500;letter-spacing:.08em}.headerlinks{display:flex;gap:7px;flex-wrap:wrap}.headerlinks a{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 10px;font-size:10px;color:#4e667a}
+main{max-width:1180px;margin:22px auto 80px;padding:0 16px}.breadcrumb{display:flex;gap:6px;flex-wrap:wrap;font-size:10px;color:#718392;margin-bottom:12px}.breadcrumb a{color:#315c82}.breadcrumb span:before{content:"›";margin-right:6px;color:#a0afba}
+.hero,.panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:var(--shadow);margin-bottom:16px}.hero{background:linear-gradient(135deg,#fbfdff 0%,#eef5fb 100%)}.kicker{display:inline-flex;background:var(--navy);color:#fff;border-radius:999px;padding:5px 10px;font-size:10px;font-weight:800;letter-spacing:.06em}h1{font-family:"Yu Mincho","Hiragino Mincho ProN",serif;color:#172e47;font-size:38px;line-height:1.35;margin:13px 0 9px;font-weight:600}h2{font-family:"Yu Mincho","Hiragino Mincho ProN",serif;color:#205d93;font-size:23px;margin:0 0 7px;font-weight:600}h3{font-family:"Yu Mincho","Hiragino Mincho ProN",serif;color:#2b5273;margin:0}.lead{color:#42586b;max-width:850px;margin:0}.hero-note{margin-top:15px;font-size:11px;color:#617586}.section-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:16px}.section-head p{margin:0;color:var(--muted);font-size:11px}.count{border:1px solid var(--green-line);background:var(--green);color:#47745a;border-radius:999px;padding:5px 9px;font-size:9px;font-weight:800;white-space:nowrap}
+.live-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.disease-card{border:1px solid var(--line);background:#fff;border-radius:18px;padding:21px;display:flex;flex-direction:column;min-height:300px;transition:.2s;position:relative}.disease-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.status{position:absolute;right:14px;top:14px;border-radius:999px;padding:4px 8px;font-size:9px;font-weight:800}.status.live{background:var(--green);border:1px solid var(--green-line);color:#47745a}.disease-icon{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:var(--pale);color:var(--blue);font-size:25px;margin-bottom:11px}.disease-card h3{font-size:24px;margin-bottom:5px}.summary{font-size:12px;color:#5d7182;margin:0 0 13px}.view-label{font-size:9px;color:#84929b;font-weight:800;margin-bottom:6px}.points{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.point{border:1px solid #e2e9ee;border-radius:10px;background:#fafcfd;padding:8px 9px;font-size:10px;color:#526a7d}.go{margin-top:auto;padding-top:17px;color:var(--navy);font-size:12px;font-weight:800}
+.feature-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.feature{border:1px solid var(--line);border-radius:14px;background:#fbfdff;padding:14px}.feature b{display:block;color:#315c82;font-size:11px;margin-bottom:3px}.feature span{font-size:10px;color:#687b8d}.prep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.prep{border:1px solid var(--amber-line);background:var(--amber);border-radius:14px;padding:16px}.prep .soon{display:inline-flex;border-radius:999px;background:#fff;border:1px solid #e4d7ba;padding:3px 7px;color:#7c6b48;font-size:8px;font-weight:800;margin-bottom:7px}.prep h3{font-size:17px;margin-bottom:4px}.prep p{font-size:10px;color:#766d5c;margin:0}
+.route-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.route{border:1px solid var(--line);border-radius:14px;background:#fff;padding:15px}.route b{display:block;color:#315c82;font-size:12px;margin-bottom:4px}.route span{display:block;font-size:10px;color:#687b8d}.route .arrow{display:block;margin-top:9px;color:#2c678f;font-weight:800;font-size:10px}.note{margin-top:13px;border:1px solid #dfe7ec;background:#f9fbfc;border-radius:13px;padding:13px 14px;color:#687b8d;font-size:10px}
+@media(max-width:900px){.live-grid,.feature-row{grid-template-columns:1fr 1fr}.prep-grid,.route-grid{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}}
+@media(max-width:650px){h1{font-size:29px}.headerlinks{display:none}.hero,.panel{padding:20px}.live-grid,.feature-row{grid-template-columns:1fr}.disease-card{min-height:auto}.points{grid-template-columns:1fr}}
 </style>
-
-<style>
-.controls{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0}.pill{border:1px solid #b9ccdc;background:#fff;color:#345773;border-radius:999px;padding:8px 11px;font-size:11px;font-weight:800}
-.compare{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
-.disease{background:#fff;border:1px solid var(--line);border-radius:15px;padding:16px;box-shadow:var(--shadow);position:relative}
-.disease.live{border-top:4px solid var(--navy)}.disease h3{font-size:18px}.tag{display:inline-flex;border-radius:999px;padding:3px 7px;background:var(--pale);color:#315b7d;font-size:10px;font-weight:800;margin:3px 3px 3px 0}
-.schematic{height:72px;margin:12px 0;border-left:1px solid #bccbd5;border-bottom:1px solid #bccbd5;position:relative;background:linear-gradient(180deg,#fff,#fafcfd)}
-.line{position:absolute;height:4px;background:var(--navy2);border-radius:10px;transform-origin:left center}
-.dementia .line{width:88%;left:7%;top:18px;transform:rotate(17deg)}.cancer .line{width:76%;left:8%;top:13px;transform:rotate(27deg)}.heart .line{width:80%;left:7%;top:16px;transform:rotate(19deg)}.copd .line{width:82%;left:7%;top:15px;transform:rotate(20deg)}.kidney .line{width:83%;left:7%;top:17px;transform:rotate(18deg)}
-.disease:not(.live){opacity:.7}.disease:not(.live) .btn{background:#8a99a5;pointer-events:none}
-.compare-note{background:#f8fafc;border:1px solid var(--line);border-radius:13px;padding:14px;margin-top:13px}
-@media(max-width:900px){.compare{grid-template-columns:1fr}}
-</style></head><body>
-<header><div class="head"><a class="brandrow" href="index.html" aria-label="死に方図鑑 ホームへ"><div class="symbol">✦</div><div class="brand">死に方図鑑<small>病気・経過を比較する図鑑</small></div></a><div class="headerlinks"><a href="index.html">ホーム</a><a href="decision_support.html">意思決定支援</a></div></div></header>
-<main><div class="breadcrumb"><a href="index.html">ホーム</a><span>病気を知る</span></div>
-<section class="hero"><span class="kicker">01｜病気を知る</span><h1>病名ではなく、「この先の暮らし」で病気を見る</h1>
-<p class="lead">進み方、急変のしかた、生活機能、食べること、介護量。複数の病気を同じ軸で見られる図鑑を目指します。</p>
-<div class="notice"><b>現在のプレテスト：</b>認知症を第1号機、肺がんを第2号機として、共通の疾病ページテンプレートを検証しています。下の線は比較UIの模式表示であり、実測データや予後予測ではありません。</div></section>
-<section class="panel"><h2>病気を比較する</h2><div class="controls"><span class="pill">生活機能</span><span class="pill">食べること</span><span class="pill">急変</span><span class="pill">介護の必要性</span><span class="pill">医療選択</span></div>
-<div class="compare">
-<article class="disease dementia live"><span class="tag">詳細版試作</span><h3>認知症</h3><p class="micro">年単位で生活機能が変化し、進行すると食事・移動・会話・意思表出にも影響することがあります。</p><div class="schematic"><div class="line"></div></div><span class="tag">食べること</span><span class="tag">ACP</span><span class="tag">人工栄養</span><p><a class="btn" href="dementia.html">認知症を見る →</a></p></article>
-<article class="disease cancer live"><span class="tag">第2号機・試作版</span><h3>肺がん</h3><p class="micro">病期・組織型・治療への反応によって経過が大きく異なり、「一本の低下線」で表さないテンプレを検証中。</p><div class="schematic"><div class="line"></div></div><span class="tag">がん治療</span><span class="tag">緩和ケア</span><span class="tag">療養生活</span><p><a class="btn" href="lung_cancer.html">肺がんを見る →</a></p></article>
-<article class="disease heart"><span class="tag">準備中</span><h3>心不全</h3><p class="micro">増悪と回復を繰り返す経過をどう表現するか、今後実装。</p><div class="schematic"><div class="line"></div></div><span class="tag">入退院</span><span class="tag">急変</span><p><span class="btn">準備中</span></p></article>
-<article class="disease copd"><span class="tag">準備中</span><h3>COPD</h3><p class="micro">呼吸困難・増悪・活動性の変化を比較軸にする想定。</p><div class="schematic"><div class="line"></div></div><span class="tag">呼吸</span><span class="tag">在宅療養</span><p><span class="btn">準備中</span></p></article>
-<article class="disease kidney"><span class="tag">準備中</span><h3>腎不全</h3><p class="micro">透析・保存的腎臓療法などの意思決定につなぐ想定。</p><div class="schematic"><div class="line"></div></div><span class="tag">透析</span><span class="tag">保存的治療</span><p><span class="btn">準備中</span></p></article>
-</div>
-<div class="compare-note micro"><b>本番の比較UI：</b>疾患ごとに同じ指標をそろえ、研究データが比較可能なものだけグラフ化します。研究条件が違うものを、見た目だけで直接比較しない設計にします。</div>
-</section></main></body></html>
+</head>
+<body>
+<header><div class="head"><a class="brandrow" href="index.html" aria-label="死に方図鑑 ホームへ"><div class="symbol">✦</div><div class="brand">死に方図鑑<small>病気から探す</small></div></a><div class="headerlinks"><a href="index.html#concerns">困りごとから探す</a><a href="medical_choices.html">医療・治療</a><a href="experience.html">みんなの体験</a><a href="index.html">ホーム</a></div></div></header>
+<main>
+<div class="breadcrumb"><a href="index.html">ホーム</a><span>病気から探す</span></div>
+<section class="hero"><span class="kicker">病気から探す</span><h1>病名だけでなく、<br>「この先どう暮らすか」で病気を見る。</h1><p class="lead">死に方図鑑では、病気の説明だけで終わらず、経過、暮らしへの影響、選択が生まれる場面まで、できるだけ同じ順番でたどれる病気ページを目指しています。</p><p class="hero-note">デモ版では、まず認知症と肺がんを公開しています。病気ごとの比較グラフは、比較できる根拠データがそろったものから追加します。</p></section>
+<section class="panel"><div class="section-head"><div><h2>公開中の病気</h2><p>まずはこの2つで、病気ページの読み方を試せます。</p></div><span class="count">公開中 2</span></div>
+<div class="live-grid">
+<a class="disease-card" href="dementia.html"><span class="status live">公開中</span><div class="disease-icon">脳</div><h3>認知症</h3><p class="summary">病気の特徴だけでなく、生活の変化や意思決定を考えるための詳細版ページ。</p><div class="view-label">このページでたどること</div><div class="points"><div class="point">病気と経過</div><div class="point">暮らしの変化</div><div class="point">食べること</div><div class="point">本人の意思・選択</div></div><div class="go">認知症を見る →</div></a>
+<a class="disease-card" href="lung_cancer.html"><span class="status live">公開中</span><div class="disease-icon">肺</div><h3>肺がん</h3><p class="summary">病期や治療によって違いが大きい病気を、一本の経過に決めつけず整理する試作ページ。</p><div class="view-label">このページでたどること</div><div class="points"><div class="point">病気と治療</div><div class="point">経過の見方</div><div class="point">療養生活</div><div class="point">選択と相談先</div></div><div class="go">肺がんを見る →</div></a>
+</div></section>
+<section class="panel"><div class="section-head"><div><h2>病気ページで見られること</h2><p>病名が違っても、なるべく同じ視点で読めるようにそろえていきます。</p></div></div><div class="feature-row"><div class="feature"><b>1｜病気を知る</b><span>まず何が起きる病気なのかを整理する。</span></div><div class="feature"><b>2｜経過を見る</b><span>一つの決まった線ではなく、起こりうる変化を知る。</span></div><div class="feature"><b>3｜暮らしを見る</b><span>食事、移動、療養場所など生活への影響を見る。</span></div><div class="feature"><b>4｜選択を見る</b><span>治療やケア、本人の希望を考える場面へつなぐ。</span></div></div></section>
+<section class="panel"><div class="section-head"><div><h2>追加予定の病気</h2><p>デモ版ではページの箱だけ増やさず、内容を確認できたものから公開します。</p></div><span class="count" style="background:#fff7e7;border-color:#ead7ad;color:#7c6b48">準備中 3</span></div><div class="prep-grid"><div class="prep"><span class="soon">準備中</span><h3>心不全</h3><p>体調の変化と療養生活をどう整理するか、ページ設計を準備中です。</p></div><div class="prep"><span class="soon">準備中</span><h3>COPD</h3><p>呼吸の症状と日常生活をどう一緒に見るか、ページ設計を準備中です。</p></div><div class="prep"><span class="soon">準備中</span><h3>腎不全</h3><p>治療と暮らしの選択をどう整理するか、ページ設計を準備中です。</p></div></div></section>
+<section class="panel"><div class="section-head"><div><h2>探している病気がまだないとき</h2><p>病名がなくても、今の困りごとや知りたいテーマから先に進めます。</p></div></div><div class="route-grid"><a class="route" href="body_changes.html"><b>身体の変化から探す</b><span>食べられない、息苦しい、歩けない、眠る時間が増えた。</span><span class="arrow">身体の変化へ →</span></a><a class="route" href="outlook.html"><b>見通しから探す</b><span>この先どうなる、あとどれくらい、最期に何が起こる。</span><span class="arrow">見通しへ →</span></a><a class="route" href="medical_choices.html"><b>医療の選択から探す</b><span>胃ろう、人工呼吸器、治療継続、救急搬送など。</span><span class="arrow">医療の選択へ →</span></a></div><div class="note">※このページは病気を診断するためのものではありません。症状や治療についての判断は、担当医や医療専門職へ相談してください。</div></section>
+</main>
+</body>
+</html>
