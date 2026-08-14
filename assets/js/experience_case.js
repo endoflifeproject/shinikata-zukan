@@ -44,6 +44,18 @@
     }
   }
 
+  function enhanceOpeningNarrative(){
+    const core=document.getElementById('core');
+    if(!core||document.getElementById('caseOverviewFree'))return;
+    const head=core.querySelector('.section-head');
+    if(!head)return;
+    const box=document.createElement('div');
+    box.id='openingNarrative';
+    box.className='subpanel';
+    box.innerHTML='<span class="tag">最初にざっくり｜フリースタイル</span><h3>まず、この人のことを自由に教えてください</h3><p class="intro">どんな人で、何がきっかけで病気や介護が始まり、その後どんなことが起き、今どうなっているか。覚えている範囲で自由にどうぞ。順番が前後しても、箇条書きでも、後の質問と重複しても大丈夫です。</p><div class="field"><label for="caseOverviewFree">全体を通した説明（任意）</label><textarea id="caseOverviewFree" name="case_overview_free" maxlength="1200" placeholder="例：もともと一人暮らしで旅行が好きな人でした。数年前から物忘れが増え、転倒・骨折で入院した頃から生活が大きく変わりました。その後は家族で介護しながら通院し、最後は…… など"></textarea><p class="help">病歴の正式な要約でなくて構いません。「この人はこんな人だった」「ざっくりこういう経過だった」が伝われば十分です。氏名・病院名・住所・正確な日付など、本人を特定できる情報は書かないでください。</p></div>';
+    head.after(box);
+  }
+
   function enhanceCenterCondition(){
     const disease=document.getElementById('disease'); if(!disease)return;
     const old=disease.value;
@@ -213,7 +225,7 @@
 
   function buildPayload(){
     const flat=collectFlat();
-    const caseKeys=new Set(['case_id','patient_age_band','patient_sex','patient_status','course_center_condition','wish_expression','patient_values','patient_values_free','prior_wishes_free']);
+    const caseKeys=new Set(['case_id','patient_age_band','patient_sex','patient_status','course_center_condition','case_overview_free','wish_expression','patient_values','patient_values_free','prior_wishes_free']);
     const respondentKeys=new Set(['respondent_role','relationship','record_type','professional_experience','answer_source','answer_depth']);
     const medicalContextKeys=new Set(['additional_condition_presence','major_contributing_conditions','comorbid_conditions','diabetes_complications','relevant_past_history','prior_experience_decision_influence','comorbidity_other_text']);
     const courseKeys=new Set(['first_detection_mode','first_change_to_current_or_death','first_notice_to_first_care','first_care_to_diagnosis','first_care_entry','diagnosis_route','care_delay_reasons','diagnosis_delay_reasons','seriousness_recognition_timing','trajectory_pattern','events','unplanned_admissions_6m','emergency_visits_6m','final_month_care_setting','place_of_death','death_expected','last30_treatment']);
@@ -224,7 +236,7 @@
     const reflectionPrefixes=['overall_acceptance','choose_same_again','what_helped','what_was_hard','values_','own_','message_','expectation_'];
     const crisisPrefixes=['caregiver_self_death_thought','caregiver_joint_death_thought','crisis_'];
     return {
-      schema_version:'experience-case-v1.9',
+      schema_version:'experience-case-v1.10',
       record_kind:(flat.record_type==='professional_overview'?'professional_overview':'case_response'),
       case:take(flat,k=>caseKeys.has(k)),
       response:{response_id:responseId,...take(flat,k=>respondentKeys.has(k))},
@@ -285,5 +297,5 @@
   }
 
   function updateAll(){updateRole();updateDepth();updateConditionPanels();updateState();updateDecision();updateCrisis();updateRecordType();updateSummary();}
-  parseHash();ensureCase();addPolicyLinks();enhanceCenterCondition();enhanceValuesAndRespiratoryLabels();enhanceCostSection();addPreDiagnosisJourney();addMedicalHistoryContext();enhanceExpectationMismatch();enhanceDecisionSources();bindEvents();updateAll();
+  parseHash();ensureCase();addPolicyLinks();enhanceOpeningNarrative();enhanceCenterCondition();enhanceValuesAndRespiratoryLabels();enhanceCostSection();addPreDiagnosisJourney();addMedicalHistoryContext();enhanceExpectationMismatch();enhanceDecisionSources();bindEvents();updateAll();
 })();
