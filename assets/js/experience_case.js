@@ -221,10 +221,10 @@
     const carePrefixes=['care_','night_care_','support_services','caregiver_burden_'];
     const costPrefixes=['household_','out_of_pocket_','financial_','cost_','income_','public_support_'];
     const decisionPrefixes=['decision_','patient_wishes_','nutrition_','ventilation_','emergency_choice','treatment_choice','dialysis_choice','place_choice','disclosure_','acp_','other_decision_'];
-    const reflectionPrefixes=['overall_acceptance','choose_same_again','what_helped','what_was_hard','values_','own_','message_'];
+    const reflectionPrefixes=['overall_acceptance','choose_same_again','what_helped','what_was_hard','values_','own_','message_','expectation_'];
     const crisisPrefixes=['caregiver_self_death_thought','caregiver_joint_death_thought','crisis_'];
     return {
-      schema_version:'experience-case-v1.7',
+      schema_version:'experience-case-v1.8',
       record_kind:(flat.record_type==='professional_overview'?'professional_overview':'case_response'),
       case:take(flat,k=>caseKeys.has(k)),
       response:{response_id:responseId,...take(flat,k=>respondentKeys.has(k))},
@@ -261,6 +261,18 @@
     caseInput.addEventListener('change',()=>{caseInput.value=caseInput.value.trim().toUpperCase();updateSummary();});
   }
 
+  function enhanceExpectationMismatch(){
+    const reflection=document.getElementById('reflection');
+    if(!reflection||document.getElementById('expectationMismatchFree'))return;
+    const normalGrid=reflection.querySelector('.grid2.depth-hidden[data-depth-min="normal"]');
+    if(!normalGrid)return;
+    const field=document.createElement('div');
+    field.className='field depth-hidden';
+    field.dataset.depthMin='normal';
+    field.innerHTML='<label for="expectationMismatchFree">「思っていたのと違った」と感じたこと（任意）</label><textarea id="expectationMismatchFree" name="expectation_mismatch_free" placeholder="例：眠るように亡くなると聞いていたが、実際はせん妄で落ち着かない時間があり驚いた／余命半年と聞いて生活や仕事を大きく変えたが、その後5年ほど生きた／治療後の生活をもっと楽に想像していた など"></textarea><p class="help">説明や予測の正誤を決めるためではなく、事前に想像・説明されていたことと、実際に経験したことのズレを残す欄です。</p>';
+    normalGrid.after(field);
+  }
+
   function updateAll(){updateRole();updateDepth();updateConditionPanels();updateState();updateDecision();updateCrisis();updateRecordType();updateSummary();}
-  parseHash();ensureCase();addPolicyLinks();enhanceCenterCondition();enhanceValuesAndRespiratoryLabels();enhanceCostSection();addPreDiagnosisJourney();addMedicalHistoryContext();bindEvents();updateAll();
+  parseHash();ensureCase();addPolicyLinks();enhanceCenterCondition();enhanceValuesAndRespiratoryLabels();enhanceCostSection();addPreDiagnosisJourney();addMedicalHistoryContext();enhanceExpectationMismatch();bindEvents();updateAll();
 })();
