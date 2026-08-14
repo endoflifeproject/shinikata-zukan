@@ -57,6 +57,23 @@
     disease.closest('.field')?.appendChild(help);
   }
 
+  function enhanceValuesAndRespiratoryLabels(){
+    const valuesField=form.querySelector('input[name="patient_values"]')?.closest('.field');
+    if(valuesField&&!document.getElementById('patientValuesFree')){
+      const free=document.createElement('div');free.className='field';
+      free.innerHTML='<label for="patientValuesFree">その他・本人が大切にしていたこと（任意）</label><input type="text" id="patientValuesFree" name="patient_values_free" maxlength="200" placeholder="例：毎朝の習慣、ペットと過ごす、孫の行事までは生きたい、一人の時間を守りたい など"><p class="help">選択肢にない「その人らしさ」を短く残せます。氏名・病院名・住所など本人を特定できる情報は書かないでください。</p>';
+      valuesField.after(free);
+    }
+    const setLabel=(id,text)=>{const el=document.getElementById(id);const label=el&&form.querySelector(`label[for="${id}"]`);if(label)label.textContent=text;};
+    setLabel('ev_oxygen','酸素療法（鼻のチューブ・酸素マスク・高流量の酸素・在宅酸素など）');
+    setLabel('ev_niv','NPPV/NIV（顔に密着するマスクで呼吸を補助する治療）');
+    setLabel('copd_oxygen','在宅酸素療法（家で酸素を使う）');
+    setLabel('copd_niv','NPPV/NIV（マスクで呼吸を補助）');
+    setLabel('vent_noninv','NPPV/NIV（顔に密着するマスクで呼吸を補助）');
+    const ventilationOption=document.querySelector('#decisionFocus option[value="ventilation"]');
+    if(ventilationOption)ventilationOption.textContent='人工呼吸・換気補助（NPPV/NIVなど）';
+  }
+
   function addPreDiagnosisJourney(){
     const duration=document.getElementById('duration');
     if(!duration||document.getElementById('preDiagnosisJourney'))return;
@@ -148,7 +165,7 @@
 
   function buildPayload(){
     const flat=collectFlat();
-    const caseKeys=new Set(['case_id','patient_age_band','patient_sex','patient_status','course_center_condition','wish_expression','patient_values','prior_wishes_free']);
+    const caseKeys=new Set(['case_id','patient_age_band','patient_sex','patient_status','course_center_condition','wish_expression','patient_values','patient_values_free','prior_wishes_free']);
     const respondentKeys=new Set(['respondent_role','relationship','record_type','professional_experience','answer_source','answer_depth']);
     const medicalContextKeys=new Set(['additional_condition_presence','major_contributing_conditions','comorbid_conditions','diabetes_complications','relevant_past_history','prior_experience_decision_influence','comorbidity_other_text']);
     const courseKeys=new Set(['first_detection_mode','first_change_to_current_or_death','first_notice_to_first_care','first_care_to_diagnosis','first_care_entry','diagnosis_route','care_delay_reasons','diagnosis_delay_reasons','seriousness_recognition_timing','trajectory_pattern','events','unplanned_admissions_6m','emergency_visits_6m','final_month_care_setting','place_of_death','death_expected','last30_treatment']);
@@ -159,7 +176,7 @@
     const reflectionPrefixes=['overall_acceptance','choose_same_again','what_helped','what_was_hard','values_','own_','message_'];
     const crisisPrefixes=['caregiver_self_death_thought','caregiver_joint_death_thought','crisis_'];
     return {
-      schema_version:'experience-case-v1.5',
+      schema_version:'experience-case-v1.6',
       record_kind:(flat.record_type==='professional_overview'?'professional_overview':'case_response'),
       case:take(flat,k=>caseKeys.has(k)),
       response:{response_id:responseId,...take(flat,k=>respondentKeys.has(k))},
@@ -197,5 +214,5 @@
   }
 
   function updateAll(){updateRole();updateDepth();updateConditionPanels();updateState();updateDecision();updateCrisis();updateRecordType();updateSummary();}
-  parseHash();ensureCase();addPolicyLinks();enhanceCenterCondition();addPreDiagnosisJourney();addMedicalHistoryContext();bindEvents();updateAll();
+  parseHash();ensureCase();addPolicyLinks();enhanceCenterCondition();enhanceValuesAndRespiratoryLabels();addPreDiagnosisJourney();addMedicalHistoryContext();bindEvents();updateAll();
 })();
