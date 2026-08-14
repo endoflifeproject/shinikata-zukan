@@ -6,6 +6,7 @@
   const roleLabels={patient:'本人',family:'家族・身近な人',doctor:'医師',nurse:'看護師',care_worker:'介護職',other_professional:'その他医療・福祉職'};
   const depthLabels={easy:'ライト 約10分',normal:'標準 約15〜20分',deep:'詳しく 約30分＋'};
   const depthRank={easy:1,normal:2,deep:3};
+  const caseSectionIds=['core','course','suffering','care','cost','decision','reflection','complete'];
   let responseId=makeId('RSP',10);
 
   function makeId(prefix,len){
@@ -51,6 +52,7 @@
   function updateRecordType(){
     const overview=getRadio('record_type')==='professional_overview';
     document.getElementById('overviewNotice').classList.toggle('record-hidden',!overview);
+    caseSectionIds.forEach(id=>{const el=document.getElementById(id);if(el)el.classList.toggle('record-hidden',overview);});
   }
   function updateSummary(){
     document.getElementById('summaryCase').textContent=ensureCase();
@@ -83,10 +85,11 @@
     const respondentKeys=new Set(['respondent_role','relationship','record_type','professional_experience','answer_source','answer_depth']);
     const courseKeys=new Set(['seriousness_recognition_timing','trajectory_pattern','events','unplanned_admissions_6m','emergency_visits_6m','final_month_care_setting','place_of_death','death_expected','last30_treatment']);
     const diseasePrefixes=['dementia_','lung_cancer_','hf_','copd_','kidney_','other_disease_'];
-    const carePrefixes=['care_','night_care_','support_services'];
+    const carePrefixes=['care_','night_care_','support_services','caregiver_burden_'];
     const costPrefixes=['household_','out_of_pocket_','financial_','cost_','income_','public_support_'];
     const decisionPrefixes=['decision_','patient_wishes_','nutrition_','ventilation_','emergency_choice','treatment_choice','dialysis_choice','place_choice','disclosure_','acp_','other_decision_'];
-    const reflectionPrefixes=['overall_acceptance','choose_same_again','what_helped','what_was_hard','values_','own_','message_','caregiver_','crisis_'];
+    const reflectionPrefixes=['overall_acceptance','choose_same_again','what_helped','what_was_hard','values_','own_','message_'];
+    const crisisPrefixes=['caregiver_self_death_thought','caregiver_joint_death_thought','crisis_'];
     return {
       schema_version:'experience-case-v1.0',
       record_kind:(flat.record_type==='professional_overview'?'professional_overview':'case_response'),
@@ -99,6 +102,7 @@
       cost:take(flat,k=>costPrefixes.some(p=>k.startsWith(p))),
       decision:take(flat,k=>decisionPrefixes.some(p=>k.startsWith(p))),
       reflection:take(flat,k=>reflectionPrefixes.some(p=>k.startsWith(p))||k==='decision_regret'),
+      crisis_optional:take(flat,k=>crisisPrefixes.some(p=>k.startsWith(p))),
       prototype:{submitted:false,storage:'none',contact_data_included:false}
     };
   }
@@ -114,7 +118,7 @@
   }
 
   document.getElementById('newCaseBtn').addEventListener('click',()=>{caseInput.value=makeId('CASE',8);responseId=makeId('RSP',10);updateSummary();});
-  document.querySelectorAll('input[name="respondent_role"]').forEach(el=>el.addEventListener('change',updateRole));
+  document.querySelectorAll('input[name="respondent_role"]').forEach(el=>el.addEventListener('change',()=>{updateRole();updateRecordType();}));
   document.querySelectorAll('input[name="answer_depth"]').forEach(el=>el.addEventListener('change',updateDepth));
   document.querySelectorAll('input[name="record_type"]').forEach(el=>el.addEventListener('change',updateRecordType));
   document.getElementById('disease').addEventListener('change',updateDisease);
