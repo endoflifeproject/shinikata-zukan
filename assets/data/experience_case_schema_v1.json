@@ -1,13 +1,25 @@
 {
-  "schema_version": "experience-case-v1.0",
-  "purpose": "一人の療養・看取り経過を、本人・家族・医療介護職など複数の視点から比較可能な形で記録するためのフロントエンド用データモデル。",
+  "schema_version": "experience-case-v1.1",
+  "updated": "2026-08-15",
+  "purpose": "一人の療養・看取り経過を、本人・家族・医療介護職など複数の視点から比較可能な形で記録するためのデータモデル。",
   "unit_of_response": "ある1症例を、ある1人の回答者から見た記録",
-  "linking_model": {
-    "case_id": "患者情報から作らないランダム識別子。1症例に複数responseを紐づける。",
-    "response_id": "各回答に発行するランダム識別子。",
+  "prototype_linking_model": {
+    "status": "frontend_test_only",
+    "case_code": "現在のGitHub Pagesプレテストで使うランダムコード。入力内容は保存されない。",
     "one_case_many_responses": true,
     "responses_visible_to_each_other": false,
-    "invite_link": "URL fragmentにcase_idとroleのみを含める。回答内容や患者情報は含めない。"
+    "warning": "このcase_code方式は本番の認証・権限モデルとして使用しない。"
+  },
+  "production_linking_model": {
+    "case_id": "サーバー内部だけで使う高エントロピー識別子。回答者へ公開しない。",
+    "response_id": "各回答に発行する識別子。撤回対象をresponse単位で指定する。",
+    "invite_token": "同一症例へ追加回答するためだけのwrite-only能力トークン。既存回答の閲覧権限を持たない。",
+    "withdrawal_secret": "回答者へ一度だけ表示し、サーバーはハッシュのみ保存する撤回用秘密コード。",
+    "followup_token": "追加連絡に同意した場合に、症例DBと連絡先DBを直接結合せず仲介する識別子。",
+    "one_case_many_responses": true,
+    "responses_visible_to_each_other": false,
+    "case_id_visible_to_respondent": false,
+    "api_contract": "assets/data/experience_api_contract_v1.json"
   },
   "record_kinds": {
     "case_response": "特定の一症例についての回答",
@@ -42,6 +54,21 @@
     "終わってからの納得・後悔・学び",
     "看取り経験が回答者自身の価値観に与えた影響"
   ],
+  "consent_domains": {
+    "required": [
+      "調査・研究目的で匿名化・集計して利用",
+      "任意回答・途中中止・質問スキップ",
+      "実名・施設名等を入力しない",
+      "同一症例に複数視点が紐づく可能性",
+      "他回答者へ回答内容を公開しない",
+      "撤回方法と公開済み集計の扱い"
+    ],
+    "separate_optional": [
+      "自由記述の匿名引用",
+      "追加インタビューへの連絡",
+      "将来の別研究への二次利用"
+    ]
+  },
   "privacy_design": {
     "do_not_collect_in_case_dataset": [
       "氏名",
@@ -53,14 +80,25 @@
       "電話番号",
       "メールアドレス"
     ],
-    "contact_information": "将来必要な場合も症例・回答データとは別系統で管理する。",
+    "contact_information": "将来必要な場合も症例・回答データとは別系統・別権限で管理する。",
+    "free_text": "自動公開しない。再特定リスク確認と別途の引用同意を通す。",
+    "public_aggregation": "症例単位の行は公開せず、小さいセルを抑制する。初期候補はn<10。最終基準は本番前に確定する。",
     "current_frontend_storage": "none",
     "backend_status": "not_connected"
+  },
+  "withdrawal_design": {
+    "unit": "response",
+    "credential": "response_id + withdrawal_secret",
+    "server_secret_storage": "one-way hash only",
+    "other_responses_same_case": "別回答者のresponseは自動削除しない",
+    "published_aggregate_notice": "公開済みの集計・配布済み資料を完全に遡及回収できない場合があることを同意時に説明する"
   },
   "analysis_principles": [
     "本人・家族・医療者の回答はどれか一つを正解として上書きせず、視点ごとの観察として保持する。",
     "高強度治療、在宅看取り、緩和ケア等の経路は自己ラベルではなく、実際に起きたイベントの組み合わせから分析する。",
     "サービス利用群と非利用群の差は、病状等の背景差があるため、そのまま因果効果として解釈しない。",
-    "自傷・自殺に関する危機体験は方法・手段を収集しない。"
-  ]
+    "自傷・自殺に関する危機体験は方法・手段を収集しない。",
+    "医療・介護職の一般的傾向は個別症例responseと混ぜない。"
+  ],
+  "public_explanation": "experience_data_policy.html"
 }
