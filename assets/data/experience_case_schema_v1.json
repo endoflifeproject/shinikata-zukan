@@ -1,0 +1,66 @@
+{
+  "schema_version": "experience-case-v1.0",
+  "purpose": "一人の療養・看取り経過を、本人・家族・医療介護職など複数の視点から比較可能な形で記録するためのフロントエンド用データモデル。",
+  "unit_of_response": "ある1症例を、ある1人の回答者から見た記録",
+  "linking_model": {
+    "case_id": "患者情報から作らないランダム識別子。1症例に複数responseを紐づける。",
+    "response_id": "各回答に発行するランダム識別子。",
+    "one_case_many_responses": true,
+    "responses_visible_to_each_other": false,
+    "invite_link": "URL fragmentにcase_idとroleのみを含める。回答内容や患者情報は含めない。"
+  },
+  "record_kinds": {
+    "case_response": "特定の一症例についての回答",
+    "professional_overview": "複数症例から感じる一般的傾向。case_responseとは別データとして扱う。"
+  },
+  "answer_depth": {
+    "easy": "約10分。全疾患共通CORE中心。",
+    "normal": "約15〜20分。疾患別、症状内訳、サービス、意思決定情報源を追加。",
+    "deep": "約30分以上。最終期治療、費用内訳、自由記述等を追加。",
+    "crisis_optional": "回答時間レベルとは独立。本人が明示的に開いた場合のみ表示。"
+  },
+  "data_domains": [
+    "case",
+    "response",
+    "course",
+    "suffering",
+    "disease_specific",
+    "care_burden",
+    "cost",
+    "decision",
+    "reflection",
+    "crisis_optional"
+  ],
+  "comparison_goals": [
+    "疾病ごとの本人の身体的苦痛",
+    "疾病に伴う心理・社会・経済・実存面を含む全人的苦痛",
+    "診断・治療・急変・緩和ケア・療養場所・死亡までの経過",
+    "治療を受けた場合と受けなかった場合に観察された経験の違い",
+    "療養開始時の貯蓄と死亡または現在までの自己負担・収入減",
+    "介護時間、夜間対応、仕事・睡眠への影響とサービス利用",
+    "意思決定時に使った情報、相談相手、ツール、本人意思の把握と反映",
+    "終わってからの納得・後悔・学び",
+    "看取り経験が回答者自身の価値観に与えた影響"
+  ],
+  "privacy_design": {
+    "do_not_collect_in_case_dataset": [
+      "氏名",
+      "病院・施設名",
+      "住所",
+      "カルテ番号",
+      "正確な生年月日",
+      "正確な死亡日",
+      "電話番号",
+      "メールアドレス"
+    ],
+    "contact_information": "将来必要な場合も症例・回答データとは別系統で管理する。",
+    "current_frontend_storage": "none",
+    "backend_status": "not_connected"
+  },
+  "analysis_principles": [
+    "本人・家族・医療者の回答はどれか一つを正解として上書きせず、視点ごとの観察として保持する。",
+    "高強度治療、在宅看取り、緩和ケア等の経路は自己ラベルではなく、実際に起きたイベントの組み合わせから分析する。",
+    "サービス利用群と非利用群の差は、病状等の背景差があるため、そのまま因果効果として解釈しない。",
+    "自傷・自殺に関する危機体験は方法・手段を収集しない。"
+  ]
+}
