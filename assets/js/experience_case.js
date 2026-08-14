@@ -110,12 +110,14 @@
   function getRadio(name){const el=form.querySelector(`input[name="${name}"]:checked`);return el?el.value:'';}
   function checkedValues(name){return Array.from(form.querySelectorAll(`input[name="${name}"]:checked`)).map(el=>el.value);}
   function roleGroup(role){if(role==='family')return'family';if(['doctor','nurse','care_worker','other_professional'].includes(role))return'professional';return'patient';}
+  function activeAdditionalConditions(){const depth=getRadio('answer_depth')||'normal';return getRadio('additional_condition_presence')==='yes'&&(depthRank[depth]||2)>=2;}
 
   function updateRole(){const role=getRadio('respondent_role');const group=roleGroup(role);document.querySelectorAll('[data-role-panel]').forEach(el=>el.classList.toggle('role-hidden',el.dataset.rolePanel!==group));document.getElementById('summaryRole').textContent=roleLabels[role]||'—';}
   function updateDepth(){const depth=getRadio('answer_depth')||'normal';const current=depthRank[depth]||2;document.querySelectorAll('[data-depth-min]').forEach(el=>{const needed=depthRank[el.dataset.depthMin]||1;el.classList.toggle('depth-hidden',current<needed);});document.getElementById('summaryDepth').textContent=depthLabels[depth]||'—';}
   function updateDisease(){
     const center=document.getElementById('disease').value;
-    const involved=new Set([center,...checkedValues('major_contributing_conditions')]);
+    const majors=activeAdditionalConditions()?checkedValues('major_contributing_conditions'):[];
+    const involved=new Set([center,...majors]);
     document.querySelectorAll('[data-disease]').forEach(el=>{
       const key=el.dataset.disease;
       const show=key==='other' ? center==='other' : detailedDiseaseValues.has(key)&&involved.has(key);
@@ -129,7 +131,8 @@
   function updateConditionPanels(){
     const detail=document.getElementById('additionalConditionsDetail');
     if(detail)detail.classList.toggle('event-hidden',getRadio('additional_condition_presence')!=='yes');
-    const diabetes=[document.getElementById('disease')?.value,...checkedValues('major_contributing_conditions'),...checkedValues('comorbid_conditions')].includes('diabetes');
+    const extra=activeAdditionalConditions()?[...checkedValues('major_contributing_conditions'),...checkedValues('comorbid_conditions')]:[];
+    const diabetes=[document.getElementById('disease')?.value,...extra].includes('diabetes');
     const dm=document.getElementById('diabetesComplications'); if(dm)dm.classList.toggle('event-hidden',!diabetes);
     updateDisease();
   }
