@@ -29,7 +29,7 @@
     ['musculoskeletal_frailty','骨・関節・フレイル等'],['infection_recurrent','感染症・肺炎の反復'],['other','その他'],['unknown','分からない']
   ];
 
-  function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]));}
   function checkChoices(name,items,prefix){return items.map(([value,label])=>`<div class="choice"><input type="checkbox" name="${name}" id="${prefix}_${value}" value="${value}"><label for="${prefix}_${value}">${esc(label)}</label></div>`).join('');}
   function radioChoices(name,items,prefix){return items.map(([value,label])=>`<div class="choice"><input type="radio" name="${name}" id="${prefix}_${value}" value="${value}"><label for="${prefix}_${value}">${esc(label)}</label></div>`).join('');}
 
@@ -72,6 +72,54 @@
     setLabel('vent_noninv','NPPV/NIV（顔に密着するマスクで呼吸を補助）');
     const ventilationOption=document.querySelector('#decisionFocus option[value="ventilation"]');
     if(ventilationOption)ventilationOption.textContent='人工呼吸・換気補助（NPPV/NIVなど）';
+  }
+
+  function enhanceCostSection(){
+    const costSection=document.getElementById('cost'); if(!costSection)return;
+    const medical=document.getElementById('cost_med');
+    if(medical){
+      medical.value='insured_medical_out_of_pocket';
+      const label=costSection.querySelector('label[for="cost_med"]');
+      if(label)label.textContent='保険適用の医療費（窓口で支払った自己負担分）';
+      if(!document.getElementById('cost_uninsured_medical')){
+        const choice=document.createElement('div');choice.className='choice';
+        choice.innerHTML='<input type="checkbox" name="cost_categories" id="cost_uninsured_medical" value="noncovered_medical"><label for="cost_uninsured_medical">保険適用外の医療・薬・検査など（自由診療・未承認治療など）</label>';
+        medical.closest('.choice')?.after(choice);
+      }
+    }
+    const privateService=document.getElementById('cost_private');
+    if(privateService){
+      privateService.value='private_care_service';
+      const label=costSection.querySelector('label[for="cost_private"]');
+      if(label)label.textContent='保険外の生活・介護サービス（家事支援など）';
+    }
+    const categoryField=medical?.closest('.field');
+    if(categoryField&&!document.getElementById('costFinancialDetail')){
+      const box=document.createElement('div');box.id='costFinancialDetail';box.className='subpanel';
+      box.innerHTML=`<h3>医療費・保険・お金のきつさ</h3><p class="intro">同じ「費用がかかった」でも、保険診療の自己負担、保険外医療、生活費、収入減、民間保険などを分けて残します。</p>
+        <div class="grid2"><div class="field"><label for="costCopayRate">保険適用の医療で、主な窓口負担割合</label><select id="costCopayRate" name="cost_public_insurance_copay"><option value="">分からない・該当なし</option><option value="10">主に1割</option><option value="20">主に2割</option><option value="30">主に3割</option><option value="varied">時期・制度によって変わった</option><option value="unknown">分からない</option></select></div><div class="field"><label>民間の保険・保障で利用したもの（複数可）</label><div class="options">${checkChoices('cost_private_insurance_types',[
+          ['medical','民間の医療保険'],['disease_specific','がん保険など疾病別の保障'],['income_protection','就業不能・所得補償など'],['death_benefit','死亡保険・死亡保障'],['other','その他の民間保障'],['none','加入・利用していない'],['unknown','分からない']],'cpi')}</div></div></div>
+        <div class="field"><label>民間保険について、もっとも近いもの</label><div class="options">${radioChoices('cost_private_insurance_status',[
+          ['paid','給付・保険金を受け取った'],['applied_no_payment','請求・申請したが給付されなかった'],['not_claimed','加入していたが請求しなかった／できなかった'],['not_enrolled','民間保険には加入していなかった'],['unknown','分からない'],['prefer_not','答えたくない']],'cpis')}</div></div>
+        <div class="field"><label for="costInsuranceHelp">保険や制度のお金は、何に役立ちましたか？（任意）</label><textarea id="costInsuranceHelp" name="cost_private_insurance_help" placeholder="例：治療費、保険外治療、生活費、収入減の補填、介護・施設費など"></textarea></div>
+        <div class="field"><label>療養・介護中、お金の面で特につらかったこと（複数可）</label><div class="options three">${checkChoices('cost_financial_strain',[
+          ['savings_declining','貯金が減り続けること自体が不安だった'],['used_savings','貯蓄を大きく取り崩した'],['uncertain_duration','いつまで続くか分からず、費用の見通しが立たなかった'],['insured_medical_cost','保険適用でも医療費の自己負担が重かった'],['noncovered_medical_cost','保険適用外の医療・薬・検査などが高額だった'],['public_support_insufficient','公的な助成・制度だけでは足りない／使いにくいと感じた'],['care_or_facility_cost','介護サービス・施設・在宅療養の費用が重かった'],['income_loss','本人・支える人の収入が減った'],['family_paid','本人の貯蓄だけでは足りず、家族・親族の貯蓄を使った'],['childcare_overlap','子育て・教育費など別の家計負担と重なった'],['cut_daily_spending','食費・娯楽費など日常生活の支出を削った'],['reduced_care_for_cost','費用を理由に医療・介護サービスを諦めた／減らした'],['borrowing','借入れが必要になった'],['basic_expenses','家賃・光熱費・食費など生活費の支払いに困った'],['patient_income_dependency','本人の年金・収入への依存が大きかった'],['after_death_income_loss','本人の死亡後に年金・収入がなくなることも不安だった'],['none_major','特に大きな金銭的負担はなかった'],['unknown','分からない・答えたくない']],'cfs')}</div></div>
+        <div class="field"><label for="costFinancialStrainFree">お金のことで、ほかにきつかったこと（任意）</label><textarea id="costFinancialStrainFree" name="cost_financial_strain_free" placeholder="例：親の貯金が少なく自分の貯金を使った、介護費そのものより子育てとの両立が厳しかった、制度の申請が間に合わなかった など"></textarea></div>`;
+      categoryField.after(box);
+    }
+    const incomeLoss=document.getElementById('incomeLoss');
+    if(incomeLoss){
+      const field=incomeLoss.closest('.field');
+      const label=field?.querySelector('label');
+      if(label)label.textContent='療養・介護期間全体で、仕事を減らす・休む・辞めることで失った収入の概算';
+      if(field&&!document.getElementById('incomeLossDuration')){
+        const duration=document.createElement('div');duration.className='field';
+        duration.innerHTML='<label for="incomeLossDuration">収入への影響が続いた期間</label><select id="incomeLossDuration" name="income_loss_duration"><option value="">不明・該当なし</option><option>1か月未満</option><option>1〜3か月</option><option>3〜6か月</option><option>6か月〜1年</option><option>1〜3年</option><option>3年以上</option><option>断続的・時期によって変わった</option><option>分からない</option></select><p class="help">上の金額は「月額・年額」ではなく、この療養・介護期間全体で失ったおおよその合計額として答えます。</p>';
+        field.after(duration);
+      }
+    }
+    const publicSupport=document.querySelector('input[name="public_support_used"]')?.closest('.field')?.querySelector('label');
+    if(publicSupport)publicSupport.textContent='高額療養費・介護保険・自治体助成など公的制度・給付の利用';
   }
 
   function addPreDiagnosisJourney(){
@@ -176,7 +224,7 @@
     const reflectionPrefixes=['overall_acceptance','choose_same_again','what_helped','what_was_hard','values_','own_','message_'];
     const crisisPrefixes=['caregiver_self_death_thought','caregiver_joint_death_thought','crisis_'];
     return {
-      schema_version:'experience-case-v1.6',
+      schema_version:'experience-case-v1.7',
       record_kind:(flat.record_type==='professional_overview'?'professional_overview':'case_response'),
       case:take(flat,k=>caseKeys.has(k)),
       response:{response_id:responseId,...take(flat,k=>respondentKeys.has(k))},
@@ -214,5 +262,5 @@
   }
 
   function updateAll(){updateRole();updateDepth();updateConditionPanels();updateState();updateDecision();updateCrisis();updateRecordType();updateSummary();}
-  parseHash();ensureCase();addPolicyLinks();enhanceCenterCondition();enhanceValuesAndRespiratoryLabels();addPreDiagnosisJourney();addMedicalHistoryContext();bindEvents();updateAll();
+  parseHash();ensureCase();addPolicyLinks();enhanceCenterCondition();enhanceValuesAndRespiratoryLabels();enhanceCostSection();addPreDiagnosisJourney();addMedicalHistoryContext();bindEvents();updateAll();
 })();
