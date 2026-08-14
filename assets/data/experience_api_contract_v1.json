@@ -1,0 +1,130 @@
+{
+  "contract_version": "experience-api-v1.0-draft",
+  "status": "design_only_not_connected",
+  "updated": "2026-08-15",
+  "purpose": "死に方図鑑の統合体験フォームを、安全なAPI・データベースへ接続する際の境界と責務を先に固定する。GitHub Pagesは入力UIのみとし、センシティブな回答データを保存しない。",
+  "principles": [
+    "1件の回答は、ある1症例をある1人の回答者から見た記録として保持する",
+    "同一症例の複数回答は上書きせず、視点ごとのresponseとして保持する",
+    "本番の内部case_idは回答者へ公開しない",
+    "外部共有には既存回答を読めないwrite-onlyのinvite_tokenを使う",
+    "回答者間で互いの回答内容を閲覧できない",
+    "連絡先は症例・回答データと別サービス・別権限で管理する",
+    "削除・撤回はresponse単位を基本とし、他の回答者のresponseを自動削除しない",
+    "小さい集計セルは公開しない",
+    "フォームページに広告・行動追跡用の第三者タグを置かない"
+  ],
+  "identifiers": {
+    "case_id": {
+      "visibility": "server_internal_only",
+      "purpose": "同一症例の複数responseを内部で関連付ける",
+      "generation": "server-side cryptographically random identifier",
+      "must_not_contain": ["氏名", "生年月日", "病院名", "住所", "カルテ番号"]
+    },
+    "response_id": {
+      "visibility": "respondent_and_server",
+      "purpose": "1回答を識別し、撤回要求と結びつける",
+      "generation": "server-side cryptographically random identifier"
+    },
+    "invite_token": {
+      "visibility": "shareable_to_invited_respondent",
+      "purpose": "既存のcaseへ新しいresponseを追加するためだけの能力トークン",
+      "permissions": ["create_response_for_one_case"],
+      "forbidden_permissions": ["read_existing_response", "list_case_responses", "read_contact"],
+      "controls": ["high_entropy", "expiry", "rotation_or_revocation", "rate_limit", "do_not_log_in_plaintext"]
+    },
+    "withdrawal_secret": {
+      "visibility": "shown_once_to_respondent",
+      "purpose": "本人確認情報を追加収集せずresponseの撤回・削除を要求する",
+      "storage": "server stores only a one-way hash",
+      "controls": ["high_entropy", "never_include_in_analytics", "never_put_in_invite_url", "do_not_log_in_plaintext"]
+    },
+    "followup_token": {
+      "visibility": "restricted",
+      "purpose": "追加インタビュー等へ同意した場合のみ、回答データと連絡先管理を直接結合せず仲介する",
+      "storage": "contact service and research service keep separate records"
+    }
+  },
+  "public_api_draft": {
+    "POST /v1/responses": {
+      "purpose": "新規症例の最初の回答、またはinvite_token経由の追加回答を登録する",
+      "input": ["consent_version", "consent_scopes", "response_payload", "optional_invite_token"],
+      "output_once": ["response_id", "withdrawal_secret", "optional_invite_token_for_other_perspectives"],
+      "notes": ["case_idは返さない", "既存回答は返さない", "自由記述は保存前に長さ・禁止識別子警告等の検査を行う"]
+    },
+    "POST /v1/withdrawals": {
+      "purpose": "回答者自身によるresponseの撤回・削除要求",
+      "input": ["response_id", "withdrawal_secret"],
+      "output": ["request_status", "effective_scope"],
+      "notes": ["withdrawal_secretは照合後もログへ残さない", "既に公表済みの集計値を遡って完全に回収できない場合があることは同意時に明示する"]
+    },
+    "POST /v1/contact-consents": {
+      "purpose": "追加連絡に明示同意した人の連絡先を、症例DBとは別系統に保存する",
+      "input": ["followup_token", "contact_address", "contact_scope", "consent_version"],
+      "output": ["contact_record_id"],
+      "notes": ["このendpointは症例本文・病名・case_idを受け取らない", "contact databaseは別権限"]
+    },
+    "GET /v1/public/stats": {
+      "purpose": "公開可能な集計済みデータだけを配信する",
+      "output": ["aggregate_only"],
+      "privacy_controls": ["minimum_cell_size_default_10", "rare_category_suppression", "free_text_never_auto_publish", "no_case_level_rows"]
+    }
+  },
+  "consent_model": {
+    "versioned": true,
+    "required_before_submission": [
+      "調査・研究目的で匿名化・集計して利用すること",
+      "回答は任意で、答えたくない質問を飛ばせること",
+      "実名・施設名等を記入しないこと",
+      "同一症例に複数視点の回答が紐づく可能性があること",
+      "他の回答者には自分の回答内容が公開されないこと",
+      "撤回方法と、公開済み集計の扱い"
+    ],
+    "separate_optional_scopes": [
+      "自由記述の匿名引用",
+      "追加インタビューへの連絡",
+      "将来の別研究への二次利用"
+    ]
+  },
+  "data_boundaries": {
+    "case_response_database": {
+      "contains": ["pseudonymous_case_id", "response_id", "structured_answers", "free_text_after_review", "consent_record"],
+      "does_not_contain": ["氏名", "電話番号", "メールアドレス", "住所", "病院・施設名", "カルテ番号", "正確な生年月日", "正確な死亡日"]
+    },
+    "contact_database": {
+      "contains": ["contact_record_id", "followup_token", "contact_address", "contact_scope", "contact_consent_version"],
+      "does_not_contain": ["病名", "症例本文", "case_id", "回答内容"]
+    },
+    "public_dataset": {
+      "contains": ["集計値", "十分な母数のカテゴリ別集計", "審査済み匿名引用のみ"],
+      "does_not_contain": ["case-level row", "response_id", "invite_token", "withdrawal_secret", "contact_address"]
+    }
+  },
+  "access_roles": {
+    "ingest_service": "回答を受け取って保存できるが、分析用検索はできない",
+    "research_analyst": "連絡先を含まない分析用データのみ扱う",
+    "privacy_admin": "撤回・削除・再識別リスク確認のため必要最小限の症例DBへアクセス",
+    "contact_admin": "連絡先DBのみ扱い、症例本文を閲覧できない",
+    "public": "集計済み公開データのみ"
+  },
+  "operational_controls_before_launch": [
+    "TLS-only API",
+    "encryption at rest",
+    "secret management",
+    "rate limiting and abuse protection",
+    "structured audit log that excludes answers and secrets",
+    "backup and restore test",
+    "withdrawal/deletion runbook",
+    "incident response runbook",
+    "data retention period decided and published",
+    "free-text re-identification review",
+    "ethics/privacy review against rules in force on launch date"
+  ],
+  "launch_blockers": [
+    "バックエンド接続先未決定",
+    "データ保持期間未決定",
+    "正式な同意文書未確定",
+    "撤回窓口・運用責任者未確定",
+    "研究として実施する範囲と倫理審査要否の最終確認未実施"
+  ]
+}
