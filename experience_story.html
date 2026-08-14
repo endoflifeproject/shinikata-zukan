@@ -15,7 +15,7 @@
 <div class="breadcrumb"><a href="index.html">ホーム</a><span><a href="experience.html">みんなの体験</a></span><span><a href="experience_read.html">体験を読む</a></span><span>体験談詳細</span></div>
 <div class="dummy"><b>⚠ 架空のダミーデータです。</b> このページは、統合アンケートを集計したあと「人が読める体験談」にどう再構成するかを確認するための表示試作です。実在の患者・家族の体験ではありません。</div>
 <section class="hero">
-<div class="eyebrow"><span class="pill strong">DUMMY STORY</span><span class="pill" id="rolePill">家族の視点</span><span class="pill">認知症</span><span class="pill">看取り</span></div>
+<div class="eyebrow"><span class="pill strong">DUMMY STORY</span><span class="pill" id="rolePill">—</span><span class="pill" id="conditionPill">—</span><span class="pill" id="themePill">—</span></div>
 <h1 id="storyTitle">体験談を読み込み中…</h1>
 <p class="dek" id="storyDek"></p>
 <div class="meta"><div><b>本人</b><span id="metaAge">—</span></div><div><b>現在の状況</b><span id="metaState">—</span></div><div><b>経過の中心</b><span id="metaCenter">—</span></div><div><b>おおよその経過</b><span id="metaDuration">—</span></div></div>
@@ -24,13 +24,13 @@
 <article class="content">
 <section class="panel" id="overview"><div class="section-kicker">01｜この人のこと</div><h2>まず、全体をざっくり</h2><p class="intro">アンケート冒頭のフリースタイル記述を、体験談の導入として表示する想定です。</p><div class="narrative" id="overviewText"></div><div style="height:10px"></div><div class="quote" id="overviewQuote"></div><div style="height:12px"></div><div class="tags" id="conditionTags"></div></section>
 
-<section class="panel" id="course"><div class="section-kicker">02｜経過</div><h2>何が起きて、どう進んだか</h2><p class="intro">受診前の空白期間、けが・事故を入口にした受診、入退院、在宅療養などを時系列で組み立てます。</p><div class="timeline" id="timeline"></div></section>
+<section class="panel" id="course"><div class="section-kicker">02｜経過</div><h2>何が起きて、どう進んだか</h2><p class="intro">受診前の空白期間、紹介、けが・事故を入口にした受診、入退院、在宅療養などを時系列で組み立てます。</p><div class="timeline" id="timeline"></div></section>
 
-<section class="panel" id="care"><div class="section-kicker">03｜治療・介護</div><h2>療養中に経験したこと</h2><p class="intro">アンケートの治療・ケア項目は、読み手が把握しやすいタグとしてまとめます。</p><div class="tags" id="experienceTags"></div><div class="grid2" style="margin-top:14px"><div class="mini-card"><h3>介護にかかった時間</h3><p id="careHours">—</p></div><div class="mini-card"><h3>夜間の対応</h3><p id="careNight">—</p></div></div><div class="mini-card" style="margin-top:10px"><h3>支える側の負担</h3><p><b id="careBurden">—</b></p><ul class="list" id="careEffects"></ul></div></section>
+<section class="panel" id="care"><div class="section-kicker">03｜治療・介護</div><h2>療養中に経験したこと</h2><p class="intro">アンケートの治療・ケア項目は、読み手が把握しやすいタグとしてまとめます。</p><div class="tags" id="experienceTags"></div><div class="grid2" style="margin-top:14px"><div class="mini-card"><h3>介護・支援にかかった時間</h3><p id="careHours">—</p></div><div class="mini-card"><h3>夜間の対応</h3><p id="careNight">—</p></div></div><div class="mini-card" style="margin-top:10px"><h3>支える側の負担</h3><p><b id="careBurden">—</b></p><ul class="list" id="careEffects"></ul></div></section>
 
-<section class="panel" id="suffering"><div class="section-kicker">04｜苦痛</div><h2>本人は、どのくらいつらそうだったか</h2><p class="intro">これは家族から見た評価です。本人の自己評価や医療者評価とは同一視しません。</p><div class="score-grid"><div class="score-card"><div class="score-head"><b>身体的なつらさ</b><strong id="physicalScore">—</strong></div><div class="bar"><span id="physicalBar"></span></div><p id="physicalText"></p></div><div class="score-card"><div class="score-head"><b>全体としてのつらさ</b><strong id="wholeScore">—</strong></div><div class="bar"><span id="wholeBar"></span></div><p id="wholeText"></p></div></div></section>
+<section class="panel" id="suffering"><div class="section-kicker">04｜苦痛</div><h2>本人は、どのくらいつらそうだったか</h2><p class="intro">これはこのページの回答者から見た評価です。本人の自己評価や医療者評価とは同一視しません。</p><div class="score-grid"><div class="score-card"><div class="score-head"><b>身体的なつらさ</b><strong id="physicalScore">—</strong></div><div class="bar"><span id="physicalBar"></span></div><p id="physicalText"></p></div><div class="score-card"><div class="score-head"><b>全体としてのつらさ</b><strong id="wholeScore">—</strong></div><div class="bar"><span id="wholeBar"></span></div><p id="wholeText"></p></div></div></section>
 
-<section class="panel" id="cost"><div class="section-kicker">05｜費用</div><h2>お金のこと</h2><p class="intro">保険診療の自己負担、収入減、介護費などを混ぜずに見せます。</p><div class="money"><div><b>療養期間全体の自己負担</b><strong id="costOop">—</strong></div><div><b>主な窓口負担</b><strong id="costCopay">—</strong></div><div><b>失った収入の概算</b><strong id="costIncome">—</strong></div></div><h3 style="font-size:11px;color:#4e687a;margin:16px 0 7px">特にお金がかかったもの</h3><div class="tags" id="costItems"></div><h3 style="font-size:11px;color:#4e687a;margin:16px 0 2px">お金の面できつかったこと</h3><ul class="list" id="costStrain"></ul></section>
+<section class="panel" id="cost"><div class="section-kicker">05｜費用</div><h2>お金のこと</h2><p class="intro">保険診療の自己負担、民間保険、保険外医療、収入減を混ぜずに見せます。</p><div class="money"><div><b>療養期間全体の自己負担</b><strong id="costOop">—</strong></div><div><b>主な窓口負担</b><strong id="costCopay">—</strong></div><div><b>失った収入の概算</b><strong id="costIncome">—</strong></div></div><div class="grid2" style="margin-top:12px"><div class="mini-card"><h3>民間保険・保障</h3><p id="costInsurance">—</p></div><div class="mini-card"><h3>保険適用外の医療・サービス</h3><p id="costNoncovered">—</p></div></div><h3 style="font-size:11px;color:#4e687a;margin:16px 0 7px">特にお金がかかったもの</h3><div class="tags" id="costItems"></div><h3 style="font-size:11px;color:#4e687a;margin:16px 0 2px">お金の面できつかったこと</h3><ul class="list" id="costStrain"></ul></section>
 
 <section class="panel" id="decision"><div class="section-kicker">06｜意思決定</div><h2>何を決め、何を見て、誰と相談したか</h2><div class="grid2"><div class="mini-card"><h3>最も大変だった意思決定</h3><p id="decisionFocus">—</p></div><div class="mini-card"><h3>どう決めたか</h3><p id="decisionLead">—</p></div></div><h3 style="font-size:11px;color:#4e687a;margin:16px 0 7px">使った情報</h3><div class="tags" id="decisionInfo"></div><div class="mini-card" style="margin-top:10px"><h3>実際に見た・読んだ情報源</h3><p id="decisionSources">—</p></div><div class="mini-card" style="margin-top:10px"><h3>本人の意思</h3><p id="decisionWishes">—</p></div></section>
 
@@ -39,7 +39,7 @@
 <section class="panel"><div class="source-box"><b>この体験談の出どころ</b><span id="sourceNote"></span></div><div class="privacy">本番では自由記述をそのまま自動公開せず、引用同意・再特定リスク確認・公開範囲の審査を通す前提です。また、1件の回答は「その回答者から見えた体験」であり、医学的な唯一の正解として表示しません。</div></section>
 </article>
 
-<nav class="side" aria-label="この体験談の目次"><b>この体験談</b><a href="#overview">この人のこと</a><a href="#course">経過</a><a href="#care">治療・介護</a><a href="#suffering">苦痛</a><a href="#cost">費用</a><a href="#decision">意思決定</a><a href="#reflection">振り返り</a><div class="note">将来は「似た体験を探す」「同じ疾患の集計を見る」などの導線を置く想定。</div></nav>
+<nav class="side" aria-label="この体験談の目次"><b>この体験談</b><a href="#overview">この人のこと</a><a href="#course">経過</a><a href="#care">治療・介護</a><a href="#suffering">苦痛</a><a href="#cost">費用</a><a href="#decision">意思決定</a><a href="#reflection">振り返り</a><div class="note">検索画面から、長期介護型と短期高密度治療型の2つのダミー症例を切り替えて比較できます。</div></nav>
 </div>
 </main>
 </body>
