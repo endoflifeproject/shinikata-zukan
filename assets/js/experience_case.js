@@ -7,7 +7,7 @@
   const depthLabels={easy:'ライト 約10分',normal:'標準 約15〜20分',deep:'詳しく 約30分＋'};
   const depthRank={easy:1,normal:2,deep:3};
   const caseSectionIds=['core','course','suffering','care','cost','decision','reflection','complete'];
-  let responseId=makeId('RSP',10);
+  let responseId=makeId('RSP',12);
 
   function makeId(prefix,len){
     const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -15,10 +15,10 @@
     let s=''; for(let i=0;i<len;i++)s+=chars[bytes[i]%chars.length];
     return prefix+'-'+s;
   }
-  function validCase(v){return /^CASE-[A-Z2-9]{6,16}$/.test((v||'').trim().toUpperCase());}
+  function validCase(v){return /^CASE-[A-Z2-9]{8,20}$/.test((v||'').trim().toUpperCase());}
   function ensureCase(){
     let v=(caseInput.value||'').trim().toUpperCase();
-    if(!validCase(v))v=makeId('CASE',8);
+    if(!validCase(v))v=makeId('CASE',12);
     caseInput.value=v; return v;
   }
   function getRadio(name){const el=form.querySelector(`input[name="${name}"]:checked`);return el?el.value:'';}
@@ -91,7 +91,7 @@
     const reflectionPrefixes=['overall_acceptance','choose_same_again','what_helped','what_was_hard','values_','own_','message_'];
     const crisisPrefixes=['caregiver_self_death_thought','caregiver_joint_death_thought','crisis_'];
     return {
-      schema_version:'experience-case-v1.0',
+      schema_version:'experience-case-v1.1',
       record_kind:(flat.record_type==='professional_overview'?'professional_overview':'case_response'),
       case:take(flat,k=>caseKeys.has(k)),
       response:{response_id:responseId,...take(flat,k=>respondentKeys.has(k))},
@@ -103,7 +103,14 @@
       decision:take(flat,k=>decisionPrefixes.some(p=>k.startsWith(p))),
       reflection:take(flat,k=>reflectionPrefixes.some(p=>k.startsWith(p))||k==='decision_regret'),
       crisis_optional:take(flat,k=>crisisPrefixes.some(p=>k.startsWith(p))),
-      prototype:{submitted:false,storage:'none',contact_data_included:false}
+      prototype:{
+        submitted:false,
+        storage:'none',
+        contact_data_included:false,
+        case_code_is_frontend_test_only:true,
+        production_contract:'assets/data/experience_api_contract_v1.json',
+        public_data_policy:'experience_data_policy.html'
+      }
     };
   }
   function showPreview(){
@@ -114,10 +121,10 @@
     const base=location.origin+location.pathname;
     const url=base+'#case='+encodeURIComponent(caseId)+'&role='+encodeURIComponent(role)+'&depth=normal';
     inviteOutput.textContent=url;inviteOutput.style.display='block';
-    if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(url).then(()=>{inviteOutput.textContent='コピーしました： '+url;}).catch(()=>{});}
+    if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(url).then(()=>{inviteOutput.textContent='コピーしました（プレテスト用）： '+url;}).catch(()=>{});}
   }
 
-  document.getElementById('newCaseBtn').addEventListener('click',()=>{caseInput.value=makeId('CASE',8);responseId=makeId('RSP',10);updateSummary();});
+  document.getElementById('newCaseBtn').addEventListener('click',()=>{caseInput.value=makeId('CASE',12);responseId=makeId('RSP',12);updateSummary();});
   document.querySelectorAll('input[name="respondent_role"]').forEach(el=>el.addEventListener('change',()=>{updateRole();updateRecordType();}));
   document.querySelectorAll('input[name="answer_depth"]').forEach(el=>el.addEventListener('change',updateDepth));
   document.querySelectorAll('input[name="record_type"]').forEach(el=>el.addEventListener('change',updateRecordType));
@@ -127,7 +134,7 @@
   document.getElementById('crisisOptin').addEventListener('change',updateCrisis);
   document.getElementById('previewBtn').addEventListener('click',showPreview);
   document.getElementById('hidePreviewBtn').addEventListener('click',()=>preview.style.display='none');
-  document.getElementById('resetBtn').addEventListener('click',()=>{if(!confirm('この画面に入力した内容を消します。よろしいですか？'))return;form.reset();caseInput.value=makeId('CASE',8);responseId=makeId('RSP',10);preview.style.display='none';inviteOutput.style.display='none';updateAll();window.scrollTo({top:0,behavior:'smooth'});});
+  document.getElementById('resetBtn').addEventListener('click',()=>{if(!confirm('この画面に入力した内容を消します。よろしいですか？'))return;form.reset();caseInput.value=makeId('CASE',12);responseId=makeId('RSP',12);preview.style.display='none';inviteOutput.style.display='none';updateAll();window.scrollTo({top:0,behavior:'smooth'});});
   document.querySelectorAll('[data-invite-role]').forEach(btn=>btn.addEventListener('click',()=>makeInvite(btn.dataset.inviteRole)));
   caseInput.addEventListener('change',()=>{caseInput.value=caseInput.value.trim().toUpperCase();updateSummary();});
 
