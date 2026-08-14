@@ -181,7 +181,7 @@
   function activeAdditionalConditions(){const depth=getRadio('answer_depth')||'normal';return getRadio('additional_condition_presence')==='yes'&&(depthRank[depth]||2)>=2;}
 
   function updateRole(){const role=getRadio('respondent_role');const group=roleGroup(role);document.querySelectorAll('[data-role-panel]').forEach(el=>el.classList.toggle('role-hidden',el.dataset.rolePanel!==group));document.getElementById('summaryRole').textContent=roleLabels[role]||'—';}
-  function updateDepth(){const depth=getRadio('answer_depth')||'normal';const current=depthRank[depth]||2;document.querySelectorAll('[data-depth-min]').forEach(el=>{const needed=depthRank[el.dataset.depthMin]||1;el.classList.toggle('depth-hidden',current<needed);});document.getElementById('summaryDepth').textContent=depthLabels[depth]||'—';}
+  function updateDepth(){const depth=getRadio('answer_depth')||'normal';const current=depthRank[depth]||2;document.querySelectorAll('[data-depth-min]').forEach(el=>{const needed=depthRank[el.datasetDepthMin]||1;el.classList.toggle('depth-hidden',current<needed);});document.getElementById('summaryDepth').textContent=depthLabels[depth]||'—';}
   function updateDisease(){
     const center=document.getElementById('disease').value;
     const majors=activeAdditionalConditions()?checkedValues('major_contributing_conditions'):[];
@@ -224,7 +224,7 @@
     const reflectionPrefixes=['overall_acceptance','choose_same_again','what_helped','what_was_hard','values_','own_','message_','expectation_'];
     const crisisPrefixes=['caregiver_self_death_thought','caregiver_joint_death_thought','crisis_'];
     return {
-      schema_version:'experience-case-v1.8',
+      schema_version:'experience-case-v1.9',
       record_kind:(flat.record_type==='professional_overview'?'professional_overview':'case_response'),
       case:take(flat,k=>caseKeys.has(k)),
       response:{response_id:responseId,...take(flat,k=>respondentKeys.has(k))},
@@ -257,7 +257,7 @@
     document.getElementById('previewBtn').addEventListener('click',showPreview);
     document.getElementById('hidePreviewBtn').addEventListener('click',()=>preview.style.display='none');
     document.getElementById('resetBtn').addEventListener('click',()=>{if(!confirm('この画面に入力した内容を消します。よろしいですか？'))return;form.reset();caseInput.value=makeId('CASE',12);responseId=makeId('RSP',12);preview.style.display='none';inviteOutput.style.display='none';updateAll();window.scrollTo({top:0,behavior:'smooth'});});
-    document.querySelectorAll('[data-invite-role]').forEach(btn=>btn.addEventListener('click',()=>makeInvite(btn.dataset.inviteRole)));
+    document.querySelectorAll('[data-invite-role]').forEach(btn=>btn.addEventListener('click',()=>makeInvite(btn.datasetInviteRole)));
     caseInput.addEventListener('change',()=>{caseInput.value=caseInput.value.trim().toUpperCase();updateSummary();});
   }
 
@@ -273,6 +273,17 @@
     normalGrid.after(field);
   }
 
+  function enhanceDecisionSources(){
+    const decision=document.getElementById('decision');
+    if(!decision||document.getElementById('decisionInformationSourcesFree'))return;
+    const infoField=decision.querySelector('input[name="decision_information"]')?.closest('.field');
+    if(!infoField)return;
+    const field=document.createElement('div');
+    field.className='field';
+    field.innerHTML='<label for="decisionInformationSourcesFree">実際に見た・読んだ情報源（任意）</label><textarea id="decisionInformationSourcesFree" name="decision_information_sources_free" placeholder="例：○○学会の患者向けページ、病院の治療説明ページ、患者会の冊子、YouTubeの体験談、ブログ、本・雑誌、生成AIで調べた内容など。覚えていればサイト名・ページ名・動画名・資料名も書けます。"></textarea><p class="help">URLや個人名は必須ではありません。特定の患者さん・医療者など個人を識別できる情報は書かないでください。</p>';
+    infoField.after(field);
+  }
+
   function updateAll(){updateRole();updateDepth();updateConditionPanels();updateState();updateDecision();updateCrisis();updateRecordType();updateSummary();}
-  parseHash();ensureCase();addPolicyLinks();enhanceCenterCondition();enhanceValuesAndRespiratoryLabels();enhanceCostSection();addPreDiagnosisJourney();addMedicalHistoryContext();enhanceExpectationMismatch();bindEvents();updateAll();
+  parseHash();ensureCase();addPolicyLinks();enhanceCenterCondition();enhanceValuesAndRespiratoryLabels();enhanceCostSection();addPreDiagnosisJourney();addMedicalHistoryContext();enhanceExpectationMismatch();enhanceDecisionSources();bindEvents();updateAll();
 })();
