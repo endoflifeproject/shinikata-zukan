@@ -9,6 +9,16 @@
   const caseSectionIds=['core','course','suffering','care','cost','decision','reflection','complete'];
   let responseId=makeId('RSP',12);
 
+  function addPolicyLinks(){
+    const headlinks=document.querySelector('.headlinks');
+    if(headlinks&&!headlinks.querySelector('[data-data-policy-link]')){
+      const a=document.createElement('a');a.href='experience_data_policy.html';a.textContent='データの扱い';a.setAttribute('data-data-policy-link','');headlinks.insertBefore(a,headlinks.firstChild);
+    }
+    const note=document.querySelector('#complete .prototype-note');
+    if(note&&!note.querySelector('[data-data-policy-link]')){
+      const a=document.createElement('a');a.href='experience_data_policy.html';a.textContent='本番時の症例・連絡先・撤回・公開集計の設計を見る →';a.style.textDecoration='underline';a.setAttribute('data-data-policy-link','');note.appendChild(document.createElement('br'));note.appendChild(a);
+    }
+  }
   function makeId(prefix,len){
     const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
     const bytes=new Uint8Array(len); crypto.getRandomValues(bytes);
@@ -139,5 +149,5 @@
   caseInput.addEventListener('change',()=>{caseInput.value=caseInput.value.trim().toUpperCase();updateSummary();});
 
   function updateAll(){updateRole();updateDepth();updateDisease();updateState();updateDecision();updateCrisis();updateRecordType();updateSummary();}
-  parseHash(); ensureCase(); updateAll();
+  parseHash(); ensureCase(); addPolicyLinks(); updateAll();
 })();
