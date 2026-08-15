@@ -1,0 +1,36 @@
+name: Backend tests
+
+on:
+  pull_request:
+    paths:
+      - 'backend/**'
+      - 'assets/js/experience_api_config.js'
+      - 'assets/js/experience_expert_review.js'
+      - 'questionnaire_review.html'
+      - '.github/workflows/backend-tests.yml'
+  push:
+    branches:
+      - 'agent/experience-backend-mvp'
+    paths:
+      - 'backend/**'
+      - 'assets/js/experience_api_config.js'
+      - 'assets/js/experience_expert_review.js'
+      - 'questionnaire_review.html'
+      - '.github/workflows/backend-tests.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: |
+          node --check assets/js/experience_api_config.js
+          node --check assets/js/experience_expert_review.js
+          node --check backend/src/server.mjs
+      - name: Run backend tests
+        working-directory: backend
+        run: npm test
