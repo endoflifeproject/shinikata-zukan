@@ -23,6 +23,7 @@ export function loadConfig(overrides = {}) {
     port: int('PORT', 8787, 1, 65535),
     dbPath: process.env.DB_PATH || path.resolve('data/experience.sqlite'),
     enableWrites: bool('ENABLE_WRITES', false),
+    enableReviewWrites: bool('ENABLE_REVIEW_WRITES', false),
     enableInvites: bool('ENABLE_INVITES', false),
     inviteTtlDays: int('INVITE_TTL_DAYS', 30, 1, 365),
     minPublicCellSize: int('PUBLIC_MIN_CELL_SIZE', 10, 3, 100),
