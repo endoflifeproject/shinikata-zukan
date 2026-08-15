@@ -141,6 +141,93 @@
     if(publicSupport)publicSupport.textContent='高額療養費・介護保険・自治体助成など公的制度・給付の利用';
   }
 
+  function parseMoneyBand(label){
+    const text=String(label||'').replace(/,/g,'').trim();
+    const nums=(text.match(/\d+/g)||[]).map(Number);
+    if(!text.includes('万円')||!nums.length)return null;
+    if(text.includes('未満'))return{min:0,max:Math.max(0,nums[0]-1)};
+    if(text.includes('以上'))return{min:nums[0],max:null};
+    if(nums.length>=2)return{min:nums[0],max:nums[1]};
+    return null;
+  }
+
+  function refinedMoneyBands(bounds){
+    if(!bounds)return[];
+    const {min,max}=bounds;
+    if(max===null){
+      if(min>=3000)return[[min,min+999],[min+1000,min+1999],[min+2000,min+6999],[min+7000,null]];
+      if(min>=1000)return[[min,min+499],[min+500,min+999],[min+1000,min+1999],[min+2000,null]];
+      if(min>=500)return[[min,min+249],[min+250,min+499],[min+500,min+999],[min+1000,null]];
+      return[[min,min+99],[min+100,min+249],[min+250,min+499],[min+500,null]];
+    }
+    const span=max-min+1;
+    let step=5;
+    if(span>20)step=10;
+    if(span>60)step=25;
+    if(span>120)step=50;
+    if(span>240)step=100;
+    if(span>600)step=250;
+    if(span>1200)step=500;
+    const out=[];
+    for(let start=min;start<=max;start+=step){out.push([start,Math.min(max,start+step-1)]);}
+    return out;
+  }
+
+  function enhanceMoneyRefinements(){
+    const cost=document.getElementById('cost');if(!cost)return;
+    if(!document.getElementById('moneyRefinementStyle')){
+      const style=document.createElement('style');style.id='moneyRefinementStyle';
+      style.textContent='.money-refine{margin-top:9px;padding:10px 11px;border:1px dashed #c8dbe7;border-radius:10px;background:#f8fbfd}.money-refine[hidden]{display:none}.money-refine-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:7px}.money-refine-head b{font-size:10px;color:#355f7e}.money-refine-head span{font-size:8px;color:#81919c}.money-refine label{display:block;font-size:9px;font-weight:800;color:#526a7c;margin:7px 0 4px}.money-exact{display:flex;align-items:center;gap:6px}.money-exact input{max-width:160px}.money-exact span{font-size:9px;color:#6e818f}.money-refine-warning{font-size:8px;color:#a56336;margin:5px 0 0}.money-refine-ok{font-size:8px;color:#6f8797;margin:5px 0 0}@media(max-width:640px){.money-refine-head{display:block}.money-refine-head span{display:block;margin-top:1px}}';
+      document.head.appendChild(style);
+    }
+    const head=cost.querySelector('.section-head');
+    if(head&&!document.getElementById('moneyPrecisionIntro')){
+      const note=document.createElement('div');note.id='moneyPrecisionIntro';note.className='prototype-note';
+      note.innerHTML='<b>金額は、分かるところまでで大丈夫です。</b><br>まず大まかな金額帯を選びます。さらに覚えている場合だけ、「もう少し細かい帯」や「約○万円」を追加できます。正確な帳簿・年収・残高を調べる必要はありません。';
+      head.after(note);
+    }
+    const targets=[
+      {id:'savings',prefix:'household_savings_start',title:'療養開始時の世帯貯蓄'},
+      {id:'totalCost',prefix:'out_of_pocket_total',title:'療養期間全体の家計自己負担'},
+      {id:'savingsDrawdownBand',prefix:'household_savings_drawdown',title:'貯蓄の取り崩し'},
+      {id:'incomeLoss',prefix:'income_loss',title:'失った収入'}
+    ];
+    targets.forEach(target=>{
+      const select=document.getElementById(target.id);if(!select||document.getElementById(`${target.id}MoneyRefine`))return;
+      const box=document.createElement('div');box.id=`${target.id}MoneyRefine`;box.className='money-refine';box.hidden=true;
+      const refinedId=`${target.id}RefinedBand`,exactId=`${target.id}Estimate`;
+      box.innerHTML=`<div class="money-refine-head"><b>もう少し分かれば（任意）</b><span>ここから先はスキップしてOK</span></div><label for="${refinedId}">${esc(target.title)}を、もう少し細かい金額帯で</label><select id="${refinedId}" name="${target.prefix}_refined_band"><option value="">そこまでは分からない</option></select><label for="${exactId}">おおよその金額が分かる場合（任意）</label><div class="money-exact"><span>約</span><input id="${exactId}" name="${target.prefix}_estimate_man_yen" type="number" inputmode="numeric" min="0" max="100000" step="1" placeholder="例：420"><span>万円</span></div><p class="help">「だいたい400万円」のような記憶で構いません。入力した概算値がある場合は、将来の集計・表示で大まかな帯より優先して使える設計です。</p><p class="money-refine-ok" id="${target.id}MoneyMessage"></p>`;
+      select.insertAdjacentElement('afterend',box);
+      const refined=document.getElementById(refinedId),exact=document.getElementById(exactId),message=document.getElementById(`${target.id}MoneyMessage`);
+      let lastBand='';
+      const refresh=()=>{
+        const label=select.options[select.selectedIndex]?.textContent.trim()||'';
+        const bounds=parseMoneyBand(label);
+        if(label!==lastBand){refined.value='';exact.value='';lastBand=label;}
+        if(!bounds){box.hidden=true;refined.innerHTML='<option value="">そこまでは分からない</option>';message.textContent='';return;}
+        box.hidden=false;
+        const current=refined.value;
+        const bands=refinedMoneyBands(bounds);
+        refined.innerHTML='<option value="">そこまでは分からない</option>'+bands.map(([lo,hi])=>`<option value="${lo}_${hi===null?'plus':hi}">${hi===null?`${lo}万円以上`:`${lo}〜${hi}万円`}</option>`).join('');
+        if([...refined.options].some(o=>o.value===current))refined.value=current;
+        validateExact();
+      };
+      const validateExact=()=>{
+        const bounds=parseMoneyBand(select.options[select.selectedIndex]?.textContent.trim()||'');
+        const raw=exact.value;
+        message.className='money-refine-ok';
+        if(raw===''||!bounds){message.textContent='';return;}
+        const n=Number(raw);
+        const outside=!Number.isFinite(n)||n<bounds.min||(bounds.max!==null&&n>bounds.max);
+        if(outside){message.className='money-refine-warning';message.textContent='※ 「約○万円」が上で選んだ金額帯から外れています。どちらか近い方に直してください。';}
+        else message.textContent='上の金額帯と整合しています。';
+      };
+      select.addEventListener('change',refresh);exact.addEventListener('input',validateExact);
+      form.addEventListener('reset',()=>setTimeout(refresh,0));
+      refresh();
+    });
+  }
+
   function addPreDiagnosisJourney(){
     const duration=document.getElementById('duration');
     if(!duration||document.getElementById('preDiagnosisJourney'))return;
@@ -243,7 +330,7 @@
     const reflectionPrefixes=['overall_acceptance','choose_same_again','what_helped','what_was_hard','values_','own_','message_','expectation_'];
     const crisisPrefixes=['caregiver_self_death_thought','caregiver_joint_death_thought','crisis_'];
     return {
-      schema_version:'experience-case-v1.11',
+      schema_version:'experience-case-v1.12',
       record_kind:(flat.record_type==='professional_overview'?'professional_overview':'case_response'),
       case:take(flat,k=>caseKeys.has(k)),
       response:{response_id:responseId,...take(flat,k=>respondentKeys.has(k))},
@@ -304,5 +391,5 @@
   }
 
   function updateAll(){updateRole();updateDepth();updateConditionPanels();updateState();updateDecision();updateCrisis();updateRecordType();updateSummary();}
-  parseHash();ensureCase();addPolicyLinks();enhanceOpeningNarrative();enhanceCenterCondition();enhanceValuesAndRespiratoryLabels();enhanceCostSection();addPreDiagnosisJourney();addMedicalHistoryContext();enhanceExpectationMismatch();enhanceDecisionSources();bindEvents();updateAll();
+  parseHash();ensureCase();addPolicyLinks();enhanceOpeningNarrative();enhanceCenterCondition();enhanceValuesAndRespiratoryLabels();enhanceCostSection();enhanceMoneyRefinements();addPreDiagnosisJourney();addMedicalHistoryContext();enhanceExpectationMismatch();enhanceDecisionSources();bindEvents();updateAll();
 })();
