@@ -1,0 +1,13 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>統合体験フォーム｜API接続検証</title></head><body><p style="font-family:sans-serif;padding:24px;color:#48647c">統合体験フォームのAPI接続検証版を読み込んでいます…</p><script>
+(async function(){
+  try{
+    const res=await fetch('experience_case.html',{cache:'no-store'});
+    if(!res.ok) throw new Error('base '+res.status);
+    let h=await res.text();
+    h=h.replace('</head>','<script src="assets/js/experience_api_config.js"><\\/script><script defer src="assets/js/experience_submit_api.js"><\\/script></head>');
+    h=h.replace('統合プレテスト｜送信未接続','統合プレテスト｜API接続検証');
+    h=h.replace('このプレテストでは入力内容を送信・保存しません。','通常は送信しません。ローカル開発でAPIを明示的に有効化した場合だけ、接続検証用に送信できます。');
+    document.open();document.write(h);document.close();
+  }catch(e){document.body.innerHTML='<main style="max-width:760px;margin:50px auto;font-family:sans-serif;padding:20px"><h1>読み込みに失敗しました</h1><pre>'+String(e)+'</pre></main>';}
+})();
+</script></body></html>
