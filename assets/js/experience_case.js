@@ -323,7 +323,7 @@
     const respondentKeys=new Set(['respondent_role','relationship','record_type','professional_experience','answer_source','answer_depth']);
     const medicalContextKeys=new Set(['additional_condition_presence','major_contributing_conditions','comorbid_conditions','diabetes_complications','relevant_past_history','prior_experience_decision_influence','comorbidity_other_text']);
     const regionKeys=new Set(['care_prefecture','care_region_change','regional_access_difficulty','regional_access_reasons']);
-    const courseKeys=new Set(['first_detection_mode','first_change_to_current_or_death','first_notice_to_first_care','first_care_to_diagnosis','first_care_entry','diagnosis_route','care_delay_reasons','diagnosis_delay_reasons','seriousness_recognition_timing','trajectory_pattern','events','unplanned_admissions_6m','emergency_visits_6m','final_month_care_setting','place_of_death','death_expected','last30_treatment']);
+    const courseKeys=new Set(['first_detection_mode','first_change_to_current_or_death','first_notice_to_first_care','first_care_to_diagnosis','first_care_entry','diagnosis_route','care_delay_reasons','diagnosis_delay_reasons','seriousness_recognition_timing','trajectory_pattern','events','unplanned_admissions_6m','emergency_visits_6m','final_month_care_setting','place_of_death','death_expected','death_period_band','last30_treatment']);
     const diseasePrefixes=['dementia_','lung_cancer_','hf_','copd_','kidney_','other_disease_'];
     const carePrefixes=['care_','night_care_','support_services','caregiver_burden_'];
     const costPrefixes=['household_','out_of_pocket_','financial_','cost_','income_','public_support_'];
@@ -331,7 +331,7 @@
     const reflectionPrefixes=['overall_acceptance','choose_same_again','what_helped','what_was_hard','values_','own_','message_','expectation_'];
     const crisisPrefixes=['caregiver_self_death_thought','caregiver_joint_death_thought','crisis_'];
     return {
-      schema_version:'experience-case-v1.13',
+      schema_version:'experience-case-v1.14',
       record_kind:(flat.record_type==='professional_overview'?'professional_overview':'case_response'),
       case:take(flat,k=>caseKeys.has(k)),
       response:{response_id:responseId,...take(flat,k=>respondentKeys.has(k))},
