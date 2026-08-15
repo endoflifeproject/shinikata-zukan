@@ -7,7 +7,9 @@
 <meta name="description" content="死に方図鑑の統合体験アンケートを、人が読める体験談へ再構成する詳細ページのダミー表示です。">
 <title>体験談詳細（ダミー）｜死に方図鑑</title>
 <link rel="stylesheet" href="assets/css/experience_story.css">
+<link rel="stylesheet" href="assets/css/experience_story_burden.css">
 <script defer src="assets/js/experience_story.js"></script>
+<script defer src="assets/js/experience_story_burden.js"></script>
 </head>
 <body>
 <header><div class="head"><a class="brandrow" href="index.html" aria-label="死に方図鑑 ホームへ"><div class="symbol">✦</div><div class="brand">死に方図鑑<small>EXPERIENCE STORY</small></div></a><div class="headlinks"><a href="experience_read.html">体験を探す</a><a href="experience_write.html">体験を書く</a><a href="experience.html">みんなの体験</a></div></div></header>
@@ -24,7 +26,17 @@
 <article class="content">
 <section class="panel" id="overview"><div class="section-kicker">01｜この人のこと</div><h2>まず、全体をざっくり</h2><p class="intro">アンケート冒頭のフリースタイル記述を、体験談の導入として表示する想定です。</p><div class="narrative" id="overviewText"></div><div style="height:10px"></div><div class="quote" id="overviewQuote"></div><div style="height:12px"></div><div class="tags" id="conditionTags"></div></section>
 
-<section class="panel" id="course"><div class="section-kicker">02｜経過</div><h2>何が起きて、どう進んだか</h2><p class="intro">受診前の空白期間、紹介、けが・事故を入口にした受診、入退院、在宅療養などを時系列で組み立てます。</p><div class="timeline" id="timeline"></div></section>
+<section class="panel" id="course"><div class="section-kicker">02｜経過</div><h2>何が起きて、どう進んだか</h2><p class="intro">まず「いつ、どこで負担が大きくなったか」を俯瞰し、その下で出来事の詳細を時系列に読みます。</p>
+<div class="burden-chart-card">
+  <div class="burden-chart-head"><div><h3>負担の波と、起きた出来事</h3><p>横＝時間、縦＝負担の大きさ。本人と家族を別の線で表示します。</p></div><span class="burden-beta">表示検討用の仮スコア</span></div>
+  <div class="burden-legend"><span class="patient"><i></i>本人の負担</span><span class="family"><i></i>家族の負担</span></div>
+  <div class="burden-scroll"><svg id="burdenChart" viewBox="0 0 900 330" aria-label="負担の推移グラフ"></svg></div>
+  <div class="burden-indicators-title">同じ時期の「意思決定の重さ」と「医療の密度」</div>
+  <div class="burden-indicators" id="burdenIndicators"></div>
+  <p class="burden-story-note" id="burdenStoryNote"></p>
+  <div class="burden-method-note"><b>ここはまだ実測値ではありません。</b> 現行アンケートは各イベント時点の負担0〜5を直接収集していないため、ダミー症例の物語から画面設計確認用に置いた仮スコアです。本番では「回答として時点別負担を取る」「公開編集時に別データとして付与する」など、値の出どころを明示する前提です。</div>
+</div>
+<h3 class="timeline-subhead"><b>出来事の詳細</b>｜受診前の空白期間、紹介、けが・事故を入口にした受診、入退院、在宅療養など</h3><div class="timeline" id="timeline"></div></section>
 
 <section class="panel" id="care"><div class="section-kicker">03｜治療・介護</div><h2>療養中に経験したこと</h2><p class="intro">アンケートの治療・ケア項目は、読み手が把握しやすいタグとしてまとめます。</p><div class="tags" id="experienceTags"></div><div class="grid2" style="margin-top:14px"><div class="mini-card"><h3>介護・支援にかかった時間</h3><p id="careHours">—</p></div><div class="mini-card"><h3>夜間の対応</h3><p id="careNight">—</p></div></div><div class="mini-card" style="margin-top:10px"><h3>支える側の負担</h3><p><b id="careBurden">—</b></p><ul class="list" id="careEffects"></ul></div></section>
 
@@ -39,7 +51,7 @@
 <section class="panel"><div class="source-box"><b>この体験談の出どころ</b><span id="sourceNote"></span></div><div class="privacy">本番では自由記述をそのまま自動公開せず、引用同意・再特定リスク確認・公開範囲の審査を通す前提です。また、1件の回答は「その回答者から見えた体験」であり、医学的な唯一の正解として表示しません。</div></section>
 </article>
 
-<nav class="side" aria-label="この体験談の目次"><b>この体験談</b><a href="#overview">この人のこと</a><a href="#course">経過</a><a href="#care">治療・介護</a><a href="#suffering">苦痛</a><a href="#cost">費用</a><a href="#decision">意思決定</a><a href="#reflection">振り返り</a><div class="note">検索画面から、長期介護型と短期高密度治療型の2つのダミー症例を切り替えて比較できます。</div></nav>
+<nav class="side" aria-label="この体験談の目次"><b>この体験談</b><a href="#overview">この人のこと</a><a href="#course">経過・負担の波</a><a href="#care">治療・介護</a><a href="#suffering">苦痛</a><a href="#cost">費用</a><a href="#decision">意思決定</a><a href="#reflection">振り返り</a><div class="note">検索画面から、長期介護型と短期高密度治療型の2つのダミー症例を切り替えて比較できます。</div></nav>
 </div>
 </main>
 </body>
