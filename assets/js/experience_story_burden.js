@@ -2,6 +2,15 @@
   const burdenStories={
     dementia:{
       note:'認知症ダミーでは、骨折・救急を最初の大きな山、その後の在宅介護を高止まり、肺炎反復〜最終期を二つ目の山として置いた表示検討用スコアです。',
+      finance:{
+        spending:'100〜299万円',
+        incomeLoss:'50〜199万円',
+        incomeRatio:'1〜2割程度',
+        incomeDuration:'1〜3年・断続的',
+        savingsStart:'500〜999万円',
+        savingsDrawdown:'300〜499万円',
+        savingsDecline:'5〜7割程度'
+      },
       points:[
         {x:0,when:'約6年前',label:'物忘れに気づく',patient:1,family:2,decision:1,medical:1},
         {x:18,when:'約5年前',label:'転倒・骨折／救急',patient:5,family:5,decision:3,medical:5,major:true},
@@ -13,6 +22,15 @@
     },
     lung:{
       note:'肺がんダミーでは、診断後から短期間に治療・情報探索・仕事・費用の判断が重なり、後半に本人負担と家族負担が急上昇する表示検討用スコアです。',
+      finance:{
+        spending:'300〜499万円',
+        incomeLoss:'300〜499万円',
+        incomeRatio:'5〜7割程度',
+        incomeDuration:'6か月〜1年',
+        savingsStart:'500〜999万円',
+        savingsDrawdown:'300〜499万円',
+        savingsDecline:'5〜7割程度'
+      },
       points:[
         {x:0,when:'約8か月前',label:'クリニック受診',patient:2,family:1,decision:1,medical:2},
         {x:10,when:'数週間後',label:'紹介・精密検査',patient:3,family:4,decision:4,medical:5,major:true},
@@ -29,6 +47,27 @@
   const svg=document.getElementById('burdenChart');
   const indicators=document.getElementById('burdenIndicators');
   const storyNote=document.getElementById('burdenStoryNote');
+
+  function injectFinanceSummary(){
+    const cost=document.getElementById('cost');
+    const money=cost?.querySelector('.money');
+    if(!money||cost.querySelector('[data-household-impact]'))return;
+    const f=model.finance;
+    const wrap=document.createElement('div');
+    wrap.className='household-impact';
+    wrap.setAttribute('data-household-impact','');
+    wrap.innerHTML=`
+      <div class="household-impact-head"><b>家計がどう削られたか</b><span>支出・収入・資産を分けて見る</span></div>
+      <div class="household-impact-grid">
+        <div class="impact-card"><span class="impact-kicker">① 支出</span><b>家計から出たお金</b><strong>${f.spending}</strong><small>療養期間全体の自己負担</small></div>
+        <div class="impact-card"><span class="impact-kicker">② 収入</span><b>仕事から入るお金の減少</b><strong>${f.incomeLoss}</strong><small>元の仕事収入から ${f.incomeRatio} 減<br>影響期間：${f.incomeDuration}</small></div>
+        <div class="impact-card"><span class="impact-kicker">③ 資産</span><b>貯蓄の取り崩し</b><strong>${f.savingsDrawdown}</strong><small>療養開始時：${f.savingsStart}<br>開始時から ${f.savingsDecline} 減</small></div>
+      </div>
+      <p class="household-impact-note">※ すべて架空の表示例です。絶対額だけでなく、元の収入・貯蓄に対してどの程度の打撃だったかを併記する想定です。</p>`;
+    money.after(wrap);
+  }
+
+  injectFinanceSummary();
   if(!svg||!indicators)return;
 
   const W=900,H=330;
