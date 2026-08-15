@@ -20,6 +20,15 @@ const PUBLIC_METRICS = {
   financial_burden: ['cost', 'financial_burden'],
   overall_acceptance: ['reflection', 'overall_acceptance']
 };
+const REVIEW_ISSUES = new Set([
+  'too_many_questions',
+  'unclear_questions',
+  'missing_needed_information',
+  'low_value_questions',
+  'psychologically_difficult',
+  'fatigue'
+]);
+const REVIEW_SCORE_KEYS = ['mental_burden', 'ethical_concern', 'identification_risk'];
 
 function json(res, status, body, headers = {}) {
   const data = JSON.stringify(body);
@@ -141,6 +150,41 @@ function addFilter(clauses, params, sql, value) {
   }
 }
 
+function isScore(value, min, max) {
+  return value == null || (Number.isInteger(value) && value >= min && value <= max);
+}
+
+function validateReviewPayload(payload) {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return 'review_payload_required';
+  if (typeof payload.review_version !== 'string' || !payload.review_version || payload.review_version.length > 80) return 'invalid_review_version';
+  if (typeof payload.questionnaire_version !== 'string' || !payload.questionnaire_version || payload.questionnaire_version.length > 100) return 'invalid_questionnaire_version';
+  if (!Array.isArray(payload.question_reviews) || payload.question_reviews.length < 1 || payload.question_reviews.length > 400) return 'invalid_question_reviews';
+
+  for (const q of payload.question_reviews) {
+    if (!q || typeof q !== 'object' || Array.isArray(q)) return 'invalid_question_review';
+    if (typeof q.question_id !== 'string' || !q.question_id || q.question_id.length > 180) return 'invalid_question_id';
+    if (typeof q.question_text !== 'string' || !q.question_text || q.question_text.length > 1600) return 'invalid_question_text';
+    if (typeof q.section_id !== 'string' || q.section_id.length > 120) return 'invalid_section_id';
+    if (typeof q.section_title !== 'string' || q.section_title.length > 600) return 'invalid_section_title';
+    for (const key of REVIEW_SCORE_KEYS) if (!isScore(q[key], 0, 3)) return `invalid_${key}`;
+    if (q.comment != null && (typeof q.comment !== 'string' || q.comment.length > 1200)) return 'invalid_question_comment';
+  }
+
+  if (!payload.overall || typeof payload.overall !== 'object' || Array.isArray(payload.overall)) return 'overall_review_required';
+  if (!isScore(payload.overall.rating, 1, 5)) return 'invalid_overall_rating';
+  if (!Array.isArray(payload.overall.issues) || payload.overall.issues.length > REVIEW_ISSUES.size) return 'invalid_overall_issues';
+  if (payload.overall.issues.some(v => typeof v !== 'string' || !REVIEW_ISSUES.has(v))) return 'invalid_overall_issue';
+  if (payload.overall.comment != null && (typeof payload.overall.comment !== 'string' || payload.overall.comment.length > 6000)) return 'invalid_overall_comment';
+  return null;
+}
+
+function reviewFreeText(payload) {
+  return {
+    question_comments: payload.question_reviews.map(q => q.comment || '').filter(Boolean),
+    overall_comment: payload.overall?.comment || ''
+  };
+}
+
 export function createAppServer(overrides = {}) {
   const config = loadConfig(overrides);
   const db = openDatabase(config.dbPath);
@@ -165,6 +209,15 @@ export function createAppServer(overrides = {}) {
     patient_status = NULL,
     withdrawn_at = ?
     WHERE response_id = ? AND withdrawn_at IS NULL`);
+  const insertEvaluation = db.prepare(`INSERT INTO questionnaire_evaluations(
+    evaluation_id, questionnaire_version, review_version, payload_envelope,
+    withdrawal_secret_hash, created_at
+  ) VALUES (?, ?, ?, ?, ?, ?)`);
+  const findEvaluationWithdrawal = db.prepare('SELECT evaluation_id, withdrawal_secret_hash, withdrawn_at FROM questionnaire_evaluations WHERE evaluation_id = ?');
+  const withdrawEvaluation = db.prepare(`UPDATE questionnaire_evaluations SET
+    payload_envelope = NULL,
+    withdrawn_at = ?
+    WHERE evaluation_id = ? AND withdrawn_at IS NULL`);
 
   const server = http.createServer(async (req, res) => {
     const cors = corsHeaders(req, config);
@@ -183,6 +236,7 @@ export function createAppServer(overrides = {}) {
         return json(res, 200, {
           ok: true,
           writes_enabled: config.enableWrites,
+          review_writes_enabled: config.enableReviewWrites,
           invites_enabled: config.enableInvites,
           min_public_cell_size: config.minPublicCellSize
         }, cors);
@@ -266,6 +320,48 @@ export function createAppServer(overrides = {}) {
         return json(res, 200, { request_status: 'withdrawn', effective_scope: 'response' }, cors);
       }
 
+      if (req.method === 'POST' && url.pathname === '/v1/questionnaire-evaluations') {
+        if (!config.enableReviewWrites) return json(res, 503, { error: 'review_writes_disabled', message: 'Expert questionnaire review submission is not enabled on this server.' }, cors);
+        const body = await readJson(req, config.maxBodyBytes);
+        const payload = body.review_payload;
+        const validationError = validateReviewPayload(payload);
+        if (validationError) return json(res, 400, { error: validationError }, cors);
+        const identifierHits = scanForDirectIdentifiers(reviewFreeText(payload));
+        if (identifierHits.length) {
+          return json(res, 422, {
+            error: 'possible_direct_identifier',
+            message: 'Do not include names, contact details, addresses, facility names, record numbers, or other direct identifiers in expert review comments.',
+            fields: identifierHits
+          }, cors);
+        }
+
+        const evaluationId = randomId('eval', 18);
+        const withdrawalSecret = randomSecret(32);
+        const now = new Date().toISOString();
+        insertEvaluation.run(
+          evaluationId,
+          String(payload.questionnaire_version),
+          String(payload.review_version),
+          codec.encode(payload),
+          hashSecret(withdrawalSecret),
+          now
+        );
+        return json(res, 201, { evaluation_id: evaluationId, withdrawal_secret: withdrawalSecret }, cors);
+      }
+
+      if (req.method === 'POST' && url.pathname === '/v1/questionnaire-evaluation-withdrawals') {
+        const body = await readJson(req, config.maxBodyBytes);
+        if (!body.evaluation_id || !body.withdrawal_secret) return json(res, 400, { error: 'evaluation_id_and_secret_required' }, cors);
+        const row = findEvaluationWithdrawal.get(String(body.evaluation_id));
+        if (!row) return json(res, 404, { error: 'not_found' }, cors);
+        if (row.withdrawn_at) return json(res, 200, { request_status: 'already_withdrawn', effective_scope: 'questionnaire_evaluation' }, cors);
+        const given = Buffer.from(hashSecret(body.withdrawal_secret), 'hex');
+        const expected = Buffer.from(row.withdrawal_secret_hash, 'hex');
+        if (given.length !== expected.length || !cryptoTimingSafeEqual(given, expected)) return json(res, 403, { error: 'invalid_withdrawal_secret' }, cors);
+        withdrawEvaluation.run(new Date().toISOString(), String(body.evaluation_id));
+        return json(res, 200, { request_status: 'withdrawn', effective_scope: 'questionnaire_evaluation' }, cors);
+      }
+
       if (req.method === 'POST' && url.pathname === '/v1/contact-consents') {
         return json(res, 501, {
           error: 'separate_contact_service_required',
@@ -321,6 +417,6 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const { server, config } = createAppServer();
   server.listen(config.port, '127.0.0.1', () => {
     console.log(`[experience-api] listening on http://127.0.0.1:${config.port}`);
-    console.log(`[experience-api] writes=${config.enableWrites ? 'enabled' : 'disabled'} invites=${config.enableInvites ? 'enabled' : 'disabled'}`);
+    console.log(`[experience-api] writes=${config.enableWrites ? 'enabled' : 'disabled'} reviewWrites=${config.enableReviewWrites ? 'enabled' : 'disabled'} invites=${config.enableInvites ? 'enabled' : 'disabled'}`);
   });
 }
