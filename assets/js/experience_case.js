@@ -322,6 +322,7 @@
     const caseKeys=new Set(['case_id','patient_age_band','patient_sex','patient_status','course_center_condition','case_overview_free','wish_expression','patient_values','patient_values_free','prior_wishes_free']);
     const respondentKeys=new Set(['respondent_role','relationship','record_type','professional_experience','answer_source','answer_depth']);
     const medicalContextKeys=new Set(['additional_condition_presence','major_contributing_conditions','comorbid_conditions','diabetes_complications','relevant_past_history','prior_experience_decision_influence','comorbidity_other_text']);
+    const regionKeys=new Set(['care_prefecture','care_region_change','regional_access_difficulty','regional_access_reasons']);
     const courseKeys=new Set(['first_detection_mode','first_change_to_current_or_death','first_notice_to_first_care','first_care_to_diagnosis','first_care_entry','diagnosis_route','care_delay_reasons','diagnosis_delay_reasons','seriousness_recognition_timing','trajectory_pattern','events','unplanned_admissions_6m','emergency_visits_6m','final_month_care_setting','place_of_death','death_expected','last30_treatment']);
     const diseasePrefixes=['dementia_','lung_cancer_','hf_','copd_','kidney_','other_disease_'];
     const carePrefixes=['care_','night_care_','support_services','caregiver_burden_'];
@@ -330,15 +331,16 @@
     const reflectionPrefixes=['overall_acceptance','choose_same_again','what_helped','what_was_hard','values_','own_','message_','expectation_'];
     const crisisPrefixes=['caregiver_self_death_thought','caregiver_joint_death_thought','crisis_'];
     return {
-      schema_version:'experience-case-v1.12',
+      schema_version:'experience-case-v1.13',
       record_kind:(flat.record_type==='professional_overview'?'professional_overview':'case_response'),
       case:take(flat,k=>caseKeys.has(k)),
       response:{response_id:responseId,...take(flat,k=>respondentKeys.has(k))},
       medical_context:take(flat,k=>medicalContextKeys.has(k)),
+      region_access:take(flat,k=>regionKeys.has(k)),
       course:take(flat,k=>courseKeys.has(k)),
       suffering:take(flat,k=>k==='physical_suffering_overall'||k==='total_suffering_overall'||k==='suffering_free'||k.startsWith('symptom_')||k.startsWith('whole_')),
       disease_specific:take(flat,k=>diseasePrefixes.some(p=>k.startsWith(p))),
-      care_burden:take(flat,k=>carePrefixes.some(p=>k.startsWith(p))),
+      care_burden:take(flat,k=>!regionKeys.has(k)&&carePrefixes.some(p=>k.startsWith(p))),
       cost:take(flat,k=>costPrefixes.some(p=>k.startsWith(p))),
       decision:take(flat,k=>decisionPrefixes.some(p=>k.startsWith(p))),
       reflection:take(flat,k=>reflectionPrefixes.some(p=>k.startsWith(p))||k==='decision_regret'),
