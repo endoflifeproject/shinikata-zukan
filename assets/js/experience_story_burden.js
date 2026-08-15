@@ -5,12 +5,16 @@
       finance:{
         spending:'100〜299万円',
         spendingRange:[100,299],
+        spendingEstimate:180,
         incomeLoss:'50〜199万円',
         incomeLossRange:[50,199],
+        incomeLossEstimate:120,
         incomeRatio:'1〜2割程度',
         incomeDuration:'1〜3年・断続的',
         savingsStart:'500〜999万円',
+        savingsStartEstimate:720,
         savingsDrawdown:'300〜499万円',
+        savingsDrawdownEstimate:410,
         savingsDecline:'5〜7割程度'
       },
       points:[
@@ -27,12 +31,16 @@
       finance:{
         spending:'300〜499万円',
         spendingRange:[300,499],
+        spendingEstimate:380,
         incomeLoss:'300〜499万円',
         incomeLossRange:[300,499],
+        incomeLossEstimate:420,
         incomeRatio:'5〜7割程度',
         incomeDuration:'6か月〜1年',
         savingsStart:'500〜999万円',
+        savingsStartEstimate:760,
         savingsDrawdown:'300〜499万円',
+        savingsDrawdownEstimate:430,
         savingsDecline:'5〜7割程度'
       },
       points:[
@@ -52,14 +60,21 @@
   const indicators=document.getElementById('burdenIndicators');
   const storyNote=document.getElementById('burdenStoryNote');
 
+  function moneyDisplay(estimate,band){
+    return Number.isFinite(estimate)?`約${estimate.toLocaleString('ja-JP')}万円`:band;
+  }
+
   function householdImpactEstimate(f){
+    if(Number.isFinite(f.spendingEstimate)&&Number.isFinite(f.incomeLossEstimate)){
+      return {text:`約${(f.spendingEstimate+f.incomeLossEstimate).toLocaleString('ja-JP')}万円`,detail:`自己負担 約${f.spendingEstimate.toLocaleString('ja-JP')}万円 ＋ 失った収入 約${f.incomeLossEstimate.toLocaleString('ja-JP')}万円を、回答者の任意概算値から単純合算した表示です。`,precision:'任意の概算値を使用'};
+    }
     const spending=f.spendingRange||[];
     const income=f.incomeLossRange||[];
     const low=(spending[0]||0)+(income[0]||0);
     const hasOpenUpper=spending[1]==null||income[1]==null;
-    if(hasOpenUpper)return `約${low.toLocaleString('ja-JP')}万円以上`;
+    if(hasOpenUpper)return{text:`約${low.toLocaleString('ja-JP')}万円以上`,detail:`自己負担 ${f.spending} ＋ 失った収入 ${f.incomeLoss} を、回答された金額帯から単純合算した表示です。`,precision:'広い金額帯を使用'};
     const high=spending[1]+income[1];
-    return `約${low.toLocaleString('ja-JP')}〜${high.toLocaleString('ja-JP')}万円`;
+    return{text:`約${low.toLocaleString('ja-JP')}〜${high.toLocaleString('ja-JP')}万円`,detail:`自己負担 ${f.spending} ＋ 失った収入 ${f.incomeLoss} を、回答された金額帯の上下限で単純合算した表示です。`,precision:'広い金額帯を使用'};
   }
 
   function injectFinanceSummary(){
@@ -74,17 +89,17 @@
     wrap.innerHTML=`
       <div class="household-impact-head"><b>家計がどう削られたか</b><span>支出・収入・資産を分けて見る</span></div>
       <div class="household-impact-grid">
-        <div class="impact-card"><span class="impact-kicker">① 支出</span><b>家計から出たお金</b><strong>${f.spending}</strong><small>療養期間全体の自己負担</small></div>
-        <div class="impact-card"><span class="impact-kicker">② 収入</span><b>仕事から入るお金の減少</b><strong>${f.incomeLoss}</strong><small>元の仕事収入から ${f.incomeRatio} 減<br>影響期間：${f.incomeDuration}</small></div>
-        <div class="impact-card"><span class="impact-kicker">③ 資産</span><b>貯蓄の取り崩し</b><strong>${f.savingsDrawdown}</strong><small>療養開始時：${f.savingsStart}<br>開始時から ${f.savingsDecline} 減</small></div>
+        <div class="impact-card"><span class="impact-kicker">① 支出</span><b>家計から出たお金</b><strong>${moneyDisplay(f.spendingEstimate,f.spending)}</strong><small>${Number.isFinite(f.spendingEstimate)?`広い回答帯：${f.spending}<br>回答者の任意概算値を表示`:'療養期間全体の自己負担'}</small></div>
+        <div class="impact-card"><span class="impact-kicker">② 収入</span><b>仕事から入るお金の減少</b><strong>${moneyDisplay(f.incomeLossEstimate,f.incomeLoss)}</strong><small>${Number.isFinite(f.incomeLossEstimate)?`広い回答帯：${f.incomeLoss}<br>`:''}元の仕事収入から ${f.incomeRatio} 減<br>影響期間：${f.incomeDuration}</small></div>
+        <div class="impact-card"><span class="impact-kicker">③ 資産</span><b>貯蓄の取り崩し</b><strong>${moneyDisplay(f.savingsDrawdownEstimate,f.savingsDrawdown)}</strong><small>療養開始時：${moneyDisplay(f.savingsStartEstimate,f.savingsStart)}${Number.isFinite(f.savingsStartEstimate)?`（広い帯 ${f.savingsStart}）`:''}<br>開始時から ${f.savingsDecline} 減</small></div>
       </div>
       <div class="impact-estimate">
-        <span>サイト側での概算</span>
-        <div><b>家計への経済的影響</b><strong>${estimate}</strong></div>
-        <p>自己負担 ${f.spending} ＋ 失った収入 ${f.incomeLoss} を、回答された金額帯の上下限で単純合算した表示です。</p>
+        <span>サイト側での概算｜${estimate.precision}</span>
+        <div><b>家計への経済的影響</b><strong>${estimate.text}</strong></div>
+        <p>${estimate.detail}</p>
         <small>※ 貯蓄の取り崩しは、支出や収入減を補うために使われた可能性があり重複するため加算していません。民間保険・給付等の受取額も未控除なので、「最終的な純損失」ではありません。</small>
       </div>
-      <p class="household-impact-note">※ すべて架空の表示例です。絶対額だけでなく、元の収入・貯蓄に対してどの程度の打撃だったかを併記する想定です。</p>`;
+      <p class="household-impact-note">※ すべて架空の表示例です。「約○万円」も正確な会計実額ではなく、回答者が任意で答えた概算値という想定です。概算値がなければ細かい帯、さらにそれもなければ広い帯を使う設計です。</p>`;
     money.after(wrap);
   }
 
