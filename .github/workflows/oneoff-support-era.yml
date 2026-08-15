@@ -1,0 +1,152 @@
+name: One-off support and era patch
+
+on:
+  push:
+    paths:
+      - '.github/workflows/oneoff-support-era.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch questionnaire, schema, and viewer
+        shell: python
+        run: |
+          from pathlib import Path
+          import json, re
+
+          def must_replace(text, old, new, label):
+              if old not in text:
+                  raise SystemExit(f'missing pattern: {label}')
+              return text.replace(old, new, 1)
+
+          # Questionnaire HTML
+          p = Path('experience_case.html')
+          s = p.read_text(encoding='utf-8')
+          s = must_replace(s, '図鑑データ v1.13｜一症例・複数視点対応', '図鑑データ v1.14｜一症例・複数視点対応', 'form version')
+
+          death_pattern = re.compile(r'(<div class="state-hidden" data-state="deceased"><div class="grid2">.*?<select id="deathExpected"[^>]*>.*?</select></div></div>)(</div>)', re.S)
+          death_field = '''<div class="field"><label for="deathPeriodBand">亡くなった時期（おおまかで構いません）</label><select id="deathPeriodBand" name="death_period_band"><option value="">分からない・未回答</option><option value="2023_plus">2023年以降</option><option value="2020_2022">2020〜2022年（新型コロナ流行初期）</option><option value="2010s">2010年代</option><option value="2000s">2000年代</option><option value="1990s">1990年代</option><option value="1980s">1980年代</option><option value="before_1980">1979年以前</option><option value="unknown">分からない</option></select><p class="help">正確な死亡日は集めません。医療・介護制度や社会状況が異なる時代の体験を、現在の体験とそのまま混ぜないための分析用項目です。</p></div>'''
+          s, n = death_pattern.subn(r'\1' + death_field + r'\2', s, count=1)
+          if n != 1:
+              raise SystemExit('failed to add death period band')
+
+          facility = '<div class="choice"><input type="checkbox" name="support_services" id="svc_facility" value="facility"><label for="svc_facility">施設入所</label></div>'
+          community = '<div class="choice"><input type="checkbox" name="support_services" id="svc_community" value="community_support_center"><label for="svc_community">地域包括支援センター等に相談</label></div>'
+          s = must_replace(s, facility, facility + community, 'community support center option')
+          s = must_replace(s, '<label for="svc_facility">施設入所</label>', '<label for="svc_facility">老人ホーム・介護施設等に入所</label>', 'facility label')
+          s = must_replace(s, '<label for="svc_none">ほぼ利用しなかった</label>', '<label for="svc_none">外部の相談・介護サービスをほぼ利用しなかった</label>', 'no support label')
+          p.write_text(s, encoding='utf-8')
+
+          # Questionnaire JS / payload
+          p = Path('assets/js/experience_case.js')
+          s = p.read_text(encoding='utf-8')
+          s = must_replace(s, "'place_of_death','death_expected','last30_treatment'", "'place_of_death','death_expected','death_period_band','last30_treatment'", 'death period payload')
+          s = must_replace(s, "schema_version:'experience-case-v1.13'", "schema_version:'experience-case-v1.14'", 'payload schema version')
+          p.write_text(s, encoding='utf-8')
+
+          # Schema JSON
+          p = Path('assets/data/experience_case_schema_v1.json')
+          data = json.loads(p.read_text(encoding='utf-8'))
+          data['schema_version'] = 'experience-case-v1.14'
+          data['updated'] = '2026-08-16'
+          purpose = data.get('purpose','')
+          if '相談・介護サービス利用' not in purpose:
+              data['purpose'] = purpose.rstrip('。') + '。地域包括支援センター等への相談や介護サービス・施設利用の有無、亡くなった時期の大まかな年代帯も保持し、支援利用群と非利用群、時代の異なる記録を区別して比較できるようにする。'
+          data['care_support_context'] = {
+              'principle': '家族介護を「サービスを使った／使わなかった」だけで評価せず、実際に利用・相談した支援の種類を複数選択で保持し、外部支援をほぼ利用しなかったケースも正規カテゴリとして残す。',
+              'fields': {
+                  'support_services': '訪問診療、訪問看護、訪問介護、通所、ショートステイ、老人ホーム・介護施設、地域包括支援センター等への相談、ケアマネジャー、MSW等、外部支援ほぼなしを複数選択で保持する。',
+                  'derived_support_use_group': '公開集計用の派生区分。support_servicesにnone以外の相談・介護支援があればsupport_used、noneのみならminimal_or_none。元回答を置き換えず、分析時に派生する。'
+              },
+              'analysis_use': [
+                  '認知症等で、相談・介護サービスを利用した群と外部支援をほぼ利用しなかった群の家族負担、費用、意思決定、療養場所等を比較する',
+                  '利用群は病状が重い、介護期間が長い等の理由で支援を必要とした可能性があるため、群間差をサービスの因果効果とみなさない',
+                  '地域包括支援センター等への相談と、実際の介護サービス・施設利用を元データでは別項目として判別できるようにする'
+              ]
+          }
+          data['historical_context'] = {
+              'principle': '正確な死亡日を収集せず、制度・医療・介護・社会状況の違いを考慮できる粗い年代帯だけを保持する。',
+              'fields': {
+                  'death_period_band': '2023年以降、2020〜2022年（新型コロナ流行初期）、2010年代、2000年代、1990年代、1980年代、1979年以前、不明。亡くなっている症例のみ。'
+              },
+              'public_display': {
+                  'recent': '2023年以降は通常表示。',
+                  'pandemic_early': '2020〜2022年は「新型コロナ流行初期の記録」と文脈表示できる。',
+                  'historical': '2010年代以前は「過去の医療・介護環境での記録です」等の注意表示を付け、現在の制度・選択肢と同一条件として読まれないようにする。'
+              },
+              'analysis_use': [
+                  '年代帯ごとに家族負担、療養場所、サービス利用、費用、意思決定等の分布を比較する',
+                  '時代差には制度、医療技術、介護サービス供給、家族構成、回答の記憶の古さ等が混在するため、単一要因の効果と解釈しない'
+              ]
+          }
+          goals = data.setdefault('comparison_goals', [])
+          for item in [
+              '地域包括支援センター等への相談・介護サービス・施設利用の有無と、家族負担・費用・意思決定・療養場所の違い',
+              '亡くなった年代帯ごとの体験差。2020〜2022年の新型コロナ流行初期と、それ以前・以後の記録を区別する'
+          ]:
+              if item not in goals: goals.append(item)
+          principles = data.setdefault('analysis_principles', [])
+          for item in [
+              '相談・介護サービス利用群と非利用群の差は、病状、介護期間、家族構成、地域アクセス等の背景差を含むため、サービス利用の因果効果として単純解釈しない。',
+              '古い年代の症例は当時の制度・医療・介護環境での経験として扱い、現在の選択肢や支援体制と同一条件の記録として比較しない。'
+          ]:
+              if item not in principles: principles.append(item)
+          p.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          # Public aggregate viewer
+          p = Path('experience_read.html')
+          s = p.read_text(encoding='utf-8')
+          s = must_replace(s, '疾病 × テーマ回遊 v4.1 ／ プレテスト', '疾病 × テーマ回遊 v4.2 ／ プレテスト', 'viewer version')
+          s = must_replace(s,
+              "familyOverall:{avg:4.1,dist:[46,29,15,7,3],q:'家族・支える人の負担は？',help:'介護・治療・療養に伴う負担の総合評価。'}",
+              "familyOverall:{avg:8.2,scale:10,dist:[46,29,15,7,3],q:'家族・支える人の負担は？',help:'質問票の「支える人の負担感（0〜10、10ほど限界に近い）」に対応。分布は0〜10を5つの帯にまとめた表示イメージ。'}",
+              'family overall scale')
+          s = must_replace(s,
+              "function metricSet(patient,family,decision){return {...baseMetrics,totalSuffering:{...baseMetrics.totalSuffering,avg:patient},familyOverall:{...baseMetrics.familyOverall,avg:family},familyDecision:{...baseMetrics.familyDecision,avg:decision}};}",
+              "function metricSet(patient,family,decision){return {...baseMetrics,totalSuffering:{...baseMetrics.totalSuffering,avg:patient},familyOverall:{...baseMetrics.familyOverall,avg:family*2,scale:10},familyDecision:{...baseMetrics.familyDecision,avg:decision}};}",
+              'metricSet family scale')
+
+          dementia_tail = "foot:[['転倒・骨折','41%'],['救急・入院反復','36%'],['在宅療養','54%'],['夜間介護あり','47%']],...commonCompare},"
+          dementia_new = "foot:[['転倒・骨折','41%'],['救急・入院反復','36%'],['在宅療養','54%'],['夜間介護あり','47%']],supportCompare:[{label:'地域包括・介護サービス等を利用',n:102,avg:8.2,strong:72},{label:'外部の相談・介護サービスをほぼ利用せず',n:26,avg:9.1,strong:85}],eraCompare:[{label:'2023年以降',n:18,avg:8.1},{label:'2020〜2022年',n:22,avg:8.7,badge:'新型コロナ流行初期の記録'},{label:'2010年代',n:41,avg:8.5,old:true},{label:'2000年代',n:28,avg:8.9,old:true},{label:'1990年代以前',n:19,avg:9.0,old:true}],...commonCompare},"
+          s = must_replace(s, dementia_tail, dementia_new, 'dementia support/era compare data')
+
+          disease_line = re.compile(r"const diseaseComparison=\[.*?\];")
+          new_disease = "const diseaseComparison=[{label:'認知症',key:'dementia',n:128,patient:6.8,family:8.6,decision:4.1,note:'認知症を見る →'},{label:'肺がん',key:'lung',n:108,patient:8.2,family:8.0,decision:4.5,note:'肺がんを見る →'},{label:'心不全',key:'heart',n:84,patient:8.0,family:7.8,decision:4.2,note:'心不全を見る →'},{label:'COPD・呼吸器疾患',key:'copd',n:67,patient:8.6,family:7.6,decision:4.0,note:'COPDを見る →'},{label:'腎不全',key:'kidney',n:59,patient:7.6,family:7.4,decision:4.1,note:'腎不全を見る →'},{label:'老衰',key:'oldage',n:74,patient:5.8,family:7.0,decision:3.8,note:'老衰を見る →'}];"
+          s, n = disease_line.subn(new_disease, s, count=1)
+          if n != 1: raise SystemExit('failed disease comparison scale update')
+          s = must_replace(s,
+              "family:{label:'家族の負担・総合',help:'介護・治療・療養を通した家族側の総合負担。現在の表示用5段階。'}",
+              "family:{label:'家族の負担・総合',help:'質問票の「支える人の負担感」。0〜10で、10ほど限界に近い。'}",
+              'family disease help')
+          s = must_replace(s, "const def=diseaseMetricDefs[diseaseMetric],max=diseaseMetric==='patient'?10:5;", "const def=diseaseMetricDefs[diseaseMetric],max=(diseaseMetric==='patient'||diseaseMetric==='family')?10:5;", 'disease family max')
+          s = must_replace(s,
+              "const m=a.metrics[metric]||baseMetrics[metric],scaleFaces=group==='patient'?patientFaces:burdenFaces;",
+              "const m=a.metrics[metric]||baseMetrics[metric],scale=m.scale||(group==='patient'?10:5),scaleFaces=scale===10?patientFaces:burdenFaces;",
+              'metric dynamic scale')
+          s = must_replace(s,
+              "$('metricScale').textContent=group==='patient'?'/ 10　平均（架空）':'/ 5　平均（架空）';",
+              "$('metricScale').textContent=`/ ${scale}　平均（架空）`;",
+              'metric scale label')
+
+          hook = "if(metric!=='familyCost'&&metric!=='familyDecision'){box.classList.remove('show');return;}"
+          family_compare = """if(metric==='familyOverall'&&a.supportCompare){box.classList.add('show');$('compareTitle').textContent='支援・サービス利用と、時代で家族負担を比べる';$('compareIntro').textContent='質問票と同じ0〜10の家族負担感で比較する表示イメージ。サービス利用の有無と、亡くなった時期を別々に見ます。';const support='<div class=\"compare-section-title\">相談・介護サービスの利用</div>'+a.supportCompare.map(r=>`<div class=\"compare-card\"><b>${esc(r.label)}</b><div class=\"compare-n\">n=${r.n}（架空）</div><div class=\"compare-value\"><strong>${r.avg.toFixed(1)}</strong><span>/ 10　平均</span></div><div class=\"compare-track\"><i style=\"width:${r.avg*10}%\"></i></div><div class=\"same-again\">8〜10の強い負担 <strong>${r.strong}%</strong></div></div>`).join('');const eras='<div class=\"compare-section-title\">亡くなった時期</div>'+a.eraCompare.map(r=>`<div class=\"compare-card\"><b>${esc(r.label)}</b>${r.badge?`<span class=\"era-badge pandemic\">${esc(r.badge)}</span>`:''}${r.old?'<span class=\"era-badge old\">過去の医療・介護環境での記録です</span>':''}<div class=\"compare-n\">n=${r.n}（架空）</div><div class=\"compare-value\"><strong>${r.avg.toFixed(1)}</strong><span>/ 10　家族負担</span></div><div class=\"compare-track\"><i style=\"width:${r.avg*10}%\"></i></div></div>`).join('');$('compareGrid').innerHTML=support+eras;$('compareDisclaimer').textContent='※ 全て架空値。サービス利用群は、もともと病状や介護負担が大きく支援が必要だった可能性もあります。群間差はサービスの効果を示しません。年代差も制度・医療・介護・家族状況などが異なるため、単純な優劣として扱いません。';return;}"""
+          s = must_replace(s, hook, family_compare + hook, 'family support/era renderer')
+
+          css_hook = '.compare-disclaimer{font-size:8px;color:#8a969e;margin-top:8px}'
+          css_new = '.compare-section-title{grid-column:1/-1;margin:5px 0 0;padding-top:7px;border-top:1px solid #e5ebef;font-size:9px;font-weight:900;color:#476579}.compare-section-title:first-child{border-top:0;padding-top:0}.era-badge{display:inline-flex;margin-top:5px;border-radius:999px;padding:2px 6px;font-size:7px;font-weight:900;line-height:1.5}.era-badge.old{background:#f4efe6;border:1px solid #dfd1b8;color:#785f38}.era-badge.pandemic{background:#eef4f8;border:1px solid #cbdce7;color:#42677e}.compare-disclaimer{font-size:8px;color:#8a969e;margin-top:8px}'
+          s = must_replace(s, css_hook, css_new, 'era badge css')
+          p.write_text(s, encoding='utf-8')
+
+      - name: Commit patch
+        shell: bash
+        run: |
+          git config user.name "OpenAI project assistant"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add experience_case.html assets/js/experience_case.js assets/data/experience_case_schema_v1.json experience_read.html
+          git commit -m "Add support-use and historical-era comparisons"
+          git push
