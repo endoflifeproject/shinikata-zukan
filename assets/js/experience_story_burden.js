@@ -4,7 +4,9 @@
       note:'認知症ダミーでは、骨折・救急を最初の大きな山、その後の在宅介護を高止まり、肺炎反復〜最終期を二つ目の山として置いた表示検討用スコアです。',
       finance:{
         spending:'100〜299万円',
+        spendingRange:[100,299],
         incomeLoss:'50〜199万円',
+        incomeLossRange:[50,199],
         incomeRatio:'1〜2割程度',
         incomeDuration:'1〜3年・断続的',
         savingsStart:'500〜999万円',
@@ -24,7 +26,9 @@
       note:'肺がんダミーでは、診断後から短期間に治療・情報探索・仕事・費用の判断が重なり、後半に本人負担と家族負担が急上昇する表示検討用スコアです。',
       finance:{
         spending:'300〜499万円',
+        spendingRange:[300,499],
         incomeLoss:'300〜499万円',
+        incomeLossRange:[300,499],
         incomeRatio:'5〜7割程度',
         incomeDuration:'6か月〜1年',
         savingsStart:'500〜999万円',
@@ -48,11 +52,22 @@
   const indicators=document.getElementById('burdenIndicators');
   const storyNote=document.getElementById('burdenStoryNote');
 
+  function householdImpactEstimate(f){
+    const spending=f.spendingRange||[];
+    const income=f.incomeLossRange||[];
+    const low=(spending[0]||0)+(income[0]||0);
+    const hasOpenUpper=spending[1]==null||income[1]==null;
+    if(hasOpenUpper)return `約${low.toLocaleString('ja-JP')}万円以上`;
+    const high=spending[1]+income[1];
+    return `約${low.toLocaleString('ja-JP')}〜${high.toLocaleString('ja-JP')}万円`;
+  }
+
   function injectFinanceSummary(){
     const cost=document.getElementById('cost');
     const money=cost?.querySelector('.money');
     if(!money||cost.querySelector('[data-household-impact]'))return;
     const f=model.finance;
+    const estimate=householdImpactEstimate(f);
     const wrap=document.createElement('div');
     wrap.className='household-impact';
     wrap.setAttribute('data-household-impact','');
@@ -62,6 +77,12 @@
         <div class="impact-card"><span class="impact-kicker">① 支出</span><b>家計から出たお金</b><strong>${f.spending}</strong><small>療養期間全体の自己負担</small></div>
         <div class="impact-card"><span class="impact-kicker">② 収入</span><b>仕事から入るお金の減少</b><strong>${f.incomeLoss}</strong><small>元の仕事収入から ${f.incomeRatio} 減<br>影響期間：${f.incomeDuration}</small></div>
         <div class="impact-card"><span class="impact-kicker">③ 資産</span><b>貯蓄の取り崩し</b><strong>${f.savingsDrawdown}</strong><small>療養開始時：${f.savingsStart}<br>開始時から ${f.savingsDecline} 減</small></div>
+      </div>
+      <div class="impact-estimate">
+        <span>サイト側での概算</span>
+        <div><b>家計への経済的影響</b><strong>${estimate}</strong></div>
+        <p>自己負担 ${f.spending} ＋ 失った収入 ${f.incomeLoss} を、回答された金額帯の上下限で単純合算した表示です。</p>
+        <small>※ 貯蓄の取り崩しは、支出や収入減を補うために使われた可能性があり重複するため加算していません。民間保険・給付等の受取額も未控除なので、「最終的な純損失」ではありません。</small>
       </div>
       <p class="household-impact-note">※ すべて架空の表示例です。絶対額だけでなく、元の収入・貯蓄に対してどの程度の打撃だったかを併記する想定です。</p>`;
     money.after(wrap);
