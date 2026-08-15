@@ -108,7 +108,8 @@
     const categoryField=medical?.closest('.field');
     if(categoryField&&!document.getElementById('costFinancialDetail')){
       const box=document.createElement('div');box.id='costFinancialDetail';box.className='subpanel';
-      box.innerHTML=`<h3>医療費・保険・お金のきつさ</h3><p class="intro">同じ「費用がかかった」でも、保険診療の自己負担、保険外医療、生活費、収入減、民間保険などを分けて残します。</p>
+      box.innerHTML=`<h3>医療費・保険・貯蓄・お金のきつさ</h3><p class="intro">同じ「費用がかかった」でも、保険診療の自己負担、保険外医療、生活費、収入減、貯蓄の取り崩し、民間保険などを分けて残します。</p>
+        <div class="grid2"><div class="field"><label for="savingsDrawdownBand">療養・介護のために、世帯の貯蓄をおよそいくら取り崩しましたか？</label><select id="savingsDrawdownBand" name="household_savings_drawdown_band"><option value="">分からない・答えたくない</option><option value="none">ほぼ取り崩していない</option><option value="under_50">50万円未満</option><option value="50_99">50〜99万円</option><option value="100_299">100〜299万円</option><option value="300_499">300〜499万円</option><option value="500_999">500〜999万円</option><option value="1000_2999">1000〜2999万円</option><option value="3000_plus">3000万円以上</option><option value="unknown">分からない</option></select><p class="help">医療費だけでなく、収入減の穴埋めや療養中の生活費のために取り崩した分も含めた大まかな額です。上の「家計自己負担」と同じ金額である必要はありません。</p></div><div class="field"><label for="savingsDeclineRatio">療養開始時の貯蓄と比べて、どのくらい減りましたか？</label><select id="savingsDeclineRatio" name="household_savings_decline_ratio"><option value="">分からない・答えたくない</option><option value="almost_none">ほぼ減っていない</option><option value="10_20">1〜2割程度減った</option><option value="30_40">3〜4割程度減った</option><option value="50_70">5〜7割程度減った</option><option value="80_plus">8割以上減った</option><option value="almost_all">ほぼ使い切った</option><option value="unknown">分からない</option></select><p class="help">正確な残高は不要です。「開始時の貯蓄に対して、どの程度の打撃だったか」を大まかに残します。</p></div></div>
         <div class="grid2"><div class="field"><label for="costCopayRate">保険適用の医療で、主な窓口負担割合</label><select id="costCopayRate" name="cost_public_insurance_copay"><option value="">分からない・該当なし</option><option value="10">主に1割</option><option value="20">主に2割</option><option value="30">主に3割</option><option value="varied">時期・制度によって変わった</option><option value="unknown">分からない</option></select></div><div class="field"><label>民間の保険・保障で利用したもの（複数可）</label><div class="options">${checkChoices('cost_private_insurance_types',[
           ['medical','民間の医療保険'],['disease_specific','がん保険など疾病別の保障'],['income_protection','就業不能・所得補償など'],['death_benefit','死亡保険・死亡保障'],['other','その他の民間保障'],['none','加入・利用していない'],['unknown','分からない']],'cpi')}</div></div></div>
         <div class="field"><label>民間保険について、もっとも近いもの</label><div class="options">${radioChoices('cost_private_insurance_status',[
@@ -128,6 +129,12 @@
         const duration=document.createElement('div');duration.className='field';
         duration.innerHTML='<label for="incomeLossDuration">収入への影響が続いた期間</label><select id="incomeLossDuration" name="income_loss_duration"><option value="">不明・該当なし</option><option>1か月未満</option><option>1〜3か月</option><option>3〜6か月</option><option>6か月〜1年</option><option>1〜3年</option><option>3年以上</option><option>断続的・時期によって変わった</option><option>分からない</option></select><p class="help">上の金額は「月額・年額」ではなく、この療養・介護期間全体で失ったおおよその合計額として答えます。</p>';
         field.after(duration);
+      }
+      if(field&&!document.getElementById('incomeLossRatio')){
+        const ratio=document.createElement('div');ratio.className='field';
+        ratio.innerHTML='<label for="incomeLossRatio">療養・介護前と比べて、仕事から得る収入はどのくらい減りましたか？</label><select id="incomeLossRatio" name="income_loss_ratio"><option value="">不明・該当なし</option><option value="almost_none">ほとんど減っていない</option><option value="10_20">1〜2割程度減った</option><option value="30_40">3〜4割程度減った</option><option value="50_70">5〜7割程度減った</option><option value="80_plus">8割以上減った</option><option value="all">ほぼ／完全になくなった</option><option value="no_work_income">もともと仕事による収入はなかった</option><option value="unknown">分からない・答えたくない</option></select><p class="help">失った金額が同じでも、もとの収入によって家計への打撃は異なります。正確な年収は聞かず、「何割くらい減ったか」だけを大まかに記録します。</p>';
+        const durationField=document.getElementById('incomeLossDuration')?.closest('.field');
+        (durationField||field).after(ratio);
       }
     }
     const publicSupport=document.querySelector('input[name="public_support_used"]')?.closest('.field')?.querySelector('label');
@@ -193,7 +200,7 @@
   function activeAdditionalConditions(){const depth=getRadio('answer_depth')||'normal';return getRadio('additional_condition_presence')==='yes'&&(depthRank[depth]||2)>=2;}
 
   function updateRole(){const role=getRadio('respondent_role');const group=roleGroup(role);document.querySelectorAll('[data-role-panel]').forEach(el=>el.classList.toggle('role-hidden',el.dataset.rolePanel!==group));document.getElementById('summaryRole').textContent=roleLabels[role]||'—';}
-  function updateDepth(){const depth=getRadio('answer_depth')||'normal';const current=depthRank[depth]||2;document.querySelectorAll('[data-depth-min]').forEach(el=>{const needed=depthRank[el.dataset.depthMin]||1;el.classList.toggle('depth-hidden',current<needed);});document.getElementById('summaryDepth').textContent=depthLabels[depth]||'—';}
+  function updateDepth(){const depth=getRadio('answer_depth')||'normal';const current=depthRank[depth]||2;document.querySelectorAll('[data-depth-min]').forEach(el=>{const needed=depthRank[el.datasetDepthMin]||1;el.classList.toggle('depth-hidden',current<needed);});document.getElementById('summaryDepth').textContent=depthLabels[depth]||'—';}
   function updateDisease(){
     const center=document.getElementById('disease').value;
     const majors=activeAdditionalConditions()?checkedValues('major_contributing_conditions'):[];
@@ -236,7 +243,7 @@
     const reflectionPrefixes=['overall_acceptance','choose_same_again','what_helped','what_was_hard','values_','own_','message_','expectation_'];
     const crisisPrefixes=['caregiver_self_death_thought','caregiver_joint_death_thought','crisis_'];
     return {
-      schema_version:'experience-case-v1.10',
+      schema_version:'experience-case-v1.11',
       record_kind:(flat.record_type==='professional_overview'?'professional_overview':'case_response'),
       case:take(flat,k=>caseKeys.has(k)),
       response:{response_id:responseId,...take(flat,k=>respondentKeys.has(k))},
