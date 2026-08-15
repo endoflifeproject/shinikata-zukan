@@ -200,7 +200,7 @@
   function activeAdditionalConditions(){const depth=getRadio('answer_depth')||'normal';return getRadio('additional_condition_presence')==='yes'&&(depthRank[depth]||2)>=2;}
 
   function updateRole(){const role=getRadio('respondent_role');const group=roleGroup(role);document.querySelectorAll('[data-role-panel]').forEach(el=>el.classList.toggle('role-hidden',el.dataset.rolePanel!==group));document.getElementById('summaryRole').textContent=roleLabels[role]||'—';}
-  function updateDepth(){const depth=getRadio('answer_depth')||'normal';const current=depthRank[depth]||2;document.querySelectorAll('[data-depth-min]').forEach(el=>{const needed=depthRank[el.datasetDepthMin]||1;el.classList.toggle('depth-hidden',current<needed);});document.getElementById('summaryDepth').textContent=depthLabels[depth]||'—';}
+  function updateDepth(){const depth=getRadio('answer_depth')||'normal';const current=depthRank[depth]||2;document.querySelectorAll('[data-depth-min]').forEach(el=>{const needed=depthRank[el.dataset.depthMin]||1;el.classList.toggle('depth-hidden',current<needed);});document.getElementById('summaryDepth').textContent=depthLabels[depth]||'—';}
   function updateDisease(){
     const center=document.getElementById('disease').value;
     const majors=activeAdditionalConditions()?checkedValues('major_contributing_conditions'):[];
