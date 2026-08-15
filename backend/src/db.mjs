@@ -37,6 +37,17 @@ export function openDatabase(dbPath) {
       expires_at TEXT NOT NULL,
       revoked_at TEXT
     );
+    CREATE TABLE IF NOT EXISTS questionnaire_evaluations (
+      evaluation_id TEXT PRIMARY KEY,
+      questionnaire_version TEXT NOT NULL,
+      review_version TEXT NOT NULL,
+      payload_envelope TEXT,
+      withdrawal_secret_hash TEXT NOT NULL,
+      created_at TEXT NOT NULL,
+      withdrawn_at TEXT
+    );
+    CREATE INDEX IF NOT EXISTS idx_questionnaire_evaluations_active
+      ON questionnaire_evaluations(questionnaire_version, withdrawn_at);
   `);
   return db;
 }
