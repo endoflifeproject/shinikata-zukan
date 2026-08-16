@@ -5,11 +5,7 @@
     if(!form||!setup||document.documentElement.dataset.roleExtensionReady)return;
     document.documentElement.dataset.roleExtensionReady='1';
 
-    const roles=[
-      ['patient','本人'],['family','家族・身近な人'],['doctor','医師'],['nurse','看護師'],
-      ['nursing_assistant','看護助手・看護補助者'],['care_worker','介護職'],
-      ['other_professional','その他医療・福祉職'],['post_death_support','死後の手続き・身元保証等を支援した人']
-    ];
+    const roles=[['patient','本人'],['family','家族・身近な人'],['doctor','医師'],['nurse','看護師'],['nursing_assistant','看護助手・看護補助者'],['care_worker','介護職'],['other_professional','その他医療・福祉職'],['post_death_support','死後の手続き・身元保証等を支援した人']];
     const roleLabels=Object.fromEntries(roles);
     const family=[['partner','配偶者・パートナー'],['daughter','娘'],['son','息子'],['child_spouse','子の配偶者（嫁・婿など）'],['parent','親'],['grandchild','孫'],['sibling','きょうだい'],['other_relative','その他の親族'],['friend','友人・知人'],['other','その他']];
     const professions=[['doctor','医師'],['nurse','看護師'],['nursing_assistant','看護助手・看護補助者'],['care_worker','介護福祉士・介護職員'],['care_manager','ケアマネジャー'],['rehab_pt','理学療法士（PT）'],['rehab_ot','作業療法士（OT）'],['rehab_st','言語聴覚士（ST）'],['pharmacist','薬剤師'],['msw','MSW・医療ソーシャルワーカー'],['social_worker','社会福祉士・相談員'],['community_support','地域包括支援センター職員'],['public_official','行政・福祉職'],['other','その他']];
@@ -18,7 +14,6 @@
     const involvement=[['primary','主に担当していた'],['continuous','継続的に関わった'],['temporary','一時的に関わった'],['final_stage','最期の時期のみ関わった'],['post_death','死後の支援で関わった'],['other','その他']];
     const postDeath=[['lifetime_support','高齢者等終身サポート事業者'],['post_death_mandate','死後事務の受任者'],['guardian','成年後見等の支援者'],['public_welfare','行政・福祉関係者'],['funeral_related','葬送・葬儀等の支援者'],['other','その他']];
     const familyCare=[['main','主な介護者だった'],['shared','他の人と分担していた'],['support','補助的に関わった'],['little','介護にはほぼ関わっていない'],['unknown','分からない・答えたくない']];
-
     const radio=(name,items,prefix)=>items.map(([v,l])=>`<div class="choice"><input type="radio" name="${name}" id="${prefix}_${v}" value="${v}"><label for="${prefix}_${v}">${l}</label></div>`).join('');
     const checks=(name,items,prefix)=>items.map(([v,l])=>`<div class="choice"><input type="checkbox" name="${name}" id="${prefix}_${v}" value="${v}"><label for="${prefix}_${v}">${l}</label></div>`).join('');
 
@@ -41,43 +36,35 @@
 
     const proRoles=new Set(['doctor','nurse','nursing_assistant','care_worker','other_professional']);
     const roleGroup=role=>role==='family'?'family':(proRoles.has(role)||role==='post_death_support'?'professional':'patient');
-    function autoProfession(role){
-      if(!['doctor','nurse','nursing_assistant','care_worker'].includes(role))return;
-      const el=form.querySelector(`input[name="professional_role_detail"][value="${role}"]`);
-      if(el&&!form.querySelector('input[name="professional_role_detail"]:checked'))el.checked=true;
-    }
+    function autoProfession(role){if(!['doctor','nurse','nursing_assistant','care_worker'].includes(role))return;const el=form.querySelector(`input[name="professional_role_detail"][value="${role}"]`);if(el&&!form.querySelector('input[name="professional_role_detail"]:checked'))el.checked=true;}
     function sync(){
       const role=form.querySelector('input[name="respondent_role"]:checked')?.value||'';
       const group=roleGroup(role);
-      document.querySelectorAll('[data-role-panel]').forEach(panel=>{
-        if(panel.closest('#setup'))return;
-        panel.classList.toggle('role-hidden',panel.dataset.rolePanel!==group);
-      });
+      document.querySelectorAll('[data-role-panel]').forEach(panel=>{if(panel.closest('#setup'))return;panel.classList.toggle('role-hidden',panel.dataset.rolePanel!==group);});
       if(familyPanel)familyPanel.classList.toggle('role-hidden',role!=='family');
       if(professionalPanel)professionalPanel.classList.toggle('role-hidden',!proRoles.has(role));
       if(postPanel)postPanel.classList.toggle('role-hidden',role!=='post_death_support');
       const summary=document.getElementById('summaryRole');if(summary)summary.textContent=roleLabels[role]||'—';
       autoProfession(role);
     }
-
+    const restoreSoon=()=>setTimeout(sync,0);
     form.addEventListener('change',e=>{if(e.target.name==='respondent_role')sync();});
+    document.getElementById('newCaseBtn')?.addEventListener('click',restoreSoon);
+    document.getElementById('resetBtn')?.addEventListener('click',restoreSoon);
+    document.getElementById('caseId')?.addEventListener('change',restoreSoon);
 
+    const visibleEls=name=>Array.from(form.querySelectorAll(`[name="${name}"]`)).filter(x=>!x.closest('.role-hidden'));
+    const visibleChecked=name=>visibleEls(name).filter(x=>x.checked);
     const previewBtn=document.getElementById('previewBtn');
     if(previewBtn)previewBtn.addEventListener('click',()=>setTimeout(()=>{
+      sync();
       const preview=document.getElementById('jsonPreview');if(!preview)return;
       try{
         const data=JSON.parse(preview.textContent||'{}');
-        const values=name=>Array.from(form.querySelectorAll(`[name="${name}"]:checked`)).map(x=>x.value);
-        const one=name=>form.querySelector(`[name="${name}"]:checked`)?.value||'';
-        data.respondent_metadata={
-          family_care_role:one('family_care_role')||undefined,
-          professional_role_detail:one('professional_role_detail')||undefined,
-          professional_workplace:values('professional_workplace'),
-          professional_specialty:values('professional_specialty'),
-          case_involvement:one('case_involvement')||undefined,
-          case_contact_length:(form.querySelector('[name="case_contact_length"]:not(.role-hidden *)')?.value||'').trim()||undefined,
-          post_death_support_role:one('post_death_support_role')||undefined
-        };
+        const values=name=>visibleChecked(name).map(x=>x.value);
+        const one=name=>visibleChecked(name)[0]?.value||'';
+        const contact=visibleEls('case_contact_length')[0];
+        data.respondent_metadata={family_care_role:one('family_care_role')||undefined,professional_role_detail:one('professional_role_detail')||undefined,professional_workplace:values('professional_workplace'),professional_specialty:values('professional_specialty'),case_involvement:one('case_involvement')||undefined,case_contact_length:(contact?.value||'').trim()||undefined,post_death_support_role:one('post_death_support_role')||undefined};
         Object.keys(data.respondent_metadata).forEach(k=>{const v=data.respondent_metadata[k];if(v===undefined||(Array.isArray(v)&&!v.length))delete data.respondent_metadata[k];});
         preview.textContent=JSON.stringify(data,null,2);
       }catch(_){ }
@@ -85,9 +72,7 @@
 
     const hash=new URLSearchParams(location.hash.replace(/^#/,''));
     const requestedRole=hash.get('role');
-    if(requestedRole&&roleLabels[requestedRole]){
-      const el=form.querySelector(`input[name="respondent_role"][value="${requestedRole}"]`);if(el)el.checked=true;
-    }
+    if(requestedRole&&roleLabels[requestedRole]){const el=form.querySelector(`input[name="respondent_role"][value="${requestedRole}"]`);if(el)el.checked=true;}
     sync();
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
