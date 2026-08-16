@@ -20,8 +20,8 @@
     document.head.appendChild(css);
 
     const roleLabels={patient:'本人',family:'家族・身近な人',professional:'医療・介護・福祉職',post_death_support:'死後の手続き・身元保証等を支援した人'};
-    const professions=[['','選択してください'],['doctor','医師'],['nurse','看護師'],['nursing_assistant','看護助手・看護補助者'],['care_worker','介護福祉士・介護職員'],['care_manager','ケアマネジャー'],['rehab_pt','理学療法士（PT）'],['rehab_ot','作業療法士（OT）'],['rehab_st','言語聴覚士（ST）'],['pharmacist','薬剤師'],['msw','MSW・医療ソーシャルワーカー'],['social_worker','社会福祉士・相談員'],['community_support','地域包括支援センター職員'],['public_official','行政・福祉職'],['other','その他']];
-    const workplaces=[['','選択してください'],['acute_hospital','急性期病院'],['recovery_hospital','回復期病院'],['chronic_hospital','慢性期・療養病院'],['clinic','診療所・クリニック'],['emergency_icu','救急・ICU'],['home_medicine','在宅医療・訪問診療'],['home_nursing','訪問看護'],['palliative_hospice','緩和ケア病棟・ホスピス'],['tokuyo','特別養護老人ホーム（特養）'],['roken','介護老人保健施設（老健）'],['kaigo_iryouin','介護医療院'],['paid_home','有料老人ホーム'],['sakoju','サービス付き高齢者向け住宅'],['group_home','グループホーム'],['small_multifunction','小規模多機能'],['day_service','デイサービス'],['home_help','訪問介護'],['care_management','居宅介護支援'],['community_center','地域包括支援センター'],['other','その他']];
+    const professions=[['','選択してください'],['doctor','医師'],['nurse','看護師'],['public_health_nurse','保健師'],['nursing_assistant','看護助手・看護補助者'],['care_worker','介護福祉士・介護職員'],['care_manager','ケアマネジャー'],['rehab_pt','理学療法士（PT）'],['rehab_ot','作業療法士（OT）'],['rehab_st','言語聴覚士（ST）'],['pharmacist','薬剤師'],['msw','MSW・医療ソーシャルワーカー'],['social_worker','社会福祉士・相談員'],['community_support','地域包括支援センター職員'],['public_official','行政・福祉職'],['other','その他']];
+    const workplaces=[['','選択してください'],['acute_hospital','急性期病院'],['recovery_hospital','回復期病院'],['chronic_hospital','慢性期・療養病院'],['clinic','診療所・クリニック'],['emergency_icu','救急・ICU'],['home_medicine','在宅医療・訪問診療'],['home_nursing','訪問看護'],['palliative_hospice','緩和ケア病棟・ホスピス'],['tokuyo','特別養護老人ホーム（特養）'],['roken','介護老人保健施設（老健）'],['kaigo_iryouin','介護医療院'],['paid_home','有料老人ホーム'],['sakoju','サービス付き高齢者向け住宅'],['group_home','グループホーム'],['small_multifunction','小規模多機能'],['day_service','デイサービス'],['home_help','訪問介護'],['care_management','居宅介護支援'],['community_center','地域包括支援センター'],['municipal_public_health','自治体・保健所・保健センター'],['other','その他']];
     const specialties=[['','選択してください'],['general','総合診療・一般内科'],['respiratory','呼吸器内科・呼吸器外科'],['gastro','消化器内科・消化器外科'],['cardio','循環器内科・心臓血管外科'],['neuro','脳神経内科・脳神経外科'],['renal','腎臓内科・透析'],['hematology','血液内科'],['oncology','腫瘍内科・がん診療'],['orthopedics','整形外科'],['psychiatry','精神科・心療内科'],['emergency','救急科'],['icu','集中治療'],['geriatrics','老年医学・高齢者医療'],['palliative','緩和ケア'],['home','在宅・訪問診療'],['rehab','リハビリテーション'],['none','特定の診療科には属していない'],['other','その他']];
     const involvement=[['','選択してください'],['primary','主に担当していた'],['continuous','継続的に関わった'],['temporary','一時的に関わった'],['final_stage','最期の時期のみ関わった'],['post_death','死後の支援で関わった'],['other','その他']];
     const family=[['','選択してください'],['partner','配偶者・パートナー'],['daughter','娘'],['son','息子'],['child_spouse','子の配偶者（嫁・婿など）'],['parent','親'],['grandchild','孫'],['sibling','きょうだい'],['other_relative','その他の親族'],['friend','友人・知人'],['other','その他']];
@@ -29,6 +29,24 @@
     const postDeath=[['','選択してください'],['lifetime_support','高齢者等終身サポート事業者'],['post_death_mandate','死後事務の受任者'],['guardian','成年後見等の支援者'],['public_welfare','行政・福祉関係者'],['funeral_related','葬送・葬儀等の支援者'],['other','その他']];
     const sourceOptions=[['','選択してください'],['memory','自分の記憶'],['personal_notes','自分・家族の手元の記録'],['clinical_memory','診療・ケアでの記憶'],['authorized_record','許可された範囲の記録を参照'],['heard_from_person','本人・家族から聞いた話'],['other','その他']];
     const selectHtml=(id,name,items)=>`<select class="compact-select" id="${id}"${name?` name="${name}"`:''}>${items.map(([v,l])=>`<option value="${v}">${l}</option>`).join('')}</select>`;
+
+    const workplacePriority={
+      doctor:['acute_hospital','clinic','emergency_icu','home_medicine','palliative_hospice','chronic_hospital','recovery_hospital'],
+      nurse:['acute_hospital','emergency_icu','recovery_hospital','chronic_hospital','clinic','home_nursing','palliative_hospice','home_medicine','tokuyo','roken','kaigo_iryouin','community_center'],
+      public_health_nurse:['municipal_public_health','community_center','home_nursing','clinic','home_medicine'],
+      nursing_assistant:['acute_hospital','chronic_hospital','recovery_hospital','palliative_hospice'],
+      care_worker:['tokuyo','roken','kaigo_iryouin','paid_home','sakoju','group_home','small_multifunction','day_service','home_help'],
+      care_manager:['care_management','community_center','small_multifunction','tokuyo','roken','paid_home','sakoju'],
+      rehab_pt:['recovery_hospital','acute_hospital','chronic_hospital','clinic','home_nursing','roken','day_service'],
+      rehab_ot:['recovery_hospital','acute_hospital','chronic_hospital','clinic','home_nursing','roken','day_service'],
+      rehab_st:['recovery_hospital','acute_hospital','chronic_hospital','clinic','home_nursing','roken'],
+      pharmacist:['acute_hospital','clinic','chronic_hospital','home_medicine'],
+      msw:['acute_hospital','recovery_hospital','chronic_hospital','clinic','palliative_hospice','community_center'],
+      social_worker:['community_center','tokuyo','roken','kaigo_iryouin','paid_home','care_management','municipal_public_health'],
+      community_support:['community_center','municipal_public_health','care_management'],
+      public_official:['municipal_public_health','community_center']
+    };
+    const workplaceMap=new Map(workplaces.filter(([v])=>v));
 
     /* 回答者の立場：大分類だけを1回聞く */
     const roleRadio=form.querySelector('input[name="respondent_role"]');
@@ -50,7 +68,7 @@
     }
 
     const professionalPanel=setup.querySelector('[data-role-panel="professional"]');
-    let recordSelect=null,professionSelect=null;
+    let recordSelect=null,professionSelect=null,workplaceSelect=null;
     if(professionalPanel){
       const recordRadio=professionalPanel.querySelector('input[name="record_type"]');
       const recordOptions=recordRadio?.closest('.options');
@@ -62,9 +80,29 @@
       }
       document.getElementById('professionalDetail')?.remove();
       const detail=document.createElement('div');detail.id='professionalDetail';detail.className='compact-card';
-      detail.innerHTML=`<h3>職種・所属・関わり方</h3><p class="intro">上では大きな立場だけを選び、ここで詳しい職種・所属を記録します。</p><div class="compact-grid"><div class="field"><label for="professionSelect">詳しい職種</label>${selectHtml('professionSelect','professional_role_detail',professions)}</div><div class="field"><label for="workplaceSelect">主な勤務・活動の場</label>${selectHtml('workplaceSelect','professional_workplace',workplaces)}</div><div class="field"><label for="specialtySelect">主な診療科・専門領域</label>${selectHtml('specialtySelect','professional_specialty',specialties)}</div><div class="field"><label for="involvementSelect">この症例との関わり方</label>${selectHtml('involvementSelect','case_involvement',involvement)}</div></div><div class="field"><label for="caseContactLength">この方との関わりの長さ（任意）</label><input id="caseContactLength" type="text" name="case_contact_length" maxlength="80" placeholder="例：救急搬送時のみ／数日／6か月／3年間 など"></div>`;
+      detail.innerHTML=`<h3>職種・所属・関わり方</h3><p class="intro">上では大きな立場だけを選び、ここで詳しい職種・所属を記録します。</p><div class="compact-grid"><div class="field"><label for="professionSelect">詳しい職種</label>${selectHtml('professionSelect','professional_role_detail',professions)}</div><div class="field"><label for="workplaceSelect">主な勤務・活動の場</label>${selectHtml('workplaceSelect','professional_workplace',workplaces)}<p class="help" id="workplaceHint">職種を選ぶと、よくある勤務先を上に表示します。候補自体は減らしません。</p></div><div class="field"><label for="specialtySelect">主な診療科・専門領域</label>${selectHtml('specialtySelect','professional_specialty',specialties)}</div><div class="field"><label for="involvementSelect">この症例との関わり方</label>${selectHtml('involvementSelect','case_involvement',involvement)}</div></div><div class="field"><label for="caseContactLength">この方との関わりの長さ（任意）</label><input id="caseContactLength" type="text" name="case_contact_length" maxlength="80" placeholder="例：救急搬送時のみ／数日／6か月／3年間 など"></div>`;
       professionalPanel.appendChild(detail);
       professionSelect=document.getElementById('professionSelect');
+      workplaceSelect=document.getElementById('workplaceSelect');
+    }
+
+    function refreshWorkplaceOptions(){
+      if(!workplaceSelect)return;
+      const selected=workplaceSelect.value;
+      const profession=professionSelect?.value||'';
+      const preferred=(workplacePriority[profession]||[]).filter(v=>workplaceMap.has(v));
+      const preferredSet=new Set(preferred);
+      const rest=workplaces.filter(([v])=>v&&!preferredSet.has(v));
+      const makeOptions=items=>items.map(([v,l])=>`<option value="${v}">${l}</option>`).join('');
+      let html='<option value="">選択してください</option>';
+      if(preferred.length){
+        html+=`<optgroup label="この職種でよくある勤務・活動の場">${makeOptions(preferred.map(v=>[v,workplaceMap.get(v)]))}</optgroup>`;
+        html+=`<optgroup label="その他の勤務・活動の場">${makeOptions(rest)}</optgroup>`;
+      }else{
+        html+=`<optgroup label="勤務・活動の場">${makeOptions(rest)}</optgroup>`;
+      }
+      workplaceSelect.innerHTML=html;
+      if(selected&&workplaceMap.has(selected))workplaceSelect.value=selected;
     }
 
     let postPanel=setup.querySelector('[data-role-panel="post_death_support"]');
@@ -114,7 +152,7 @@
     }
 
     roleSelect.addEventListener('change',()=>{setBaseRole(roleSelect.value);syncPanels();});
-    professionSelect?.addEventListener('change',syncProfessionToBase);
+    professionSelect?.addEventListener('change',()=>{syncProfessionToBase();refreshWorkplaceOptions();});
     recordSelect?.addEventListener('change',()=>setRecordType(recordSelect.value));
 
     const hiddenChecked=form.querySelector('input[name="respondent_role"]:checked')?.value||'';
@@ -126,6 +164,7 @@
     if(hash.get('role')==='post_death_support')roleSelect.value='post_death_support';
     setBaseRole(roleSelect.value,false);
     if(roleSelect.value==='professional'&&professionSelect?.value)syncProfessionToBase();
+    refreshWorkplaceOptions();
     syncPanels();
 
     /* プレビュー時に、UI上の大分類と詳細属性も明示して残す */
@@ -153,7 +192,7 @@
       }catch(_){ }
     },0));
 
-    document.getElementById('resetBtn')?.addEventListener('click',()=>setTimeout(()=>{roleSelect.value='';if(professionSelect)professionSelect.value='';syncPanels();},0));
+    document.getElementById('resetBtn')?.addEventListener('click',()=>setTimeout(()=>{roleSelect.value='';if(professionSelect)professionSelect.value='';refreshWorkplaceOptions();syncPanels();},0));
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
