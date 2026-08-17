@@ -1,0 +1,47 @@
+{
+  "taxonomy": "final_care_policy",
+  "version": "1.0.0",
+  "description": "人生の最終段階を含む療養経過で、最終的に選ばれた医療・ケア全体の方向性を記録するための死に方図鑑内分類。治療の優劣や医学的正解を示す分類ではない。",
+  "direction": [
+    {"code": "life_prolonging_priority", "label": "治療・生命維持を優先"},
+    {"code": "treatment_palliative_parallel", "label": "治療と苦痛緩和を両立"},
+    {"code": "comfort_life_priority", "label": "生活・苦痛緩和を優先"},
+    {"code": "end_of_life_care_focus", "label": "看取りを中心とした方針"},
+    {"code": "selective_treatment", "label": "一部の治療のみ行う"},
+    {"code": "changed_or_other", "label": "その他・途中で変化した"},
+    {"code": "unknown", "label": "分からない・該当なし"}
+  ],
+  "place": [
+    {"code": "home", "label": "自宅"},
+    {"code": "hospital", "label": "病院"},
+    {"code": "palliative_unit", "label": "緩和ケア病棟・ホスピス"},
+    {"code": "facility", "label": "施設・高齢者住宅等"},
+    {"code": "multiple", "label": "状況に応じて複数"},
+    {"code": "other", "label": "その他"},
+    {"code": "unknown", "label": "分からない・該当なし"}
+  ],
+  "basis": [
+    {"code": "patient_words", "label": "本人の言葉・以前からの希望"},
+    {"code": "ending_note", "label": "エンディングノート・本人のメモ"},
+    {"code": "acp_advance_directive", "label": "ACP・事前指示・リビングウィル"},
+    {"code": "family_discussion", "label": "家族・身近な人との話し合い"},
+    {"code": "physician_explanation", "label": "医師の説明"},
+    {"code": "nurse_care_advice", "label": "看護師・ケアマネ等の助言"},
+    {"code": "condition_progression", "label": "病状・身体機能の変化"},
+    {"code": "symptom_burden", "label": "苦痛・治療負担の大きさ"},
+    {"code": "preferred_life_place", "label": "本人が望む暮らし・療養場所"},
+    {"code": "financial_care_burden", "label": "費用・介護負担"},
+    {"code": "other", "label": "その他"}
+  ],
+  "fields": {
+    "care_policy_direction": "single",
+    "care_policy_place": "single",
+    "care_policy_basis": "multiple",
+    "care_policy_summary": "free_text_optional"
+  },
+  "notes": [
+    "DNARは医療・ケア全体の方針とは別に、個別の医療行為として扱う。",
+    "療養・看取り場所と医療・ケアの方向性は分離して記録する。",
+    "同一症例の複数回答者が異なる認識を回答した場合は、一つに統合せず回答者ごとの記録として保持する。"
+  ]
+}
