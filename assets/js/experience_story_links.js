@@ -58,4 +58,12 @@
       requestAnimationFrame(()=>requestAnimationFrame(()=>document.getElementById(item.section)?.scrollIntoView({behavior:'smooth',block:'start'})));
     }
   }
+
+  /* 06｜意思決定に「結局どうしたか」を追加 */
+  if(!document.querySelector('script[data-care-policy-story]')){
+    const script=document.createElement('script');
+    script.src='assets/js/experience_story_care_policy.js?v=20260817-1';
+    script.dataset.carePolicyStory='1';
+    document.body.appendChild(script);
+  }
 })();
