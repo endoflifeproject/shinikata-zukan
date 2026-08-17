@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f5f8fa">
+<title>入力からグラフを生成｜死に方図鑑</title>
+<link rel="stylesheet" href="assets/css/experience_story.css?v=20260817-1">
+<link rel="stylesheet" href="assets/css/experience_story_burden.css?v=20260817-1">
+<script defer src="assets/js/experience_graph_demo.js?v=20260817-1"></script>
+</head>
+<body>
+<header><div class="head"><a class="brandrow" href="index.html"><div class="symbol">✦</div><div class="brand">死に方図鑑<small>LIVE EXPERIENCE PREVIEW</small></div></a><div class="headlinks"><a href="experience_case.html">入力へ戻る</a><a href="experience_read.html">体験を読む</a></div></div></header>
+<main>
+<div class="dummy"><b>プレゼン用ライブプレビュー。</b> この画面は、直前に質問票へ入力した内容をブラウザ内の一時保存から読み込み、グラフ化しています。サーバー保存された症例ではありません。</div>
+<section class="hero">
+<div class="eyebrow"><span class="pill strong">LIVE PREVIEW</span><span class="pill" id="conditionPill">入力データ</span></div>
+<h1>あなたが入力した体験が、<br>こう見える。</h1>
+<p class="dek">重要な出来事ごとの「本人の負担」「支える人の負担」を、その場で体験談のグラフへ変換します。</p>
+</section>
+<section class="panel" style="margin-top:16px" id="course">
+<div class="section-kicker">02｜経過</div>
+<h2>何が起きて、どう進んだか</h2>
+<p class="intro">質問票で入力した重要な出来事だけを使ったライブプレビューです。</p>
+<div class="burden-chart-card">
+  <div class="burden-chart-head"><div><h3>負担の波と、起きた出来事</h3><p>横＝時間の流れ、縦＝入力した負担0〜5。</p></div><span class="burden-beta">入力データから生成</span></div>
+  <div class="burden-legend"><span class="patient"><i></i>本人の負担</span><span class="family"><i></i>支える人の負担</span></div>
+  <div class="burden-scroll"><svg id="demoBurdenChart" viewBox="0 0 900 330" aria-label="入力データから生成した負担の推移"></svg></div>
+  <div class="burden-indicators-title">同じ時期の「意思決定の重さ」と「医療・ケア」</div>
+  <div class="burden-indicators" id="demoIndicators"></div>
+  <p class="burden-story-note">点数は回答者が入力した値です。医療・ケアの表示は、その時期に選んだ事実カテゴリをそのまま表示します。</p>
+</div>
+
+<div style="height:16px"></div>
+<h3 style="font-family:'Yu Mincho','Hiragino Mincho ProN',serif;color:#315f80;margin:0 0 10px">この体験を、6つの数字でつかむ</h3>
+<div id="demoKeyfacts" class="demo-keyfacts"></div>
+<p id="demoKeyfactsNote" style="font-size:9px;color:#85939d;margin:10px 0 0">未回答の項目は「—」で表示します。本番公開時は再特定リスクに応じて年齢・回数・金額を丸める想定です。</p>
+</section>
+<section class="panel"><div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="experience_case.html#course">← 入力を修正する</a><a class="btn primary" href="experience_read.html">体験を読む画面へ →</a></div></section>
+</main>
+</body>
+</html>
