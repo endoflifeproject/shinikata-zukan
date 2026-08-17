@@ -88,7 +88,8 @@
     if(payload.events.length<3)return;
     try{
       sessionStorage.setItem('shinikata_graph_demo_v1',JSON.stringify(payload));
-      location.href='experience_graph_demo.html';
+      const win=window.open('experience_graph_demo.html','_blank');
+      if(!win)location.href='experience_graph_demo.html';
     }catch(e){
       alert('プレビュー用データを保存できませんでした。ブラウザ設定をご確認ください。');
     }
