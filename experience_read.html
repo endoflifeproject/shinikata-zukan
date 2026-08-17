@@ -13,7 +13,7 @@
     const r=await fetch('https://raw.githubusercontent.com/endoflifeproject/shinikata-zukan/6af99c74468c84d9c3c47478bb6f69e1705b2dc3/experience_read.html',{cache:'no-store'});
     if(!r.ok)throw new Error('base '+r.status);
     let h=await r.text();
-    h=h.replace('</body>','<script defer src="assets/js/experience_read_manga_plan.js?v=20260817-1"><\\/script></body>');
+    h=h.replace('</body>','<script defer src="assets/js/experience_read_manga_plan.js?v=20260817-2"><\/script></body>');
     document.open();
     document.write(h);
     document.close();
