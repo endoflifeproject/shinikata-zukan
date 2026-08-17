@@ -4,20 +4,24 @@
       direction:'看取りを中心とした方針',
       place:'自宅',
       basis:['本人の以前の言葉','エンディングノート・本人のメモ','家族での話し合い','医師・訪問看護師の説明','病状の進行・通院負担'],
+      wishes:'「管だらけになるのは嫌」「できれば家にいたい」という以前の言葉に加え、家族の手元にあったエンディングノートにも、負担の大きい延命は望まず自宅で過ごしたいという希望が残されていた。',
       summary:'負担の大きい延命目的の治療は控え、訪問診療・訪問看護で苦痛を和らげながら、自宅で家族と過ごすことを優先して看取った。'
     },
     lung:{
       direction:'生活・苦痛緩和を優先',
       place:'自宅を目指して調整',
       basis:['本人の「家に帰りたい」という希望','本人・家族との話し合い','主治医・看護師の説明','治療による負担と体力低下','息苦しさなどの症状'],
+      wishes:'本人は当初「できる治療はやりたい」と話していたが、息苦しさと体力低下が進んでからは「病院だけで時間を使いたくない」「家に帰りたい」という希望が強くなった。',
       summary:'治療を続ける負担が大きくなった段階で治療強度を下げ、症状緩和を優先しながら、自宅で過ごせる時間を確保する方針へ変更した。'
     }
   };
   const key=new URLSearchParams(location.search).get('story')||'dementia';
   const data=demo[key]||demo.dementia;
   const decision=document.getElementById('decision');
-  const wishes=document.getElementById('decisionWishes')?.closest('.mini-card');
+  const wishesText=document.getElementById('decisionWishes');
+  const wishes=wishesText?.closest('.mini-card');
   if(!decision||!wishes||document.getElementById('finalCarePolicyStory'))return;
+  if(wishesText&&data.wishes)wishesText.textContent=data.wishes;
 
   const style=document.createElement('style');
   style.textContent=`
