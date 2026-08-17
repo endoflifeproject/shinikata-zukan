@@ -27,6 +27,14 @@
     .story-theme-more a{display:inline-flex;align-items:center;gap:6px;border:1px solid #cbdce7;background:#f8fbfd;border-radius:999px;padding:7px 11px;color:#315f82;font-size:9px;font-weight:900}
     .story-theme-more a:hover{background:#edf5fb;border-color:#9cbcd1}
     .story-theme-anchor{scroll-margin-top:82px}
+
+    /* 06｜意思決定：見出しではなく回答本文だけを約3px大きくする */
+    #decision .mini-card p{font-size:12.5px!important;line-height:1.85!important;color:#607687!important}
+    #decision #decisionInfo .tag{font-size:12px!important;line-height:1.45!important;padding:6px 10px}
+    #decision .final-policy-story .policy-summary-card strong{font-size:16px!important;line-height:1.55!important}
+    #decision .final-policy-story .policy-basis span{font-size:11.5px!important;line-height:1.5!important;padding:6px 9px}
+    #decision .final-policy-story .policy-outcome{font-size:13px!important;line-height:1.85!important}
+
     @media(max-width:640px){.story-crossnav-head{display:block}.story-crossnav-head span{display:block;margin-top:2px}.story-crossnav-links a{flex:1 1 calc(50% - 6px);text-align:center}.story-theme-more a{width:100%;justify-content:center}}
   `;
   document.head.appendChild(style);
