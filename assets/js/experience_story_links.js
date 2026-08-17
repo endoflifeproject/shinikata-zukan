@@ -67,6 +67,14 @@
     }
   }
 
+  /* 02｜経過：6つの主要指標に置き換える */
+  if(!document.querySelector('script[data-keyfacts-story]')){
+    const script=document.createElement('script');
+    script.src='assets/js/experience_story_keyfacts.js?v=20260817-1';
+    script.dataset.keyfactsStory='1';
+    document.body.appendChild(script);
+  }
+
   /* 06｜意思決定に「結局どうしたか」を追加 */
   if(!document.querySelector('script[data-care-policy-story]')){
     const script=document.createElement('script');
