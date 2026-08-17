@@ -25,17 +25,21 @@
 
   const style=document.createElement('style');
   style.textContent=`
+    /* 06｜意思決定：ラベルではなく「回答内容」を約3px大きくする */
+    #decision .mini-card p{font-size:12.5px;line-height:1.9;color:#5d7281}
+    #decision .tags .tag{font-size:12px;line-height:1.55;padding:6px 10px}
+
     .final-policy-story{margin-top:14px;padding:16px;border:1px solid #cfdfe9;border-radius:14px;background:linear-gradient(145deg,#f7fbfd,#fff)}
     .final-policy-story .policy-kicker{font-size:9px;font-weight:900;color:#8b6a2e;letter-spacing:.08em}
     .final-policy-story h3{margin:4px 0 10px;font-size:16px;color:#2e5d7d}
     .policy-summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .policy-summary-card{padding:11px 12px;border:1px solid #dce7ed;border-radius:11px;background:#fff}
     .policy-summary-card b{display:block;font-size:8.5px;color:#7b8d98;margin-bottom:3px}
-    .policy-summary-card strong{display:block;font-size:13px;color:#315f80;line-height:1.55}
+    .policy-summary-card strong{display:block;font-size:16px;color:#315f80;line-height:1.55}
     .policy-basis-title{margin:12px 0 7px;font-size:9px;font-weight:900;color:#5c7282}
     .policy-basis{display:flex;flex-wrap:wrap;gap:6px}
-    .policy-basis span{display:inline-flex;padding:5px 8px;border:1px solid #d9e3e9;border-radius:999px;background:#fff;font-size:8.5px;color:#586f7f}
-    .policy-outcome{margin-top:12px;padding:11px 12px;border-left:3px solid #8eb1c8;background:#f8fbfd;border-radius:8px;font-size:10px;line-height:1.8;color:#526b7b}
+    .policy-basis span{display:inline-flex;padding:6px 10px;border:1px solid #d9e3e9;border-radius:999px;background:#fff;font-size:11.5px;line-height:1.55;color:#586f7f}
+    .policy-outcome{margin-top:12px;padding:12px 13px;border-left:3px solid #8eb1c8;background:#f8fbfd;border-radius:8px;font-size:13px;line-height:1.9;color:#526b7b}
     .policy-outcome b{color:#315f80}
     @media(max-width:640px){.policy-summary-grid{grid-template-columns:1fr}}
   `;
