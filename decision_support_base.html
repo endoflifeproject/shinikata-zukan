@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>死に方図鑑 v1.0｜認知症の概要→STEP1→2→3→4→5</title>
+<title>終活ラボ v1.0｜認知症の概要→STEP1→2→3→4→5</title>
 <style>
 :root{
   --navy:#173d68; --navy2:#285e8f; --ink:#233547; --muted:#687b8d;
@@ -289,7 +289,7 @@ textarea{min-height:75px;resize:vertical}
   body.print-step5 #step5 .hero{display:none!important}
   body.print-step5 #step5 .sheet{display:block!important;font-size:9px;line-height:1.35}
   .sheet{box-shadow:none;border:1px solid #777;margin:0;padding:12px}
-  .sheet:before{content:"死に方図鑑｜医療者との話し合い準備シート";display:block;font-size:18px;font-weight:800;color:#173d68;margin-bottom:8px}
+  .sheet:before{content:"終活ラボ｜医療者との話し合い準備シート";display:block;font-size:18px;font-weight:800;color:#173d68;margin-bottom:8px}
   #step5 .cols2{grid-template-columns:1fr 1fr}
   #step5 .softcard{break-inside:avoid;padding:8px}
   #step5 .softcard h3{font-size:11px;margin-bottom:3px}
@@ -306,7 +306,7 @@ textarea{min-height:75px;resize:vertical}
   <div class="head">
     <div class="brandrow">
       <div class="symbol">✦</div>
-      <div class="brand">死に方図鑑 v1.0
+      <div class="brand">終活ラボ v1.0
         <small>認知症の概要 → 食べることが難しくなったとき｜STEP1→2→3→4→5</small>
       </div>
     </div>
@@ -734,7 +734,7 @@ textarea{min-height:75px;resize:vertical}
       <b>医学研究</b>と<b>本人・家族の経験</b>を分けて見ます。
       このページは、どの選択が正しいかを決めるものではありません。
     </p>
-    <div class="notice"><b>現在はプロトタイプです。</b> 医学研究欄は手元の論文・ガイドラインに基づく実データです。「死に方図鑑の体験データ」はまだ収集準備中なので、架空の割合は表示しません。</div>
+    <div class="notice"><b>現在はプロトタイプです。</b> 医学研究欄は手元の論文・ガイドラインに基づく実データです。「終活ラボの体験データ」はまだ収集準備中なので、架空の割合は表示しません。</div>
   </section>
 
   <section class="panel">
@@ -748,7 +748,7 @@ textarea{min-height:75px;resize:vertical}
 
     <div class="tabs">
       <button class="active" onclick="showTab(this,'medical')">医学的に分かっていること</button>
-      <button onclick="showTab(this,'experience')">死に方図鑑の体験データ</button>
+      <button onclick="showTab(this,'experience')">終活ラボの体験データ</button>
       <button onclick="showTab(this,'comparison')">他の方法と比較</button>
       <button onclick="showTab(this,'stories')">個々の体験談</button>
     </div>
@@ -756,7 +756,7 @@ textarea{min-height:75px;resize:vertical}
     <div id="medical" class="tab active"><div id="medicalContent"></div></div>
 
     <div id="experience" class="tab">
-      <h2>死に方図鑑に寄せられた体験データ</h2>
+      <h2>終活ラボに寄せられた体験データ</h2>
       <div class="pending">
         <div class="status none">現在：プレテスト準備中</div>
         <div class="zero">0件</div>
@@ -808,7 +808,7 @@ textarea{min-height:75px;resize:vertical}
             </tr>
             <tr>
               <td><b>家族の暮らし</b></td>
-              <td colspan="4">医学研究だけでは不足。介護時間・睡眠・自己負担・納得などを死に方図鑑の体験調査で補う予定。</td>
+              <td colspan="4">医学研究だけでは不足。介護時間・睡眠・自己負担・納得などを終活ラボの体験調査で補う予定。</td>
             </tr>
           </tbody>
         </table>
@@ -1150,7 +1150,7 @@ const CONTENT = {
       {s:"uncertain",status:"前向き比較研究あり",q:"長く生きられる？",a:"careful hand feedingとの前向き比較では、1年生存に有意差はありませんでした。",big:"AHR 0.85",lab:"95%CI 0.59–1.23",d:"PSM後176人の観察研究です。RCTではなく、マッチ後も一部の背景因子に不均衡が残っています。",src:"Yuen et al., J Gerontol A, 2025"},
       {s:"uncertain",status:"前向き比較研究あり",q:"肺炎は防げる？",a:"同研究では、経鼻栄養群でcareful hand feeding群より1年間の肺炎リスクが高い関連がみられました。",big:"AHR 1.60",lab:"95%CI 1.06–2.42",d:"「経鼻チューブが肺炎を1.6倍起こす」と因果断定はしません。研究は観察研究です。",src:"Yuen et al., J Gerontol A, 2025"},
       {s:"clear",status:"実践内容が具体的",q:"口から食べる支援と何が違う？",a:"比較対象のcareful hand feedingでは、食形態・介助方法・食具、栄養計画、医学的要因や薬剤の調整を多職種で個別化していました。",big:"多職種",lab:"医師・看護・ST・栄養士",d:"つまり「口から食べる支援」は、単に何もせず食べさせることではありません。",src:"Yuen et al., J Gerontol A, 2025"},
-      {s:"none",status:"データ不足",q:"家族の介護時間や睡眠は？",a:"今回の手元の比較研究では、家族の介護時間・睡眠・日本での自己負担を十分に比較できません。",big:"不足",lab:"独自体験調査で取得予定",d:"この空白を医学的効果と混同せず、体験データとして別に収集します。",src:"死に方図鑑 体験調査（準備中）"}
+      {s:"none",status:"データ不足",q:"家族の介護時間や睡眠は？",a:"今回の手元の比較研究では、家族の介護時間・睡眠・日本での自己負担を十分に比較できません。",big:"不足",lab:"独自体験調査で取得予定",d:"この空白を医学的効果と混同せず、体験データとして別に収集します。",src:"終活ラボ 体験調査（準備中）"}
     ]
   },
   oral: {
@@ -1161,7 +1161,7 @@ const CONTENT = {
       {s:"clear",status:"ガイドラインで推奨される支援",q:"具体的に何をする？",a:"食べにくさの原因を探し、食事介助、食具、訓練、口腔ケアなどを個別に組み合わせます。",big:"個別化",lab:"食べられる力・状態に合わせる",d:"必要な支援は人によって違います。嚥下評価や栄養評価など医療者の関与が必要になることがあります。",src:"ESPEN guideline 2024"},
       {s:"uncertain",status:"NGとの前向き比較あり",q:"経鼻栄養と比べて生存は？",a:"2025年の進行認知症研究では、careful hand feedingと経鼻栄養で1年生存に有意差はありませんでした。",big:"差なし",lab:"AHR 0.85｜95%CI 0.59–1.23",d:"この一研究だけで全員に一般化はできません。",src:"Yuen et al., J Gerontol A, 2025"},
       {s:"uncertain",status:"NGとの前向き比較あり",q:"肺炎は？",a:"同研究では、careful hand feeding群に比べ経鼻栄養群の肺炎リスクが高い関連が報告されました。",big:"NG AHR 1.60",lab:"95%CI 1.06–2.42",d:"careful hand feedingが肺炎を完全に防ぐという意味ではありません。",src:"Yuen et al., J Gerontol A, 2025"},
-      {s:"none",status:"独自データ待ち",q:"家族の負担は？",a:"食事介助には時間や技能が必要になる可能性がありますが、今回の資料では日本の家族負担を十分に定量比較できません。",big:"未確定",lab:"介護時間・睡眠・費用を収集予定",d:"「口から食べる＝家族負担が少ない」とは決めつけません。",src:"死に方図鑑 体験調査（準備中）"}
+      {s:"none",status:"独自データ待ち",q:"家族の負担は？",a:"食事介助には時間や技能が必要になる可能性がありますが、今回の資料では日本の家族負担を十分に定量比較できません。",big:"未確定",lab:"介護時間・睡眠・費用を収集予定",d:"「口から食べる＝家族負担が少ない」とは決めつけません。",src:"終活ラボ 体験調査（準備中）"}
     ]
   },
   iv: {
@@ -1183,7 +1183,7 @@ const CONTENT = {
       {s:"clear",status:"ガイドラインで位置づけあり",q:"何をする選択？",a:"本人が望むものを、食べられる・飲める範囲で支え、口腔ケアや症状緩和を含めて快適さを大切にします。",big:"ケア継続",lab:"「何もしない」ではない",d:"栄養必要量を満たすことより、本人の快適さを優先する場面があります。",src:"ESPEN guideline 2024"},
       {s:"uncertain",status:"研究と個別判断が必要",q:"寿命はどうなる？",a:"重度認知症の経管栄養では明確な生存利益が確認されていないため、「人工栄養をしない＝必ず寿命を縮める」と単純には言えません。",big:"単純化不可",lab:"状態・原因・病期で異なる",d:"可逆的な原因による一時的な摂取低下と、進行した認知症の終末期は分けて考えます。",src:"Cochrane 2021 / ESPEN 2024"},
       {s:"none",status:"十分な比較研究なし",q:"本人の苦痛は？",a:"最期の時期の快適さは重要ですが、今回の資料だけで各方法を公平に数値比較できるデータは十分ではありません。",big:"未確定",lab:"追加研究が必要",d:"「苦痛がない」と断定せず、口渇・口腔ケア・症状への対応を別に説明する必要があります。",src:"ESPEN guideline 2024"},
-      {s:"none",status:"独自データ待ち",q:"家族はどう振り返る？",a:"選択後の納得・後悔・「同じ選択をするか」は、今後の死に方図鑑体験調査で方法別に集計します。",big:"収集準備中",lab:"本人の希望が分かっていた程度も併記",d:"良かった体験と苦しかった体験の両方を掲載する設計です。",src:"死に方図鑑 体験調査（準備中）"}
+      {s:"none",status:"独自データ待ち",q:"家族はどう振り返る？",a:"選択後の納得・後悔・「同じ選択をするか」は、今後の終活ラボ体験調査で方法別に集計します。",big:"収集準備中",lab:"本人の希望が分かっていた程度も併記",d:"良かった体験と苦しかった体験の両方を掲載する設計です。",src:"終活ラボ 体験調査（準備中）"}
     ]
   }
 };
@@ -1619,7 +1619,7 @@ if(restoredMethodBtn){
 updateSummary();
 updateFinalSummary();
 
-// ---- 死に方図鑑トップからの導線 ----
+// ---- 終活ラボトップからの導線 ----
 (function(){
   try{
     const params=new URLSearchParams(window.location.search);

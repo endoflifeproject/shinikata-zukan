@@ -2,7 +2,7 @@
   "contract_version": "experience-api-v1.0-draft",
   "status": "design_only_not_connected",
   "updated": "2026-08-15",
-  "purpose": "死に方図鑑の統合体験フォームを、安全なAPI・データベースへ接続する際の境界と責務を先に固定する。GitHub Pagesは入力UIのみとし、センシティブな回答データを保存しない。",
+  "purpose": "終活ラボの統合体験フォームを、安全なAPI・データベースへ接続する際の境界と責務を先に固定する。GitHub Pagesは入力UIのみとし、センシティブな回答データを保存しない。",
   "principles": [
     "1件の回答は、ある1症例をある1人の回答者から見た記録として保持する",
     "同一症例の複数回答は上書きせず、視点ごとのresponseとして保持する",

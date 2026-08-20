@@ -1,7 +1,7 @@
 {
   "taxonomy": "final_care_policy",
   "version": "1.0.0",
-  "description": "人生の最終段階を含む療養経過で、最終的に選ばれた医療・ケア全体の方向性を記録するための死に方図鑑内分類。治療の優劣や医学的正解を示す分類ではない。",
+  "description": "人生の最終段階を含む療養経過で、最終的に選ばれた医療・ケア全体の方向性を記録するための終活ラボ内分類。治療の優劣や医学的正解を示す分類ではない。",
   "direction": [
     {"code": "life_prolonging_priority", "label": "治療・生命維持を優先"},
     {"code": "treatment_palliative_parallel", "label": "治療と苦痛緩和を両立"},
