@@ -53,7 +53,7 @@
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   function tags(items,cls=''){return items.map(x=>`<span class="tag ${cls}">${esc(x)}</span>`).join('')}
   function render(){
-    document.title=story.title+'｜体験談詳細（ダミー）｜死に方図鑑';
+    document.title=story.title+'｜体験談詳細（ダミー）｜終活ラボ';
     $('storyTitle').textContent=story.title;
     $('storyDek').textContent=story.dek;
     $('rolePill').textContent=story.meta.role;
