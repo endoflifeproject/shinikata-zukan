@@ -1,11 +1,11 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>終活ラボ｜体験を残す</title></head><body><p style="font-family:sans-serif;padding:24px;color:#48647c">体験フォームを読み込んでいます…</p><script>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>アノトキ｜体験を残す</title></head><body><p style="font-family:sans-serif;padding:24px;color:#48647c">体験フォームを読み込んでいます…</p><script>
 (async function(){
   try{
     const res=await fetch('experience_form_base.html',{cache:'no-store'});
     if(!res.ok) throw new Error('base '+res.status);
     let h=await res.text();
     h=h.replace('</head>', '<style>.brandrow{cursor:pointer}</style></head>');
-    h=h.replace('</body>', '<script>(function(){var b=document.querySelector(".brandrow");if(!b)return;b.setAttribute("role","link");b.setAttribute("tabindex","0");b.setAttribute("aria-label","終活ラボ ホームへ");function go(){location.href="index.html"}b.addEventListener("click",go);b.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();go();}});})();<\/script></body>');
+    h=h.replace('</body>', '<script>(function(){var b=document.querySelector(".brandrow");if(!b)return;b.setAttribute("role","link");b.setAttribute("tabindex","0");b.setAttribute("aria-label","アノトキ ホームへ");function go(){location.href="index.html"}b.addEventListener("click",go);b.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();go();}});})();<\/script></body>');
     document.open();document.write(h);document.close();
   }catch(e){
     document.body.innerHTML='<main style="max-width:760px;margin:50px auto;font-family:sans-serif;padding:20px"><h1>読み込みに失敗しました</h1><p>ページを再読み込みしてください。</p><pre>'+String(e)+'</pre></main>';

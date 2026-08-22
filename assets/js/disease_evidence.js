@@ -18,7 +18,7 @@
           <div class="data-card-head"><div><span class="data-disease-name">${esc(d.name)}</span><h3>根拠と図鑑データを並べて見る</h3></div><a class="data-page-link" href="${esc(d.page)}">病気ページへ →</a></div>
           <div class="data-two-col">
             <section class="data-evidence-panel"><span class="data-panel-label">ネット上の根拠</span><h4>${esc(e.source_name)}</h4><p>${esc(e.summary)}</p><div class="data-scope"><b>この根拠の範囲</b>${esc(e.scope)}</div><a class="data-source-link" href="${esc(e.source_url)}" target="_blank" rel="noopener">公式情報を見る →</a></section>
-            <section class="data-zukan-panel"><div class="data-zukan-top"><span class="data-panel-label zukan">終活ラボで集めたデータ</span><span class="data-count">n=${count}</span></div><h4>${count === 0 ? '実データ未接続' : '集計結果'}</h4><p>${esc(z.summary)}</p>${count === 0 ? `<div class="data-empty">現在はデモ表示です。データが0件のため、割合や平均値は表示しません。</div>` : ''}<div class="data-planned"><b>集める項目</b><ul>${fields}</ul></div></section>
+            <section class="data-zukan-panel"><div class="data-zukan-top"><span class="data-panel-label zukan">アノトキで集めたデータ</span><span class="data-count">n=${count}</span></div><h4>${count === 0 ? '実データ未接続' : '集計結果'}</h4><p>${esc(z.summary)}</p>${count === 0 ? `<div class="data-empty">現在はデモ表示です。データが0件のため、割合や平均値は表示しません。</div>` : ''}<div class="data-planned"><b>集める項目</b><ul>${fields}</ul></div></section>
           </div>
         </article>`;
       }).join('');
