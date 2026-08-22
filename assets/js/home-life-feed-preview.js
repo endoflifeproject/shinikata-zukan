@@ -26,10 +26,31 @@
 })();
 
 (function(){
+  document.title='アノトキ｜医療・介護の選択を、経験から考える。';
+
   var brand=document.querySelector('.site-header .brand');
-  if(!brand) return;
-  brand.innerHTML='<img class="shukatsu-header-logo" src="assets/shukatsu-lab-header-logo.png" alt="終活ラボ">';
-  var style=document.createElement('style');
-  style.textContent='.site-header .brand{gap:0}.shukatsu-header-logo{display:block;height:48px;width:auto;max-width:150px;object-fit:contain}@media(max-width:700px){.shukatsu-header-logo{height:46px;max-width:145px}}';
-  document.head.appendChild(style);
+  if(brand){
+    brand.innerHTML='<div class="anotoki-header-brand"><strong>アノトキ</strong><small>医療・介護の選択を、経験から考える。</small></div>';
+    var style=document.createElement('style');
+    style.textContent='.site-header .brand{gap:0}.anotoki-header-brand{display:flex;flex-direction:column;justify-content:center;min-width:180px;line-height:1.05}.anotoki-header-brand strong{font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-size:22px;letter-spacing:.14em;font-weight:700;color:#087e8b}.anotoki-header-brand strong:after{content:"♥";margin-left:5px;font-size:10px;color:#ef8f88;vertical-align:middle}.anotoki-header-brand small{margin-top:5px;font-size:7px;letter-spacing:.08em;color:#6f8192}@media(max-width:700px){.anotoki-header-brand{min-width:155px}.anotoki-header-brand strong{font-size:20px}.anotoki-header-brand small{font-size:6px}}';
+    document.head.appendChild(style);
+  }
+
+  var footerBrand=document.querySelector('.foot-brand');
+  if(footerBrand){
+    footerBrand.innerHTML='アノトキ <small style="display:block;font:7px Georgia,serif;letter-spacing:.25em;color:#8b98a2">ANOTOKI</small>';
+  }
+
+  var copy=document.querySelector('.copy');
+  if(copy){
+    var visitor=copy.querySelector('.visitor-count');
+    copy.innerHTML='';
+    if(visitor) copy.appendChild(visitor);
+    copy.appendChild(document.createTextNode('© 2026 Anotoki'));
+  }
+
+  var description=document.querySelector('meta[name="description"]');
+  if(description){
+    description.setAttribute('content','アノトキは、医療・介護の選択を経験から考えるための情報サイトです。病気・治療・暮らし・体験を、今の困りごとから分かりやすく探せます。');
+  }
 })();
